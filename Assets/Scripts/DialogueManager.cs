@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour {
 
     private Queue<string> sentences;
 
+
 	// Use this for initialization
 	void Start () {
         sentences = new Queue<string>();
@@ -19,8 +20,9 @@ public class DialogueManager : MonoBehaviour {
 	}
 
     public void StartDialogue(Dialogue dialogue) {
+        Debug.Log("uso prije zone");
         animator.SetBool("IsOpen", true);
-
+        Debug.Log("dialog zona");
         nameText.text = dialogue.name;
 
         sentences.Clear();

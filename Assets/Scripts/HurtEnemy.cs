@@ -20,7 +20,7 @@ public class HurtEnemy : MonoBehaviour {
 
     private PlayerStats thePS;
 
-
+    private PlayerController pC;
 	// Use this for initialization
 	void Start () {
 
@@ -30,12 +30,14 @@ public class HurtEnemy : MonoBehaviour {
             damageToGive *= critMultiplier;
 
         thePS = FindObjectOfType<PlayerStats>();
+
+        pC = FindObjectOfType<PlayerController>();
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-
+        
 
 	}
 
@@ -43,14 +45,16 @@ public class HurtEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy")
         {
-            currentDamage = damageToGive + thePS.currentAttack;
+            if (pC.Attacking()) {
+                currentDamage = damageToGive + thePS.currentAttack;
 
-            other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
+                other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
 
-            Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
-            var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
-            clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
-            clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
+                Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+                var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
+                clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
+                clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
+            }
         }
     }
 

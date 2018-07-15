@@ -17,9 +17,11 @@ public class PlayerController : MonoBehaviour {
     private bool playerMoving;
     private Vector2 lastMove;
 
-    private bool attacking;
+    private bool attacking; 
     public float attackTime;
     private float attackTimeCounter;
+
+    public GameObject hitPoint;
 
     // Use this for initialization
     void Start () {
@@ -67,6 +69,15 @@ public class PlayerController : MonoBehaviour {
                 anim.SetBool("Attack", true);
             }
 
+            if (Input.GetAxisRaw("Jump") > 0.5) {
+                //lmao ovo je kaos
+                //rb.AddForce(new Vector2(rb.velocity.x, dashSpeed));
+
+                rb.AddForce(new Vector2(rb.velocity.x + dashSpeed, rb.velocity.y + dashSpeed), ForceMode2D.Impulse);
+
+            }
+
+            // fixed diagonal movement speed
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5 && Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5) {
                 currentMoveSpeed = moveSpeed * diagonalMoveModifier;
             } else {
@@ -77,12 +88,18 @@ public class PlayerController : MonoBehaviour {
         if(attackTimeCounter >= 0)
         {
             attackTimeCounter -= Time.deltaTime;
+
+            //Da daje dmg dok napada
+            //hitPoint.SetActive(true);
         }
 
         if(attackTimeCounter <= 0)
         {
             attacking = false;
             anim.SetBool("Attack", false);
+
+            //Da ne daje dmg dok je idle
+            //hitPoint.SetActive(false);
         }
 
         anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
@@ -90,5 +107,12 @@ public class PlayerController : MonoBehaviour {
         anim.SetBool("PlayerMoving", playerMoving);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
+    }
+
+    //used to access the private variable attacking
+    public bool Attacking() {
+        if (attacking)
+            return true;
+        else return false;
     }
 }
