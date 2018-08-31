@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour {
     
     //dodati malo kasnije WaitForSeconds(0.1) dash f-ju
     public float dashSpeed;
+    [SerializeField]
+    private float dashTime;
+    public float startDashTime;
 
     private Animator anim;
     private Rigidbody2D rb;
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetAxisRaw("Vertical") < 0.5f && Input.GetAxisRaw("Vertical") > -0.5f)
                 rb.velocity = new Vector2(rb.velocity.x, 0f);
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
             {
                 attackTimeCounter = attackTime;
                 attacking = true;
@@ -69,11 +72,19 @@ public class PlayerController : MonoBehaviour {
                 anim.SetBool("Attack", true);
             }
 
-            if (Input.GetAxisRaw("Jump") > 0.5) {
+            //Dash
+            if (Input.GetKeyDown(KeyCode.Space)) {
                 //lmao ovo je kaos
-                //rb.AddForce(new Vector2(rb.velocity.x, dashSpeed));
-
-                rb.AddForce(new Vector2(rb.velocity.x + dashSpeed, rb.velocity.y + dashSpeed), ForceMode2D.Impulse);
+                //rb.AddForce;(new Vector2(rb.velocity.x, dashSpeed));
+                if(dashTime <= 0) {
+                    dashTime = startDashTime;
+                    rb.velocity = Vector2.zero;
+                }
+                else {
+                    dashTime -= Time.deltaTime;
+                    rb.velocity = rb.velocity * dashSpeed;
+                }
+                
 
             }
 
