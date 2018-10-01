@@ -18,6 +18,8 @@ public class HurtEnemy : MonoBehaviour {
     public Transform hitPoint;
     public GameObject damageNumber;
 
+    public bool yoyoEquiped;
+
     private PlayerStats thePS;
 
     private PlayerController pC;
@@ -45,10 +47,11 @@ public class HurtEnemy : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy")
         {
-            if (pC.Attacking()) {
+            if (pC.Attacking() || yoyoEquiped) {
                 currentDamage = damageToGive + thePS.currentAttack;
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
+                Debug.Log("DamageDone");
 
                 Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
@@ -58,16 +61,19 @@ public class HurtEnemy : MonoBehaviour {
         }
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            collision.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damageToGive);
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Enemy") {
+            if (yoyoEquiped) {
+                currentDamage = damageToGive + thePS.currentAttack;
 
-            Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
-            var clone = (GameObject) Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
-            clone.GetComponent<FloatingNumbers>().damageNumber = damageToGive;
+                other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
+                Debug.Log("DamageDone");
+
+                Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+                var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
+                clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
+                clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
+            }
         }
     }
-    */
 }
