@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour {
     public float attackTime;
     private float attackTimeCounter;
 
+    public float startTimeBtwTrail;
+    private float timeBtwTrail;
+    public GameObject trailEffect;
+
     public GameObject hitPoint;
 
     // Use this for initialization
@@ -112,6 +116,16 @@ public class PlayerController : MonoBehaviour {
             //Da ne daje dmg dok je idle
             //hitPoint.SetActive(false);
         }
+
+        /*if (!playerMoving) {
+            if (timeBtwTrail <= 0) {
+                Instantiate(trailEffect, transform.position, Quaternion.identity);
+                timeBtwTrail = startTimeBtwTrail;
+            } else {
+                timeBtwTrail -= Time.deltaTime;
+            }
+
+        }*/
 
         anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
