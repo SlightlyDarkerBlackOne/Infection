@@ -117,15 +117,14 @@ public class PlayerController : MonoBehaviour {
             //hitPoint.SetActive(false);
         }
 
-        /*if (!playerMoving) {
+        if(playerMoving){
             if (timeBtwTrail <= 0) {
                 Instantiate(trailEffect, transform.position, Quaternion.identity);
                 timeBtwTrail = startTimeBtwTrail;
             } else {
                 timeBtwTrail -= Time.deltaTime;
             }
-
-        }*/
+        }
 
         anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
