@@ -13,6 +13,14 @@ public class CameraMove : MonoBehaviour {
     public float maxX;
     public float maxY;
 
+    public GameObject weatherEffect;
+    private GameObject instantiatedEffect;
+
+    //Defines an instance of the weather effect and changes its position in the FixedUpdate function the same as the camera
+    private void Start() {
+        instantiatedEffect = Instantiate(weatherEffect, transform.position, Quaternion.identity);
+    }
+
     private void FixedUpdate()
     {
         if(cameraTarget != null)
@@ -27,7 +35,7 @@ public class CameraMove : MonoBehaviour {
 
             transform.position = new Vector3(clampX, clampY, -10f);
 
-
+            instantiatedEffect.transform.position = transform.position;
         }
     }
 }
