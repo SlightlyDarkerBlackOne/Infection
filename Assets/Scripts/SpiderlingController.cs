@@ -76,13 +76,13 @@ public class SpiderlingController : MonoBehaviour {
     }
 
     void Chase() {
-        Debug.Log("Chasing");
+        //Debug.Log("Chasing");
         anim.SetBool("isFollowing", true);
         transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * moveSpeedChaseModifier * Time.deltaTime);
     }
 
     void Patrol() {
-        Debug.Log("Patrolling");
+        //Debug.Log("Patrolling");
         anim.SetBool("isFollowing", false);
         if (moving) {
             timeToMoveCounter -= Time.deltaTime;

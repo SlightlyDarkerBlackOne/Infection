@@ -16,7 +16,7 @@ namespace Devdog.InventoryPro
             return JsonSerializer.Serialize(serializationModel, null);
         }
 
-        public object SerializeContainer(IInventoryItemContainer container)
+        public virtual object SerializeContainer(IInventoryItemContainer container)
         {
             var serializationModel = new ItemContainerSerializationModel(container);
             return JsonSerializer.Serialize(serializationModel, null);
@@ -32,7 +32,7 @@ namespace Devdog.InventoryPro
             return model;
         }
 
-        public ItemContainerSerializationModel DeserializeContainer(object serializedData)
+        public virtual ItemContainerSerializationModel DeserializeContainer(object serializedData)
         {
             Assert.IsTrue(serializedData is string, "Serialized data is not string, json collection serializer can only use a JSON string.");
 

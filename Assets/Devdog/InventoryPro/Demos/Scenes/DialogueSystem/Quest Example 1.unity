@@ -6818,7 +6818,6 @@ RectTransform:
   - {fileID: 1953550523}
   - {fileID: 1725275740}
   - {fileID: 1834092784}
-  - {fileID: 1014411520}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_AnchorMin: {x: 0, y: 0}
@@ -8215,6 +8214,7 @@ MonoBehaviour:
   saveOnApplicationPause: 0
   loadOnApplicationResume: 0
   waitFramesBeforeLoading: 0
+  _collection: {fileID: 0}
   actorName: Player
   fieldName: 
 --- !u!1 &477980797
@@ -18150,25 +18150,6 @@ Transform:
   - {fileID: 1915892004}
   m_Father: {fileID: 2037246966}
   m_RootOrder: 0
---- !u!1001 &1014411519
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 421484588}
-    m_Modifications:
-    - target: {fileID: 224000010491055860, guid: a614a2cd212fb064c95ba63de6c307aa,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a614a2cd212fb064c95ba63de6c307aa, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1014411520 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1014411519}
 --- !u!1 &1015850552
 GameObject:
   m_ObjectHideFlags: 0
@@ -18238,9 +18219,13 @@ MonoBehaviour:
   _showAnimation:
     motion: {fileID: 0}
     speed: 1
+    crossFade: 0
+    crossFadeSpeed: 0.3
   _hideAnimation:
     motion: {fileID: 0}
     speed: 1
+    crossFade: 0
+    crossFadeSpeed: 0.3
   showAudioClip:
     audioClip: {fileID: 0}
     volume: 1
@@ -26932,6 +26917,7 @@ MonoBehaviour:
   saveOnApplicationPause: 0
   loadOnApplicationResume: 0
   waitFramesBeforeLoading: 0
+  _collection: {fileID: 0}
   actorName: Player
   fieldName: 
 --- !u!1 &1451641735
@@ -34369,6 +34355,7 @@ MonoBehaviour:
   saveOnApplicationPause: 0
   loadOnApplicationResume: 0
   waitFramesBeforeLoading: 0
+  _collection: {fileID: 0}
   actorName: Player
   fieldName: 
 --- !u!1 &1819332692
@@ -36441,7 +36428,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477820, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 900
+      value: 514
       objectReference: {fileID: 0}
     - target: {fileID: 22477820, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -36449,7 +36436,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477820, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1784
+      value: 1012
       objectReference: {fileID: 0}
     - target: {fileID: 22477820, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.y
@@ -36473,7 +36460,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477788, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1800
+      value: 1028
       objectReference: {fileID: 0}
     - target: {fileID: 22477788, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.y
@@ -36785,15 +36772,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477924, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22477924, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22477924, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 468
       objectReference: {fileID: 0}
     - target: {fileID: 22477924, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.y
@@ -37501,7 +37488,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477952, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1013.5
+      value: 627.5
       objectReference: {fileID: 0}
     - target: {fileID: 22477952, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -37521,7 +37508,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477848, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1863
+      value: 1091
       objectReference: {fileID: 0}
     - target: {fileID: 22477848, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -37621,7 +37608,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477866, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1052.5
+      value: 666.5
       objectReference: {fileID: 0}
     - target: {fileID: 22477866, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -37629,7 +37616,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477866, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1695
+      value: 923
       objectReference: {fileID: 0}
     - target: {fileID: 22477866, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.y
@@ -37741,7 +37728,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477840, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1013.5
+      value: 627.5
       objectReference: {fileID: 0}
     - target: {fileID: 22477840, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -37761,7 +37748,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477912, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1863
+      value: 1091
       objectReference: {fileID: 0}
     - target: {fileID: 22477912, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -37777,7 +37764,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477886, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.y
-      value: -957
+      value: -537
       objectReference: {fileID: 0}
     - target: {fileID: 22477922, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchorMin.y
@@ -37861,7 +37848,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477924, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 22477920, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchorMax.x
@@ -37893,7 +37880,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477952, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1617
+      value: 845
       objectReference: {fileID: 0}
     - target: {fileID: 22477970, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
@@ -37901,7 +37888,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22477840, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1617
+      value: 845
       objectReference: {fileID: 0}
     - target: {fileID: 22454490, guid: 17b30d40f6dfb1e48a7c5bd46737469f, type: 2}
       propertyPath: m_AnchorMin.y
@@ -39146,9 +39133,13 @@ MonoBehaviour:
   _showAnimation:
     motion: {fileID: 0}
     speed: 1
+    crossFade: 0
+    crossFadeSpeed: 0.3
   _hideAnimation:
     motion: {fileID: 0}
     speed: 1
+    crossFade: 0
+    crossFadeSpeed: 0.3
   showAudioClip:
     audioClip: {fileID: 0}
     volume: 1
@@ -39221,6 +39212,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+  currencyChangeAudioClip:
+    audioClip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
   sortAudioClip:
     audioClip: {fileID: 8300000, guid: c9a12075f431bc442aae5ed1b9c041d9, type: 3}
     volume: 1
@@ -39248,6 +39244,7 @@ MonoBehaviour:
   saveOnApplicationPause: 0
   loadOnApplicationResume: 0
   waitFramesBeforeLoading: 0
+  _collection: {fileID: 0}
   actorName: Player
   fieldName: 
 --- !u!225 &1943330327
@@ -39291,8 +39288,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 1
-  preventFromGoingOutOfBounds: 0
-  spacing: {x: 100, y: 100}
   onClickBringToForeground: 1
   onWindowShowBringToForeground: 1
   maxForegroundIndex: 10

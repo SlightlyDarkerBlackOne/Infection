@@ -2862,8 +2862,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 1
-  preventFromGoingOutOfBounds: 1
-  spacing: {x: 100, y: 100}
   onClickBringToForeground: 1
   onWindowShowBringToForeground: 1
   maxForegroundIndex: 10
@@ -2981,6 +2979,11 @@ MonoBehaviour:
   useItemMoveToBank: 1
   useItemSell: 1
   swapItemAudioClip:
+    audioClip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  currencyChangeAudioClip:
     audioClip: {fileID: 0}
     volume: 1
     pitch: 1

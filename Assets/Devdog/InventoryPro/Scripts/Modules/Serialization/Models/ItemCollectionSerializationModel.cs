@@ -26,7 +26,7 @@ namespace Devdog.InventoryPro
         /// Gets the collection data from the collection and stores it in this serializable model.
         /// </summary>
         /// <param name="collection"></param>
-        public void FromCollection(ItemCollectionBase collection)
+        public virtual void FromCollection(ItemCollectionBase collection)
         {
             currencies = collection.currenciesGroup.lookups.Select(o => new CurrencyDecoratorSerializationModel(o)).ToArray();
             //            items = collection.items.Select(o => new InventoryItemSerializationModel(o.item)).ToArray();
@@ -65,7 +65,7 @@ namespace Devdog.InventoryPro
             }
         }
 
-        public void ToCollection(ItemCollectionBase collection)
+        public virtual void ToCollection(ItemCollectionBase collection)
         {
             collection.Resize((uint)items.Length);
             if (collection.useReferences)

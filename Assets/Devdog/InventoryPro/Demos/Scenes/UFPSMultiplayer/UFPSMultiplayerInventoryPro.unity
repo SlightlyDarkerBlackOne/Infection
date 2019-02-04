@@ -6662,8 +6662,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownerId: 0
   group: 0
+  OwnerShipWasTransfered: 0
   prefixBackup: -1
-  observed: {fileID: 0}
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
@@ -6673,6 +6673,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 6
   instantiationId: 6
+  currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &651983404
 MonoBehaviour:
@@ -7780,8 +7781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownerId: 0
   group: 0
+  OwnerShipWasTransfered: 0
   prefixBackup: -1
-  observed: {fileID: 0}
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
@@ -7791,6 +7792,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 1
   instantiationId: 1
+  currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &779417221
 MonoBehaviour:
@@ -14026,6 +14028,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+  currencyChangeAudioClip:
+    audioClip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
   sortAudioClip:
     audioClip: {fileID: 8300000, guid: c9a12075f431bc442aae5ed1b9c041d9, type: 3}
     volume: 1
@@ -14911,8 +14918,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownerId: 0
   group: 0
+  OwnerShipWasTransfered: 0
   prefixBackup: -1
-  observed: {fileID: 0}
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
@@ -14922,6 +14929,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 4
   instantiationId: 4
+  currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &1373495456
 MonoBehaviour:
@@ -20213,8 +20221,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownerId: 0
   group: 0
+  OwnerShipWasTransfered: 0
   prefixBackup: -1
-  observed: {fileID: 0}
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
@@ -20224,6 +20232,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 2
   instantiationId: 2
+  currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!1 &1734419677
 GameObject:
@@ -21682,8 +21691,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownerId: 0
   group: 0
+  OwnerShipWasTransfered: 0
   prefixBackup: -1
-  observed: {fileID: 0}
   synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
@@ -21693,6 +21702,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 3
   instantiationId: 3
+  currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &1860523279
 MonoBehaviour:
