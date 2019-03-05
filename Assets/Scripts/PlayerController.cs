@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
 
     public float moveSpeed;
     private float currentMoveSpeed;
-    public float diagonalMoveModifier;
     
     //dodati malo kasnije WaitForSeconds(0.1) dash f-ju
     public float dashSpeed;
@@ -19,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     private bool playerMoving;
     private Vector2 lastMove;
+    private Vector2 moveInput;
 
     private bool attacking; 
     public float attackTime;
@@ -42,29 +42,19 @@ public class PlayerController : MonoBehaviour {
 
         if (!attacking)
         {
+            //Movement Mechanic
+            //Normalized so diagonal movespeed is same as vert & horz ms
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-            if (Input.GetAxisRaw("Horizontal") > 0.5f || Input.GetAxisRaw("Horizontal") < -0.5f)
-            {
-                //transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, 0f, 0f));
-                rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * currentMoveSpeed, rb.velocity.y);
+            if(moveInput != Vector2.zero) {
+                rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
                 playerMoving = true;
-                lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+                lastMove = moveInput;
+            } else {
+                rb.velocity = Vector2.zero;
             }
 
-            if (Input.GetAxisRaw("Vertical") > 0.5f || Input.GetAxisRaw("Vertical") < -0.5f)
-            {
-                //transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime, 0f));
-                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxisRaw("Vertical") * currentMoveSpeed);
-                playerMoving = true;
-                lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
-            }
-
-            if (Input.GetAxisRaw("Horizontal") < 0.5f && Input.GetAxisRaw("Horizontal") > -0.5f)
-                rb.velocity = new Vector2(0f, rb.velocity.y);
-
-            if (Input.GetAxisRaw("Vertical") < 0.5f && Input.GetAxisRaw("Vertical") > -0.5f)
-                rb.velocity = new Vector2(rb.velocity.x, 0f);
-
+            //Movement when attacking
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
             {
                 attackTimeCounter = attackTime;
@@ -90,13 +80,6 @@ public class PlayerController : MonoBehaviour {
                 }
                 
 
-            }
-
-            // fixed diagonal movement speed
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5 && Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5) {
-                currentMoveSpeed = moveSpeed * diagonalMoveModifier;
-            } else {
-                currentMoveSpeed = moveSpeed;
             }
         }
 

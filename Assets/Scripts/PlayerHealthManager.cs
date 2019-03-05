@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthManager : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class PlayerHealthManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        
 
         playerCurrentHealth = playerMaxHealth;
 
@@ -31,6 +34,8 @@ public class PlayerHealthManager : MonoBehaviour {
             gameObject.SetActive(false);
 
             //gamemanager.respawn
+            //NOT WORKING!! (UI health display messes up)
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if (flashActive)

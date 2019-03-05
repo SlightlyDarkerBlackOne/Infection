@@ -16,8 +16,8 @@ public class UIManager : MonoBehaviour {
 
     private static bool UIExists;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         if (!UIExists)
         {
             UIExists = true;
