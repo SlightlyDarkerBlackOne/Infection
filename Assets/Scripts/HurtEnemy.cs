@@ -67,7 +67,6 @@ public class HurtEnemy : MonoBehaviour {
                 currentDamage = damageToGive + thePS.currentAttack;
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
-                Debug.Log("DamageDone");
 
                 Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
