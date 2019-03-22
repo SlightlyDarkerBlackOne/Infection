@@ -28,7 +28,7 @@ public class HurtEnemy : MonoBehaviour {
 
         //Crit
         crit = Random.Range(0, 100);
-        if (crit > 100 - critChance)
+        if (crit > (100 - critChance))
             damageToGive *= critMultiplier;
 
         thePS = FindObjectOfType<PlayerStats>();
@@ -43,8 +43,7 @@ public class HurtEnemy : MonoBehaviour {
 
 	}
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) { 
         if (other.gameObject.tag == "Enemy")
         {
             if (pC.Attacking() || yoyoEquiped) {
