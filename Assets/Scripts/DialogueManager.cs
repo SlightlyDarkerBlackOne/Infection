@@ -18,11 +18,10 @@ public class DialogueManager : MonoBehaviour {
         sentences = new Queue<string>();
 
 	}
-
+    //For starting a dialogue and also for starting quest dialogue
     public void StartDialogue(Dialogue dialogue) {
-        Debug.Log("uso prije zone");
         animator.SetBool("IsOpen", true);
-        Debug.Log("dialog zona");
+
         nameText.text = dialogue.name;
 
         sentences.Clear();

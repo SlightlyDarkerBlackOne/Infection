@@ -22,7 +22,7 @@ public class SpiderlingController : MonoBehaviour {
 
     private Vector3 moveDirection;
 
-    //za reloudanje levela ako player umre
+    //for level reload if the player dies
     public float waitToReload;
     public bool reloading;
     private Transform player;
@@ -79,6 +79,7 @@ public class SpiderlingController : MonoBehaviour {
         //Debug.Log("Chasing");
         anim.SetBool("isFollowing", true);
         transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * moveSpeedChaseModifier * Time.deltaTime);
+        anim.SetBool("isMoving", true);
     }
 
     void Patrol() {
@@ -93,6 +94,7 @@ public class SpiderlingController : MonoBehaviour {
 
             if (timeToMoveCounter < 0f) {
                 moving = false;
+                anim.SetBool("isMoving", false);
                 timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
             }
 
@@ -102,6 +104,7 @@ public class SpiderlingController : MonoBehaviour {
 
             if (timeBetweenMoveCounter < 0f) {
                 moving = true;
+                anim.SetBool("isMoving", true);
                 timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
 
                 moveDirection = new Vector3(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed, 0f);
@@ -113,6 +116,7 @@ public class SpiderlingController : MonoBehaviour {
         if (hasWalkZone && transform.position.y > maxWalkPoint.y || transform.position.x > maxWalkPoint.x) {
             rb.velocity = Vector2.zero;
             moving = false;
+            anim.SetBool("isMoving", false);
             timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
         }
     }

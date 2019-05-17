@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour {
 
     public int currentLevel;
-    public int currentExp;
+    public float currentExp;
 
     public int[] toLevelUp;
 

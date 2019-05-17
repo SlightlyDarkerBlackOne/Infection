@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour {
 
     private PlayerStats thePS;
     public Text levelText;
+    public Slider xpBar;
 
     private static bool UIExists;
 
@@ -38,5 +39,7 @@ public class UIManager : MonoBehaviour {
         HPText.text = "HP: " + playerHealth.playerCurrentHealth + "/" + playerHealth.playerMaxHealth;
         ManaText.text = "Mana: " + playerMana.playerCurrentMana + "/" + playerMana.playerMaxMana;
         levelText.text = "Lvl: " + thePS.currentLevel;
-	}
+
+        xpBar.value = thePS.currentExp / thePS.toLevelUp[thePS.currentLevel];
+    }
 }

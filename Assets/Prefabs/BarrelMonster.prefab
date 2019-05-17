@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8749634086297876282, guid: 1d034cef80ebc0140bd8be5b2a6b35e1,
+        type: 3}
+      propertyPath: enemyQuestName
+      value: BarrelMonster
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d034cef80ebc0140bd8be5b2a6b35e1, type: 3}
 --- !u!4 &139679584928702003 stripped
