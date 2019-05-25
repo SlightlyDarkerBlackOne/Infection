@@ -6,6 +6,7 @@ public class SpiderlingController : MonoBehaviour {
 
     public float moveSpeed;
     public float moveSpeedChaseModifier;
+    public float rotationSpeed;
     private Vector2 minWalkPoint;
     private Vector2 maxWalkPoint;
 
@@ -33,6 +34,11 @@ public class SpiderlingController : MonoBehaviour {
     public float chasingDistance;
     public float unChasingDistance;
 
+    public float attackRange;
+    public int attackDelay;
+    private float lastAttackTime;
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -51,7 +57,7 @@ public class SpiderlingController : MonoBehaviour {
         
 	}
 	
-	void Update () {
+	void Update () { 
 
         //Ako je unutar chase udaljenosti lovi ga
         if(Vector2.Distance(transform.position, player.position) < chasingDistance) {
@@ -79,7 +85,20 @@ public class SpiderlingController : MonoBehaviour {
         //Debug.Log("Chasing");
         anim.SetBool("isFollowing", true);
         transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * moveSpeedChaseModifier * Time.deltaTime);
+        RotateTowards(player.position);
         anim.SetBool("isMoving", true);
+
+        //If its close enough start attacking the player
+        if (Vector2.Distance(transform.position, player.position) <= attackRange) {
+            if (Time.deltaTime <= lastAttackTime + attackDelay) {
+                anim.SetBool("isAttacking", true);
+                lastAttackTime = Time.deltaTime;
+            }
+        }
+        //If the player moves too far stop attacking him
+        if (Vector2.Distance(transform.position, player.position) > attackRange) {
+            anim.SetBool("isAttacking", false);
+        }
     }
 
     void Patrol() {
@@ -108,6 +127,7 @@ public class SpiderlingController : MonoBehaviour {
                 timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
 
                 moveDirection = new Vector3(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed, 0f);
+
             }
         }
     }
@@ -119,5 +139,15 @@ public class SpiderlingController : MonoBehaviour {
             anim.SetBool("isMoving", false);
             timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
         }
+    }
+
+    private void RotateTowards(Vector2 target) {
+        var offset = 90f;
+        Vector2 direction = target - (Vector2)transform.position;
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        Quaternion rotation = Quaternion.AngleAxis(angle + offset, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 }

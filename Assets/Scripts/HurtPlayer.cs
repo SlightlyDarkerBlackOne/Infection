@@ -17,11 +17,6 @@ public class HurtPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        //Crit
-        crit = Random.Range(0, 100);
-        if (crit > 100 - critChance)
-            damageToGive *= critMultiplier;
-
         thePS = FindObjectOfType<PlayerStats>();
 	}
 	
@@ -35,6 +30,7 @@ public class HurtPlayer : MonoBehaviour {
         if(coll.gameObject.tag == "Player")
         {
             currentDamage = damageToGive - thePS.currentDefense;
+            currentDamage = Crit(currentDamage);
             if (currentDamage <= 0)
                 currentDamage = 1;
 
@@ -43,6 +39,15 @@ public class HurtPlayer : MonoBehaviour {
             var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
             clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
             clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
+        }
+    }
+
+    private int Crit(int damage) {
+        crit = Random.Range(0, 100);
+        if (crit > (100 - critChance))
+            return currentDamage *= critMultiplier;
+        else {
+            return damage;
         }
     }
 }

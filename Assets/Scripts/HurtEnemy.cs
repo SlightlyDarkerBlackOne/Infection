@@ -26,11 +26,6 @@ public class HurtEnemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        //Crit
-        crit = Random.Range(0, 100);
-        if (crit > (100 - critChance))
-            damageToGive *= critMultiplier;
-
         thePS = FindObjectOfType<PlayerStats>();
 
         pC = FindObjectOfType<PlayerController>();
@@ -48,6 +43,7 @@ public class HurtEnemy : MonoBehaviour {
         {
             if (pC.Attacking() || yoyoEquiped) {
                 currentDamage = damageToGive + thePS.currentAttack;
+                currentDamage = Crit(currentDamage); //Critical Strike
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
                 Debug.Log("DamageDone");
@@ -64,6 +60,7 @@ public class HurtEnemy : MonoBehaviour {
         if (other.gameObject.tag == "Enemy") {
             if (yoyoEquiped) {
                 currentDamage = damageToGive + thePS.currentAttack;
+                currentDamage = Crit(currentDamage); //Critical Strike
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
 
@@ -72,6 +69,15 @@ public class HurtEnemy : MonoBehaviour {
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
                 clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
             }
+        }
+    }
+
+    private int Crit(int damage) {
+        crit = Random.Range(0, 100);
+        if (crit > (100 - critChance))
+            return currentDamage *= critMultiplier;
+        else {
+            return damage;
         }
     }
 }
