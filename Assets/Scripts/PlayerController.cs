@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject hitPoint;
 
+    public GameObject crossHair;
+    public GameObject arrowPrefab;
+
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
@@ -64,6 +67,9 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = Vector2.zero;
 
                 anim.SetBool("Attack", true);
+
+                GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+                arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
             }
 
             //Dash
@@ -114,6 +120,8 @@ public class PlayerController : MonoBehaviour {
         anim.SetBool("PlayerMoving", playerMoving);
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
+
+        MoveCrossHair();
     }
 
     //used to access the private variable attacking
@@ -121,5 +129,28 @@ public class PlayerController : MonoBehaviour {
         if (attacking)
             return true;
         else return false;
+    }
+
+    private void MoveCrossHair() {
+        /*
+        Vector3 aim = new Vector3(Input.GetAxis("AimHorizontal"), Input.GetAxis("AimVertical"), 0.0f);
+
+        
+        // For joystick
+        if (aim.magnitude > 0.0f) {
+            aim.Normalize();
+            aim *= 0.4f;
+            crossHair.transform.localPosition = aim;
+            crossHair.SetActive(true);
+        } else {
+            crossHair.SetActive(false);
+        */
+
+    }
+
+
+
+    private void ProcessInputs() {
+
     }
 }
