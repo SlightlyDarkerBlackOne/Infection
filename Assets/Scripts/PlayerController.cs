@@ -33,10 +33,23 @@ public class PlayerController : MonoBehaviour {
     public GameObject crossHair;
     public GameObject arrowPrefab;
 
+    Vector3 aim;
+    bool isAiming;
+    bool endOfAiming;
+    public float cursorDistance;
+
+    bool meleeWeaponEquiped;
+
+    void Awake(){
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+    }
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        crossHair.SetActive(true);
 	}
 	
 	// Update is called once per frame
@@ -56,7 +69,8 @@ public class PlayerController : MonoBehaviour {
             } else {
                 rb.velocity = Vector2.zero;
             }
-
+            
+            //if(meleeWeaponEquiped){}
             //Movement when attacking
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
             {
@@ -67,9 +81,10 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = Vector2.zero;
 
                 anim.SetBool("Attack", true);
-
-                GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-                arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
+                
+                
+                //GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+                //arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
             }
 
             //Dash
@@ -121,7 +136,8 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
 
-        MoveCrossHair();
+        ProcessInputs();
+        //AimAndShoot();
     }
 
     //used to access the private variable attacking
@@ -131,26 +147,54 @@ public class PlayerController : MonoBehaviour {
         else return false;
     }
 
-    private void MoveCrossHair() {
-        /*
-        Vector3 aim = new Vector3(Input.GetAxis("AimHorizontal"), Input.GetAxis("AimVertical"), 0.0f);
-
+    /*private void AimAndShoot() {
+        
+        aim = new Vector3(Input.GetAxis("AimHorizontal"), Input.GetAxis("AimVertical"), 0.0f);
+        Vector2 shootingDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
         // For joystick
         if (aim.magnitude > 0.0f) {
             aim.Normalize();
-            aim *= 0.4f;
-            crossHair.transform.localPosition = aim;
+
+            crossHair.transform.localPosition = aim * 0.4f;
             crossHair.SetActive(true);
+
+            shootingDirection.Normalize();
+            if (Input.GetButtonUp("Fire1")) {
+                GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+                arrow.GetComponent<Rigidbody2D>().velocity = shootingDirection * 5.0f;
+                arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
+                Destroy(arrow, 2.0f);    
+        }
+
         } else {
             crossHair.SetActive(false);
-        */
 
-    }
+        }
+    } */
 
 
 
     private void ProcessInputs() {
+        Vector3 mouseMovement = new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0f);
+        aim = aim + mouseMovement;
+        if(aim.magnitude > 1.0f){
+            aim.Normalize();
+        }
+        isAiming = Input.GetButton("Fire1");
+        endOfAiming = Input.GetButtonUp("Fire1");
+        crossHair.transform.localPosition = aim * cursorDistance;
+        
 
+        Vector2 shootingDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        shootingDirection.Normalize();
+        if (Input.GetButtonDown("Fire1")) {
+            GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            arrow.GetComponent<Rigidbody2D>().velocity = shootingDirection * 15.0f;
+            arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
+            Destroy(arrow, 2.0f);
+        }
+        
     }
 }

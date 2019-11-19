@@ -29,17 +29,22 @@ public class HurtPlayer : MonoBehaviour {
     {
         if(coll.gameObject.tag == "Player")
         {
-            currentDamage = damageToGive - thePS.currentDefense;
-            currentDamage = Crit(currentDamage);
-            if (currentDamage <= 0)
-                currentDamage = 1;
 
-            coll.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(currentDamage);
+            coll.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(DamageCalculation());
 
             var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
             clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
             clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
         }
+    }
+
+    public int DamageCalculation(){
+        currentDamage = damageToGive - thePS.currentDefense;
+            currentDamage = Crit(currentDamage);
+            if (currentDamage <= 0)
+                currentDamage = 1;
+        
+        return currentDamage;
     }
 
     private int Crit(int damage) {

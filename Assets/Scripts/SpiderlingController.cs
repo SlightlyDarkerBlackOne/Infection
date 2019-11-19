@@ -38,6 +38,15 @@ public class SpiderlingController : MonoBehaviour {
     public int attackDelay;
     private float lastAttackTime;
 
+    public Transform attackPos;
+
+    public LayerMask whatIsPlayer;
+
+    private HurtPlayer hurtPlayer;
+
+    private float timeBetweenAttack;
+    public float startTimeBetweenAttack;
+
 
 	// Use this for initialization
 	void Start () {
@@ -45,6 +54,7 @@ public class SpiderlingController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
+        hurtPlayer = GetComponent<HurtPlayer>();
 
         timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
         timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
@@ -89,12 +99,17 @@ public class SpiderlingController : MonoBehaviour {
         anim.SetBool("isMoving", true);
 
         //If its close enough start attacking the player
-        if (Vector2.Distance(transform.position, player.position) <= attackRange) {
-            if (Time.deltaTime <= lastAttackTime + attackDelay) {
+        Collider2D playerToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsPlayer);
+        if(timeBetweenAttack <= 0){
+            if(playerToDamage != null){
                 anim.SetBool("isAttacking", true);
-                lastAttackTime = Time.deltaTime;
+                playerToDamage.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(hurtPlayer.DamageCalculation());
+                timeBetweenAttack = startTimeBetweenAttack;
             }
+        } else {
+            timeBetweenAttack -= Time.deltaTime;
         }
+
         //If the player moves too far stop attacking him
         if (Vector2.Distance(transform.position, player.position) > attackRange) {
             anim.SetBool("isAttacking", false);
@@ -130,6 +145,20 @@ public class SpiderlingController : MonoBehaviour {
 
             }
         }
+    }
+
+    //Showing chasing and unchasing distance gizmos
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, unChasingDistance);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, chasingDistance);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+
     }
 
     void IsOverTheZone() {
