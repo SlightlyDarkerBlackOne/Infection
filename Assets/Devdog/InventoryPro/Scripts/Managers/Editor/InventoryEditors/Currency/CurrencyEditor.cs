@@ -26,9 +26,9 @@ namespace Devdog.InventoryPro.Editors
         {}
 
 
-        public override void EditItem(CurrencyDefinition item)
+        public override void EditItem(CurrencyDefinition item, int itemIndex)
         {
-            base.EditItem(item);
+            base.EditItem(item, itemIndex);
 
             _currencyConversionList = new UnityEditorInternal.ReorderableList(item.currencyConversions, typeof(CurrencyConversion), true, true, true, true);
             _currencyConversionList.drawHeaderCallback += rect => EditorGUI.LabelField(rect, "Currency conversions");

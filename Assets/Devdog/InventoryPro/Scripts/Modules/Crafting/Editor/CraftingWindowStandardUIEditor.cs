@@ -15,6 +15,10 @@ namespace Devdog.InventoryPro.Editors
         public override void OnEnable()
         {
             base.OnEnable();
+
+            if (target == null)
+                return;
+
             _startCraftingCategory = serializedObject.FindProperty("_startCraftingCategory");
         }
 

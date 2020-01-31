@@ -30,9 +30,9 @@ namespace Devdog.InventoryPro.Editors
         {}
 
 
-        public override void EditItem(EquipmentType item)
+        public override void EditItem(EquipmentType item, int itemIndex)
         {
-            base.EditItem(item);
+            base.EditItem(item, itemIndex);
             _equipmentHandlerDrawer = ReflectionDrawerUtility.BuildEditorHierarchy(ReflectionUtility.GetFieldInherited(item.GetType(), "equipmentHandler"), item);
 
             _restrictionList = new UnityEditorInternal.ReorderableList(selectedItem.blockTypes, typeof(int), false, true, true, true);

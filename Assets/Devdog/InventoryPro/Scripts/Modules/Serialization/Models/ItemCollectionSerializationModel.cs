@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Devdog.General.ThirdParty.UniLinq;
 using System.Text;
@@ -92,6 +92,7 @@ namespace Devdog.InventoryPro
                     if (deserializedItems[i] != null)
                     {
                         deserializedItems[i].gameObject.SetActive(false);
+                        deserializedItems[i].transform.SetParent(collection.container);
                     }
                 }
             }

@@ -15,6 +15,9 @@ namespace Devdog.InventoryPro.Editors
 
         public virtual void OnEnable()
         {
+            if (target == null)
+                return;
+
             script = serializedObject.FindProperty("m_Script");
         }
 

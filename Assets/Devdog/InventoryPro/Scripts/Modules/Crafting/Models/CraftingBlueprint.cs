@@ -67,11 +67,13 @@ namespace Devdog.InventoryPro
             }
         }
 
+		public object EditorCrudBase { get; private set; }
 
-        /// <summary>
-        /// Crafting name, ignored if useItemResultNameAndDescription = true
-        /// </summary>
-        public string customName;
+
+		/// <summary>
+		/// Crafting name, ignored if useItemResultNameAndDescription = true
+		/// </summary>
+		public string customName;
 
         /// <summary>
         /// Crafting description, ignored if useItemResultNameAndDescription = true
@@ -143,10 +145,6 @@ namespace Devdog.InventoryPro
         /// [] #3 is for vertical column in layout
         /// </summary>
         public CraftingBlueprintLayout[] blueprintLayouts = new CraftingBlueprintLayout[0];
-
-
-
-
 
 //        public virtual bool IsLayoutValid(InventoryItemBase[] items)
 //        {

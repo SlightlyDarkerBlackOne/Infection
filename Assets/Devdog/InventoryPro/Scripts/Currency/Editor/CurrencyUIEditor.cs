@@ -19,6 +19,9 @@ namespace Devdog.InventoryPro.Editors
         {
             base.OnEnable();
 
+            if (target == null)
+                return;
+
             _currency = serializedObject.FindProperty("_currency");
         }
 

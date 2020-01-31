@@ -38,6 +38,9 @@ namespace Devdog.InventoryPro.Editors
         {
             base.OnEnable();
 
+            if (target == null)
+                return;
+
             item = (ItemCollectionBase)target;
             //serializer = new SerializedObject(target);
             serializer = serializedObject;

@@ -38,7 +38,9 @@ public class SpiderlingController : MonoBehaviour {
     public int attackDelay;
     private float lastAttackTime;
 
+    public bool hasAttackRange = false;
     public Transform attackPos;
+
 
     public LayerMask whatIsPlayer;
 
@@ -99,15 +101,18 @@ public class SpiderlingController : MonoBehaviour {
         anim.SetBool("isMoving", true);
 
         //If its close enough start attacking the player
-        Collider2D playerToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsPlayer);
-        if(timeBetweenAttack <= 0){
-            if(playerToDamage != null){
-                anim.SetBool("isAttacking", true);
-                playerToDamage.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(hurtPlayer.DamageCalculation());
-                timeBetweenAttack = startTimeBetweenAttack;
+        if(hasAttackRange){
+            Collider2D playerToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsPlayer);
+
+            if(timeBetweenAttack <= 0){
+                if(playerToDamage != null){
+                    anim.SetBool("isAttacking", true);
+                    playerToDamage.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(hurtPlayer.DamageCalculation());
+                    timeBetweenAttack = startTimeBetweenAttack;
+                }
+            } else {
+                timeBetweenAttack -= Time.deltaTime;
             }
-        } else {
-            timeBetweenAttack -= Time.deltaTime;
         }
 
         //If the player moves too far stop attacking him

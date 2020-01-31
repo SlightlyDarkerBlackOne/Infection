@@ -12,6 +12,9 @@ public class HurtPlayer : MonoBehaviour {
     public int critMultiplier;
     private int crit;
 
+    public bool isShurikenTrap = false;
+    public float knockbackMultiplier = 5f;
+
     private PlayerStats thePS;
 
 	// Use this for initialization
@@ -25,7 +28,8 @@ public class HurtPlayer : MonoBehaviour {
 		
 	}
 
-    private void OnCollisionEnter2D(Collision2D coll)
+    //private void OnCollisionEnter2D(Collision2D coll)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
         if(coll.gameObject.tag == "Player")
         {
@@ -35,6 +39,18 @@ public class HurtPlayer : MonoBehaviour {
             var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
             clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
             clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
+
+            //Knockback
+            if(isShurikenTrap){
+                Rigidbody2D playerRB = coll.GetComponent<Rigidbody2D>();
+                Vector2 difference =  playerRB.transform.position - transform.position;
+
+                //Vector2 afterKnockbackPos = new Vector2(coll.transform.position.x + difference.x, coll.transform.position.y + difference.y);
+
+                difference = difference.normalized * knockbackMultiplier;
+
+                playerRB.AddForce(difference, ForceMode2D.Impulse);
+            }
         }
     }
 

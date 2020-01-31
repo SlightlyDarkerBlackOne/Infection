@@ -1,17 +1,13 @@
-﻿using System;
-using UnityEngine;
-using System.Collections;
-using System.IO;
+﻿using UnityEngine;
 using Devdog.General;
-using Devdog.InventoryPro;
 using UnityEngine.Serialization;
+
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 namespace Devdog.InventoryPro
 {
-    [AddComponentMenu(InventoryPro.AddComponentMenuPath + "Managers/Item manager")]
+	[AddComponentMenu(InventoryPro.AddComponentMenuPath + "Managers/Item manager")]
     public partial class ItemManager : ManagerBase<ItemManager>
     {
         [Required]
@@ -81,7 +77,13 @@ namespace Devdog.InventoryPro
 #endif
         }
 
-    }
+		public static void ResetItemDatabaseLookup()
+		{
+			_itemDatabaseLookup = null;
+			_instance = null;
+		}
+
+	}
 }
 
 // using UnityEditor;

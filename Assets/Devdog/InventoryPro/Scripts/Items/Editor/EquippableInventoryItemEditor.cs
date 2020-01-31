@@ -27,6 +27,10 @@ namespace Devdog.InventoryPro.Editors
         public override void OnEnable()
         {
             base.OnEnable();
+
+            if (target == null)
+                return;
+
             equipmentType = serializedObject.FindProperty("_equipmentType");
             equipPosition = serializedObject.FindProperty("_equipmentPosition");
             equipRotation = serializedObject.FindProperty("_equipmentRotation");
@@ -70,12 +74,22 @@ namespace Devdog.InventoryPro.Editors
                         player = GetPlayer();
                         if (player != null)
                         {
-                            var t = (EquippableInventoryItem)target;
                             player.characterUI.character = player;
                             player.characterUI.IndexManuallyDefinedCollection();
                             player.characterUI.UpdateEquippableSlots();
 
-                            currentEquippable = (EquippableInventoryItem)PrefabUtility.InstantiatePrefab(t);
+                            UnityEngine.Object prefab = GetPrefabFor(target);
+
+                            if (prefab == null)
+                                Debug.LogError("prefab == null");
+
+                            var instance = PrefabUtility.InstantiatePrefab(prefab);
+                            if (instance == null)
+                                Debug.LogError("instance == null");
+
+                            currentEquippable = (EquippableInventoryItem)instance;
+                            if (currentEquippable == null)
+                                Debug.LogError("currentEquippable == null");
 
                             currentBinder = player.equipmentHandler.FindEquipmentLocation(player.equipmentHandler.FindEquippableSlotForItem(currentEquippable));
                             if (currentBinder == null)
@@ -113,6 +127,9 @@ namespace Devdog.InventoryPro.Editors
                         equipRotation.quaternionValue = currentEquippable.transform.localRotation;
 
                         serializedObject.ApplyModifiedProperties();
+#if UNITY_2018_3_OR_NEWER
+                        PrefabUtility.ApplyPrefabInstance(currentEquippable.gameObject, InteractionMode.AutomatedAction);
+#endif
                         AssetDatabase.SaveAssets(); // Save it
 
                         DestroyImmediate(currentEquippable.gameObject); // Get rid of positioning object
@@ -139,6 +156,36 @@ namespace Devdog.InventoryPro.Editors
             l.Add(new CustomOverrideProperty(equipRotation.name, null));
 
             base.OnCustomInspectorGUI(l.ToArray());
+        }
+
+        private UnityEngine.Object GetPrefabFor(UnityEngine.Object target)
+        {
+            UnityEngine.Object prefab = null;
+#if UNITY_2019_1_OR_NEWER || UNITY_2018_3_OR_NEWER
+            prefab = PrefabUtility.GetCorrespondingObjectFromSource(target);
+#else
+
+            var prefabType = PrefabUtility.GetPrefabType(target);
+            switch (prefabType)
+            {
+                case PrefabType.Prefab:
+                    prefab = target;
+                    break;
+
+                case PrefabType.PrefabInstance:
+#if UNITY_2018_2_OR_NEWER
+                    prefab = PrefabUtility.GetCorrespondingObjectFromSource(target);
+#else
+                    prefab = PrefabUtility.FindPrefabRoot((GameObject)target);
+#endif
+                    break;
+
+                default:
+                    Debug.LogError("Unhandled prefab type: " + prefabType, target);
+                    break;
+            }
+#endif
+            return prefab;
         }
 
         protected virtual InventoryPlayer GetPlayer()

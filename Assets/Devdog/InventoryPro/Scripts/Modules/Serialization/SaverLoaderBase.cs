@@ -83,7 +83,7 @@ namespace Devdog.InventoryPro
                 yield return null;
             }
 
-            if (loadOnLevelLoad)
+            if (loadOnLevelLoad && base.isActiveAndEnabled)
             {
                 Load();
             }
@@ -92,7 +92,7 @@ namespace Devdog.InventoryPro
 
         protected virtual void OnApplicationQuit()
         {
-            if (saveOnApplicationQuit)
+            if (saveOnApplicationQuit && base.isActiveAndEnabled)
             {
                 Save();
             }
@@ -102,14 +102,14 @@ namespace Devdog.InventoryPro
         {
             if (pauseStatus)
             {
-                if (saveOnApplicationPause)
+                if (saveOnApplicationPause && base.isActiveAndEnabled)
                 {
                     Save();
                 }
             }
             else
             {
-                if (loadOnApplicationResume)
+                if (loadOnApplicationResume && base.isActiveAndEnabled)
                 {
                     Load();
                 }

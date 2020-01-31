@@ -22,10 +22,10 @@ namespace Devdog.General
         [Category("Logging")]
         public DevdogLogger.LogType minimalLogType;
 
-        [Header("Audio")]
-        [Category("Audio")]
-        public int reserveAudioSources = 8;
-        public AudioMixerGroup audioMixerGroup;
+        // [Header("Audio")]
+        // [Category("Audio")]
+        // public int reserveAudioSources = 8;
+        // public AudioMixerGroup audioMixerGroup;
 
         [Category("Editor & Testing")]
         [Header("Testing")]

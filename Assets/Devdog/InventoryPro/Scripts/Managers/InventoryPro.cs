@@ -7,7 +7,7 @@ namespace Devdog.InventoryPro
 {
     public static class InventoryPro
     {
-        public const string Version = "V2.5.12";
+        public const string Version = "V2.5.16";
         public const string ProductName = "Inventory Pro";
         public const string ToolsMenuPath = "Tools/Inventory Pro/";
         public const string AddComponentMenuPath = ProductName + "/";

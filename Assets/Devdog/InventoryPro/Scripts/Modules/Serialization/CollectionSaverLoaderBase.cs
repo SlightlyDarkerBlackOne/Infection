@@ -56,6 +56,23 @@ namespace Devdog.InventoryPro
 
                     var model = serializer.DeserializeCollection(data);
                     model.ToCollection(collection);
+
+                    var character = this.collection.GetComponent<ICharacterCollection>();
+                    // Are we loading items to a character collection?
+                    if (character != null)
+                    {
+                        // if so, go through the items and
+                        foreach (var slot in collection.items)
+                        {
+                            var equippedItem = slot.item as EquippableInventoryItem;
+
+                            // if they must be equipped visually, do so
+                            if (equippedItem != null && equippedItem.equipVisually)
+                            {
+                                character.character.equipmentHandler.EquipItemVisually(equippedItem, character.equippableSlots[equippedItem.index]);
+                            }
+                        }
+                    }
                 });
             }
             catch (SerializedObjectNotFoundException e)

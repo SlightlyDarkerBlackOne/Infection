@@ -32,9 +32,10 @@ namespace Devdog.InventoryPro.Editors
 
         private static IGameRule[] _gameRules = new IGameRule[0];
         private static InventoryMainEditor _window;
-//        private string[] _databasesInProject;
+		//        private string[] _databasesInProject;
+		private UnityEngine.SceneManagement.Scene previewScene;
 
-        public static InventoryMainEditor window
+		public static InventoryMainEditor window
         {
             get
             {
@@ -85,9 +86,18 @@ namespace Devdog.InventoryPro.Editors
         private void OnDisable()
         {
             GameRulesWindow.OnIssuesUpdated -= UpdateMiniToolbar;
-        }
 
-        internal static void UpdateMiniToolbar(List<IGameRule> issues)
+#if UNITY_2018_3_OR_NEWER
+			ItemManager.ResetItemDatabaseLookup();
+			var rootGameObjects = (GameObject[])previewScene.GetRootGameObjects().Clone();
+			foreach (var go in rootGameObjects)
+			{
+			    UnityEngine.Object.DestroyImmediate(go);
+			}
+#endif
+		}
+
+		internal static void UpdateMiniToolbar(List<IGameRule> issues)
         {
             window.Repaint();
         }
@@ -138,8 +148,16 @@ namespace Devdog.InventoryPro.Editors
             editors.Clear();
             itemEditor = new EmptyEditor("Items editor", this);
             itemEditor.requiresDatabase = true;
-            itemEditor.childEditors.Add(new ItemEditor("Item", "Items", this));
-            itemEditor.childEditors.Add(new ItemCategoryEditor("Item category", "Item categories", this) { canReOrderItems = true });
+
+#if UNITY_2018_3_OR_NEWER
+			previewScene = UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();
+			itemEditor.childEditors.Add(new ItemEditor("Item", "Items", this, previewScene));
+#else
+			itemEditor.childEditors.Add(new ItemEditor("Item", "Items", this));
+#endif
+
+
+			itemEditor.childEditors.Add(new ItemCategoryEditor("Item category", "Item categories", this) { canReOrderItems = true });
             itemEditor.childEditors.Add(new ItemStatEditor("Item stat", "Item stats", this) { canReOrderItems = true });
             itemEditor.childEditors.Add(new ItemRarityEditor("Item Rarity", "Item rarities", this) { canReOrderItems = true });
             editors.Add(itemEditor);

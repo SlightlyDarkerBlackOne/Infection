@@ -91,24 +91,23 @@ namespace Devdog.InventoryPro
             }
         }
 
-        public virtual void AddMessage(string message, NoticeDuration duration = NoticeDuration.Medium)
+        public void AddMessage(string message, NoticeDuration duration = NoticeDuration.Medium)
         {
-            AddMessage(message, duration);
+            AddMessage(new InventoryNoticeMessage(string.Empty, message, duration));
         }
 
-        public virtual void AddMessage(string message, NoticeDuration duration, params System.Object[] parameters)
+        public void AddMessage(string message, NoticeDuration duration, params System.Object[] parameters)
         {
             AddMessage(string.Empty, message, duration, parameters);
         }
 
-        public virtual void AddMessage(string title, string message, NoticeDuration duration, params System.Object[] parameters)
+        public void AddMessage(string title, string message, NoticeDuration duration, params System.Object[] parameters)
         {
             AddMessage(new InventoryNoticeMessage(title, message, duration));
         }
 
         public virtual void AddMessage(InventoryNoticeMessage message)
         {
-            // Fire even if we do the nullcheck, just incase other people want to use their own implementation.
             if (OnNewMessage != null)
                 OnNewMessage(message, message.parameters);
 
@@ -136,7 +135,7 @@ namespace Devdog.InventoryPro
         
             if (messages.Count > maxMessages)
             {
-                StartCoroutine(DestroyAfter(messages[0], messages[0].hideAnimation.length));
+                StartCoroutine(DestroyAfter(messages[0], messages[0].hideAnimation != null ? messages[0].hideAnimation.length : 0));
                 messages[0].Hide();
                 messages.RemoveAt(0);
             }

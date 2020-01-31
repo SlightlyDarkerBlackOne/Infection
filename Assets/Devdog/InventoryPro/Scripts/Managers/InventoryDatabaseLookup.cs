@@ -145,7 +145,16 @@ namespace Devdog.InventoryPro
 
                 if (set == false)
                 {
-                    EditorUtility.DisplayDialog("Whoops!", "Selected file is not an item database", "Ok");
+                    var errorString = "Selected file at: ";
+                    errorString += "Assets" + absolutePath.Replace(Application.dataPath, "");
+                    errorString += "is not an item database.";
+
+                    errorString += "\n";
+                    errorString += "Data Path: " + Application.dataPath;
+                    errorString += "\n";
+                    errorString += "Absolute path: " + absolutePath;
+
+                    EditorUtility.DisplayDialog("Whoops!", errorString, "Ok");
                 }
 
                 return true;

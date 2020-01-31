@@ -74,6 +74,9 @@ namespace Devdog.InventoryPro.Editors
         {
             base.OnEnable();
 
+            if (target == null)
+                return;
+
             _tar = (InventoryPlayerBase)target;
 
             dynamicallyFindUIElements = serializedObject.FindProperty("dynamicallyFindUIElements");

@@ -32,15 +32,17 @@ namespace Devdog.InventoryPro.Editors
             : base(singleName, pluralName, window)
         {
 //            this._parentEditor = parentEditor;
+
+			
             this.category = category;
 
             forceUpdateIDsWhenOutOfSync = false; // Don't sync ID's are global over all categories.
             canReOrderItems = true;
         }
 
-        public override void EditItem(CraftingBlueprint item)
+        public override void EditItem(CraftingBlueprint item, int itemIndex)
         {
-            base.EditItem(item);
+            base.EditItem(item, itemIndex);
 
             _requiredItemsList = new UnityEditorInternal.ReorderableList(item.requiredItems, typeof(ItemAmountRow), true, true, true, true);
             _requiredItemsList.drawHeaderCallback += rect => EditorGUI.LabelField(rect, "Required items");
@@ -80,9 +82,12 @@ namespace Devdog.InventoryPro.Editors
             };
             _requiredItemsList.onAddCallback += list =>
             {
-                var l = new List<ItemAmountRow>(item.requiredItems);
-                l.Add(new ItemAmountRow());
-                item.requiredItems = l.ToArray();
+				var l = new List<ItemAmountRow>(item.requiredItems)
+				{
+					new ItemAmountRow()
+				};
+
+				item.requiredItems = l.ToArray();
                 list.list = item.requiredItems;
 
                 window.Repaint();

@@ -18,6 +18,9 @@ namespace Devdog.InventoryPro.Editors
         {
             base.OnEnable();
 
+            if (target == null)
+                return;
+
             //item = (CraftingStation)target;
             _craftingCategory = serializedObject.FindProperty("_craftingCategory");
         }

@@ -47,11 +47,13 @@ namespace Devdog.InventoryPro.UI
         {
             if (useCurrentPlayer)
             {
+                this.player = PlayerManager.instance.currentPlayer;
+
                 PlayerManager.instance.OnPlayerChanged += OnPlayerChanged;
             }
 
             // Force a repaint.
-            OnPlayerChanged(null, PlayerManager.instance.currentPlayer);
+            OnPlayerChanged(null, this.player);
         }
 
         protected void OnDestroy()

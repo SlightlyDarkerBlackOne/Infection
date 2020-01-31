@@ -10,7 +10,11 @@ namespace Devdog.General
 {
     public partial class AudioManager : ManagerBase<AudioManager>
     {
-        private static AudioSource[] _audioSources;
+        [Header("Settings")]
+        public int reserveAudioSources = 8;
+        public AudioMixerGroup audioMixerGroup;
+
+        private static List<AudioSource> _audioSources;
         private static GameObject _audioSourceGameObject;
 
         private static Queue<AudioClipInfo> _audioQueue = new Queue<AudioClipInfo>();
@@ -22,7 +26,7 @@ namespace Devdog.General
             StartCoroutine(WaitFramesAndEnable(5));
             enabled = false; // Set to enabled at start, initialize, then enable (to avoid playing sound during initialization)
 
-            _audioQueue = new Queue<AudioClipInfo>(GeneralSettingsManager.instance.settings.reserveAudioSources);
+            _audioQueue = new Queue<AudioClipInfo>(reserveAudioSources);
             CreateAudioSourcePool();
         }
 
@@ -46,17 +50,22 @@ namespace Devdog.General
 
         private void CreateAudioSourcePool()
         {
-            _audioSources = new AudioSource[GeneralSettingsManager.instance.settings.reserveAudioSources];
+            _audioSources = new List<AudioSource>(reserveAudioSources);
 
             _audioSourceGameObject = new GameObject("_AudioSources");
             _audioSourceGameObject.transform.SetParent(transform);
             _audioSourceGameObject.transform.localPosition = Vector3.zero;
 
-            for (int i = 0; i < _audioSources.Length; i++)
+            for (int i = 0; i < _audioSources.Count; i++)
             {
-                _audioSources[i] = _audioSourceGameObject.AddComponent<AudioSource>();
-                _audioSources[i].outputAudioMixerGroup = GeneralSettingsManager.instance.settings.audioMixerGroup;
+                _audioSources.Add(CreateNewAudioSource());
             }
+        }
+
+        private static AudioSource CreateNewAudioSource() {
+            var src = _audioSourceGameObject.AddComponent<AudioSource>();
+            src.outputAudioMixerGroup = instance.audioMixerGroup;
+            return src;
         }
 
         protected void Update()
@@ -78,8 +87,11 @@ namespace Devdog.General
                     return audioSource;
             }
 
-            DevdogLogger.LogWarning("All sources taken, can't play audio clip...");
-            return null;
+            DevdogLogger.LogWarning("All sources taken, creating new on the fly... Consider increasing reserved audio sources");
+            
+            var src = CreateNewAudioSource();
+            _audioSources.Add(src);
+            return src;
         }
 
 
