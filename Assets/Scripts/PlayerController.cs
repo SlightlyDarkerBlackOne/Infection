@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         playerMoving = false;
 
         if (!attacking)
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
                     rb.velocity = Vector2.zero;
                 }
                 else {
-                    dashTime -= Time.deltaTime;
+                    dashTime -= Time.fixedDeltaTime;
                     rb.velocity = rb.velocity * dashSpeed;
                 }
                 
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour {
 
         if(attackTimeCounter >= 0)
         {
-            attackTimeCounter -= Time.deltaTime;
+            attackTimeCounter -= Time.fixedDeltaTime;
 
             //Da daje dmg dok napada
             //hitPoint.SetActive(true);
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour {
                 Instantiate(trailEffect, transform.position, Quaternion.identity);
                 timeBtwTrail = startTimeBtwTrail;
             } else {
-                timeBtwTrail -= Time.deltaTime;
+                timeBtwTrail -= Time.fixedDeltaTime;
             }
         }
 
