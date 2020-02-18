@@ -52,6 +52,13 @@ public class PlayerController : MonoBehaviour {
         crossHair.SetActive(true);
 	}
 	
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        Menu();
+    }
 	// Update is called once per frame
 	void FixedUpdate () {
         playerMoving = false;
@@ -196,5 +203,17 @@ public class PlayerController : MonoBehaviour {
             Destroy(arrow, 2.0f);
         }
         
+    }
+
+    void Menu(){
+        if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)){
+            GameObject inventoryPanel = Inventory.instance.InventoryPanel;
+
+            if(!inventoryPanel.activeSelf){
+                inventoryPanel.SetActive(true);
+            } else{
+                inventoryPanel.SetActive(false);
+            }
+        }
     }
 }

@@ -49,11 +49,7 @@ public class PlayerStats : MonoBehaviour {
         currentLevel++;
         currentHP = HPLevels[currentLevel];
 
-        thePlayerHealth.playerMaxHealth = currentHP;
-
-
-        //U slucaju kada lvlupamo lika da mu hp maxa
-        thePlayerHealth.playerCurrentHealth = thePlayerHealth.playerMaxHealth;
+        thePlayerHealth.IncreaseMaxHealth(currentHP);
 
         //U slucaju kada lvlupamo lika da mu doda samo razliku na HP koliko se povecava maxhealth
         //thePlayerHealth.playerCurrentHealth += currentHP - HPLevels(currentLevel - 1);
