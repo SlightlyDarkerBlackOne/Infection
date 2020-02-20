@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowBehaviour : StateMachineBehaviour {
 
     private Transform playerPos;
-    public GameObject spiderling;
+    public GameObject enemy;
     private float speed;
 
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -13,8 +13,8 @@ public class FollowBehaviour : StateMachineBehaviour {
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
 
         //Accessing spiderling speed
-        SpiderlingController sc = spiderling.GetComponent<SpiderlingController>();
-        speed = sc.moveSpeed;
+        EnemyController ec = enemy.GetComponent<EnemyController>();
+        speed = ec.moveSpeed;
 
 	}
 

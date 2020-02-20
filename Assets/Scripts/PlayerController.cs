@@ -190,7 +190,8 @@ public class PlayerController : MonoBehaviour {
         }
         isAiming = Input.GetButton("Fire1");
         endOfAiming = Input.GetButtonUp("Fire1");
-        crossHair.transform.localPosition = aim * cursorDistance;
+        if(crossHair != null)
+            crossHair.transform.localPosition = aim * cursorDistance;
         
 
         Vector2 shootingDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
