@@ -9,8 +9,10 @@ public class QuestManager : MonoBehaviour
 
     private DialogueManager theDM;
 
+    [HideInInspector]
     public string itemCollected;
 
+    [HideInInspector]
     public string enemyKilled;
 
     private void Start() {
@@ -19,10 +21,10 @@ public class QuestManager : MonoBehaviour
     }
 
     public void ShowQuestText(Dialogue questDialogue) {
-        TriggerQuestDialogue(questDialogue);
-    }
-
-    public void TriggerQuestDialogue(Dialogue questDialogue) {
         theDM.StartDialogue(questDialogue);
     }
+
+    /*public void TriggerQuestDialogue(Dialogue questDialogue) {
+        theDM.StartDialogue(questDialogue);
+    }*/
 }

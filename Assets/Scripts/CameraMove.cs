@@ -13,6 +13,8 @@ public class CameraMove : MonoBehaviour {
     public float maxX;
     public float maxY;
 
+    public float[] levelBorders;
+
     public GameObject weatherEffect;
     private GameObject instantiatedEffect;
 
@@ -36,6 +38,15 @@ public class CameraMove : MonoBehaviour {
             transform.position = new Vector3(clampX, clampY, -10f);
 
             instantiatedEffect.transform.position = transform.position;
+        }
+    }
+
+    public void ChangeLevelBorders(float[] borders){
+        if(borders.Length == 4){
+            minX = borders[0];
+            minY = borders[1];
+            maxX = borders[2];
+            maxY = borders[3];
         }
     }
 }
