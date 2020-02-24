@@ -52,15 +52,10 @@ public class PlayerController : MonoBehaviour {
         crossHair.SetActive(true);
 	}
 	
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        Menu();
-    }
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
+        Menu();
+
         playerMoving = false;
 
         if (!attacking)
@@ -103,7 +98,7 @@ public class PlayerController : MonoBehaviour {
                     rb.velocity = Vector2.zero;
                 }
                 else {
-                    dashTime -= Time.fixedDeltaTime;
+                    dashTime -= Time.deltaTime;
                     rb.velocity = rb.velocity * dashSpeed;
                 }
                 
@@ -113,7 +108,7 @@ public class PlayerController : MonoBehaviour {
 
         if(attackTimeCounter >= 0)
         {
-            attackTimeCounter -= Time.fixedDeltaTime;
+            attackTimeCounter -= Time.deltaTime;
 
             //Da daje dmg dok napada
             //hitPoint.SetActive(true);
@@ -133,7 +128,7 @@ public class PlayerController : MonoBehaviour {
                 Instantiate(trailEffect, transform.position, Quaternion.identity);
                 timeBtwTrail = startTimeBtwTrail;
             } else {
-                timeBtwTrail -= Time.fixedDeltaTime;
+                timeBtwTrail -= Time.deltaTime;
             }
         }
 
@@ -143,7 +138,7 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
 
-        ProcessInputs();
+        //ProcessInputs();
         //AimAndShoot();
     }
 

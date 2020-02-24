@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2299178901213427629}
   - component: {fileID: 2299178901213427630}
   - component: {fileID: 7363168285809631800}
-  - component: {fileID: 5395306413146497522}
   m_Layer: 0
   m_Name: Red Grass Bush
   m_TagString: Untagged
@@ -103,31 +102,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &5395306413146497522
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2299178901213427631}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.091345415, y: -0.18643643}
-      - {x: -0.0023910964, y: -0.27350068}
-      - {x: 0.104282215, y: -0.17543462}
