@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4664980532431746}
   - component: {fileID: 198267674210686500}
   - component: {fileID: 199576131101153050}
-  - component: {fileID: 8392718377126693261}
+  - component: {fileID: 2005845636788606987}
   m_Layer: 0
   m_Name: TrailEffect 1
   m_TagString: Untagged
@@ -4812,7 +4812,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &8392718377126693261
+--- !u!114 &2005845636788606987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4821,7 +4821,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1148421819908946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3bbf48fc3ed8114da7cbd474ec90fb1, type: 3}
+  m_Script: {fileID: 11500000, guid: dac0413ef951a2342b68c961dba4f979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 2
+  timeToDestroy: 2
