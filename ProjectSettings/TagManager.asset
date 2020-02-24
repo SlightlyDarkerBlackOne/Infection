@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - Dialogue
   - breakable
+  - UICanvas
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Road
     uniqueID: 3271457993
+    locked: 0
+  - name: Road
+    uniqueID: 554388559
     locked: 0
   - name: Default
     uniqueID: 0
