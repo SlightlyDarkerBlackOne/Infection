@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float dashTime;
     public float startDashTime;
+    public int dashManaCost = 10;
+    public PlayerManaManager playerManaManager;
 
     private Animator anim;
     private Rigidbody2D rb;
@@ -50,6 +52,9 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
 
         crossHair.SetActive(true);
+        playerManaManager = GetComponent<PlayerManaManager>();
+
+        DontDestroyOnLoad(transform.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -89,21 +94,7 @@ public class PlayerController : MonoBehaviour {
                 //arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
             }
 
-            //Dash
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                //lmao ovo je kaos
-                //rb.AddForce;(new Vector2(rb.velocity.x, dashSpeed));
-                if(dashTime <= 0) {
-                    dashTime = startDashTime;
-                    rb.velocity = Vector2.zero;
-                }
-                else {
-                    dashTime -= Time.deltaTime;
-                    rb.velocity = rb.velocity * dashSpeed;
-                }
-                
-
-            }
+            Dash();
         }
 
         if(attackTimeCounter >= 0)
@@ -140,6 +131,22 @@ public class PlayerController : MonoBehaviour {
 
         //ProcessInputs();
         //AimAndShoot();
+    }
+
+    public void Dash(){
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                //lmao ovo je kaos
+                //rb.AddForce;(new Vector2(rb.velocity.x, dashSpeed));
+                if(dashTime <= 0 && playerManaManager.playerCurrentMana >= dashManaCost) {
+                    dashTime = startDashTime;
+                    rb.velocity = rb.velocity * dashSpeed;
+                    playerManaManager.TakeMana(dashManaCost);
+                }
+                else {
+                    rb.velocity = Vector2.zero;
+                }
+            }
+            dashTime -= Time.deltaTime;
     }
 
     //used to access the private variable attacking

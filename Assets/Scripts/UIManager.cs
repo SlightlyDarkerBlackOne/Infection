@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        /* Usefull for scene changing 
         if (!UIExists)
         {
             UIExists = true;
@@ -26,8 +27,10 @@ public class UIManager : MonoBehaviour {
         } else
         {
             Destroy(gameObject);
-        }
+        }*/
 
+        playerHealth = FindObjectOfType<PlayerHealthManager>();
+        playerMana = FindObjectOfType<PlayerManaManager>();
         thePS = GetComponent<PlayerStats>();
 	}
 	

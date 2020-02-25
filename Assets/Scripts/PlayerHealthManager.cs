@@ -16,14 +16,8 @@ public class PlayerHealthManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-        
-
         playerCurrentHealth = playerMaxHealth;
-
         playerSprite = GetComponent<SpriteRenderer>();
-
-
 	}
 
 	
@@ -31,11 +25,7 @@ public class PlayerHealthManager : MonoBehaviour {
 	void Update () {
 		if(playerCurrentHealth <= 0)
         {
-            gameObject.SetActive(false);
-
-            //gamemanager.respawn
-            //NOT WORKING!! (UI health display messes up)
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Dead();
         }
 
         if (flashActive)
@@ -58,6 +48,12 @@ public class PlayerHealthManager : MonoBehaviour {
             flashCounter -= Time.deltaTime;
         }
 	}
+
+    private void Dead(){
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SetToMaxHealth();
+    }
 
     public void HurtPlayer(int damageToGive)
     {
