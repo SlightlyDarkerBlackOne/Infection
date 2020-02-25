@@ -53,8 +53,6 @@ public class PlayerController : MonoBehaviour {
 
         crossHair.SetActive(true);
         playerManaManager = GetComponent<PlayerManaManager>();
-
-        DontDestroyOnLoad(transform.gameObject);
 	}
 	
 	// Update is called once per frame
