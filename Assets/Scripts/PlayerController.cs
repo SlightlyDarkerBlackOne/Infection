@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     private float dashTime;
     public float startDashTime;
     public int dashManaCost = 10;
-    public PlayerManaManager playerManaManager;
+    private PlayerManaManager playerManaManager;
 
     private Animator anim;
     private Rigidbody2D rb;
