@@ -61,8 +61,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341904110675953419}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 69.33, y: -25.8, z: 10.098944}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 68.962, y: -25.8, z: 10.098944}
+  m_LocalScale: {x: 0.706, y: 0.706, z: 0.706}
   m_Children:
   - {fileID: 1341904109926530307}
   m_Father: {fileID: 0}
@@ -205,7 +205,7 @@ MonoBehaviour:
   walkZone: {fileID: 0}
   chasingDistance: 4
   unChasingDistance: 4.5
-  attackRange: 0.5
+  attackRange: 0.46
   attackDelay: 2
   hasAttackRange: 1
   attackPos: {fileID: 1341904109926530307}
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe583cffadd8f741ade59f62c7fce72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 280
+  MaxHealth: 40
   CurrentHealth: 0
   expToGive: 200
   enemyQuestName: 
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2986fc957bb394abe1dbf8e72093e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToGive: 8
+  damageToGive: 5
   damageNumber: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
     type: 3}
   critChance: 20
