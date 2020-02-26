@@ -42,7 +42,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -57,11 +57,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
+    - - {x: 0.014883041, y: 1.014884}
+      - {x: -0.7129326, y: 0.20483685}
+      - {x: 1.6595192, y: -0.63042545}
+      - {x: 1.6798515, y: -2.2477808}
+      - {x: -0.61182785, y: -3.5296907}
+      - {x: 4.5019646, y: -3.7706957}
+      - {x: 4.488632, y: -0.38489246}
+      - {x: 3.094181, y: 1.127574}
 --- !u!114 &6430548491201323157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showOnce: 1
   dialogue:
-    name: Starting Dialogue
+    name: 'Ndugu:'
     sentences:
     - Wow wow, wait a second...
     - Where am I?
