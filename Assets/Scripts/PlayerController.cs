@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour {
 
     bool meleeWeaponEquiped;
 
+    bool playerFrozen = false;
+
     void Awake(){
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -65,7 +67,12 @@ public class PlayerController : MonoBehaviour {
         {
             //Movement Mechanic
             //Normalized so diagonal movespeed is same as vert & horz ms
-            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            if(playerFrozen){
+                moveInput = Vector2.zero;
+            }else{
+                moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            }
+            
 
             if(moveInput != Vector2.zero) {
                 rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
@@ -77,7 +84,7 @@ public class PlayerController : MonoBehaviour {
             
             //if(meleeWeaponEquiped){}
             //Movement when attacking
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl)) && !playerFrozen)
             {
                 attackTimeCounter = attackTime;
                 attacking = true;
@@ -129,6 +136,13 @@ public class PlayerController : MonoBehaviour {
 
         //ProcessInputs();
         //AimAndShoot();
+    }
+
+    public void FrezePlayer(){
+        playerFrozen = true;
+    }
+    public void UnFreezePlayer(){
+        playerFrozen = false;
     }
 
     public void Dash(){

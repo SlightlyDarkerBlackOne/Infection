@@ -22,11 +22,6 @@ public class PlayerManaManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (playerCurrentMana <= 0) {
-            playerCurrentMana = 0;
-            Debug.Log("Out of mana!");
-            //sounds "out of mana"
-        }
         manaRegenTime -= Time.deltaTime;
         if(manaRegenTime <= 0){
             manaRegenTime = startManaRegenTime;
@@ -36,10 +31,18 @@ public class PlayerManaManager : MonoBehaviour {
 
     public void HealMana(int manaToAdd){
         playerCurrentMana += manaToAdd;
+        if(playerCurrentMana >= playerMaxMana){
+            playerCurrentMana = playerMaxMana;
+        }
     }
 
     public void TakeMana(int manaToTake) {
         playerCurrentMana -= manaToTake;
+        if (playerCurrentMana <= 0) {
+            playerCurrentMana = 0;
+            Debug.Log("Out of mana!");
+            //sounds "out of mana"
+        }
     }
 
     public void SetMaxMana() {

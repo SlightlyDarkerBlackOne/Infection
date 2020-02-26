@@ -11,7 +11,9 @@ public class Consumable : Item
        GameObject player = Inventory.instance.player;
        PlayerHealthManager phm = player.GetComponent<PlayerHealthManager>();
        
-       phm.Heal(heal);
-       Inventory.instance.Remove(this);
+       if(phm.playerCurrentHealth != phm.playerMaxHealth){
+           phm.Heal(heal);
+           Inventory.instance.Remove(this);
+       } 
    }
 }

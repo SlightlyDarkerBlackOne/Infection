@@ -217,7 +217,7 @@ TextureImporter:
     second: Sprite_Sheet_70
   - first:
       213: 7499599551662196357
-    second: Sprite_Sheet_71
+    second: potion
   - first:
       213: -949011338333924081
     second: Sprite_Sheet_72
@@ -348,7 +348,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -360,7 +360,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -1778,7 +1778,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sprite_Sheet_71
+      name: potion
       rect:
         serializedVersion: 2
         x: 80

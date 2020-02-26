@@ -12,14 +12,18 @@ public class DialogueManager : MonoBehaviour {
 
     private Queue<string> sentences;
 
+    private PlayerController playerController;
+
 
 	// Use this for initialization
 	void Start () {
         sentences = new Queue<string>();
+        playerController = FindObjectOfType<PlayerController>();
 
 	}
     //For starting a dialogue and also for starting quest dialogue
     public void StartDialogue(Dialogue dialogue) {
+        playerController.FrezePlayer();
         animator.SetBool("IsOpen", true);
 
         nameText.text = dialogue.name;
@@ -60,5 +64,6 @@ public class DialogueManager : MonoBehaviour {
 
     void EndDialogue() {
         animator.SetBool("IsOpen", false);
+        playerController.UnFreezePlayer();
     }
 }
