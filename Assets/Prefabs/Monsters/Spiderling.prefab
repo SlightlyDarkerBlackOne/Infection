@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe583cffadd8f741ade59f62c7fce72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 50
+  MaxHealth: 12
   CurrentHealth: 0
   expToGive: 25
   enemyQuestName: 
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2986fc957bb394abe1dbf8e72093e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToGive: 7
+  damageToGive: 1
   damageNumber: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
     type: 3}
   critChance: 5
