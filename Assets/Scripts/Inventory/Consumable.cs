@@ -14,6 +14,9 @@ public class Consumable : Item
        if(phm.playerCurrentHealth != phm.playerMaxHealth){
            phm.Heal(heal);
            Inventory.instance.Remove(this);
-       } 
+       } else {
+           //Show health is full text - use FloatingText
+           //Add sound effect
+       }
    }
 }

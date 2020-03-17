@@ -16,7 +16,6 @@ public class InventorySlotController : MonoBehaviour
             displayImage.sprite = null;
             displayImage.color = Color.clear;
         }
-
     }
 
     public void Use(){

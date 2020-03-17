@@ -19,6 +19,31 @@ public class Inventory : MonoBehaviour
         updatePanelSlots();
     }
 
+    void Update()
+    {
+        HealWithHotkey();
+    }
+
+    //Heals the player with hotkey 'H' removing last potion in the inventory
+    void HealWithHotkey(){
+        if(Input.GetKeyDown(KeyCode.H)){
+            Transform lastChild;
+            Item lastSlotItem = null;
+            for (int i = 1; i <= itemSlots; i++)
+            {
+                lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
+
+                lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
+                if(lastSlotItem != null){
+                    lastSlotItem.Use();
+                    Debug.Log("Heal " + i);
+
+                    break;
+                }
+            }
+        }
+    }
+
     void updatePanelSlots(){
         int index = 0;
         foreach(Transform child in InventoryPanel.transform){
