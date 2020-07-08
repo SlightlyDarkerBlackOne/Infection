@@ -14,7 +14,20 @@ public class PlayerHealthManager : MonoBehaviour {
 
     private SpriteRenderer playerSprite;
 
-	// Use this for initialization
+    #region Singleton
+    public static PlayerHealthManager Instance {get; private set;}
+
+    void Awake()
+    {
+        if(Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else{
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 	void Start () {
         playerCurrentHealth = playerMaxHealth;
         playerSprite = GetComponent<SpriteRenderer>();
@@ -28,6 +41,11 @@ public class PlayerHealthManager : MonoBehaviour {
             Dead();
         }
 
+        Flash();
+	}
+
+    //Flashing the player sprite with white when he takes damage
+    private void Flash(){
         if (flashActive)
         {
             if (flashCounter > flashLength * 0.66f)
@@ -47,8 +65,7 @@ public class PlayerHealthManager : MonoBehaviour {
 
             flashCounter -= Time.deltaTime;
         }
-	}
-
+    }
     private void Dead(){
         gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -79,5 +96,7 @@ public class PlayerHealthManager : MonoBehaviour {
         if(playerCurrentHealth >= playerMaxHealth){
             playerCurrentHealth = playerMaxHealth;
         }
+
+        SFXManager.Instance.PlaySound(SFXManager.Instance.playerHealed);
     }
 }

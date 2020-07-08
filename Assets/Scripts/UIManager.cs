@@ -15,27 +15,33 @@ public class UIManager : MonoBehaviour {
     public Text levelText;
     public Slider xpBar;
 
-    private static bool UIExists;
+    #region Singleton
+    public static UIManager Instance {get; private set;}
 
+    void Awake()
+    {
+        if(Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else{
+            Destroy(gameObject);
+        }
+    }
+    #endregion
+    
     // Use this for initialization
     void Start () {
-        /* Usefull for scene changing 
-        if (!UIExists)
-        {
-            UIExists = true;
-            DontDestroyOnLoad(transform.gameObject);
-        } else
-        {
-            Destroy(gameObject);
-        }*/
-
-        playerHealth = FindObjectOfType<PlayerHealthManager>();
-        playerMana = FindObjectOfType<PlayerManaManager>();
+        playerHealth = PlayerHealthManager.Instance;
+        playerMana = PlayerManaManager.Instance;
         thePS = GetComponent<PlayerStats>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        UpdateUIElements();
+    }
+
+    private void UpdateUIElements(){
         healthBar.fillAmount = playerHealth.playerCurrentHealth / playerHealth.playerMaxHealth;
         manaBar.fillAmount = playerMana.playerCurrentMana / playerMana.playerMaxMana;
 

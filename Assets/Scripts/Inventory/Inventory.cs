@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
     }
 
     public void Add(Item item){
-        if(itemList.Count < itemSlots){
+        if(InventoryNotFull()){
             itemList.Add(item);
         }
         updatePanelSlots();
@@ -71,5 +71,11 @@ public class Inventory : MonoBehaviour
     public void Remove(Item item){
         itemList.Remove(item);
         updatePanelSlots();
+    }
+
+    public bool InventoryNotFull(){
+        if(itemList.Count < itemSlots)
+            return true;
+        else return false;
     }
 }

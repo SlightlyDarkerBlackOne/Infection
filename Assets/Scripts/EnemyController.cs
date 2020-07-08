@@ -162,7 +162,8 @@ public class EnemyController : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, chasingDistance);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+        if(hasAttackRange)
+            Gizmos.DrawWireSphere(attackPos.position, attackRange);
 
     }
 

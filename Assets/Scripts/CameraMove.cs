@@ -38,10 +38,18 @@ public class CameraMove : MonoBehaviour {
         }
     }
 
-    public void ChangeLevelBorders(float minx, float miny, float maxx, float maxy){
-            minX = minx;
-            minY = miny;
-            maxX = maxx;
-            maxY = maxy;
+    /*Changes level borders for the main camera
+    Checks if the new values are 0 so we can change only maxY position of the 
+    camera on a single level to simplify entering into houses*/
+    public void ChangeLevelBorders(float minxNew, float minyNew, float maxxNew, float maxyNew){
+            if(minxNew != 0)
+                minX = minxNew;
+            if(minyNew != 0)
+                minY = minyNew;
+
+            if(maxxNew != 0)
+                maxX = maxxNew;
+            if(maxyNew != 0)
+                maxY = maxyNew;
         }
 }

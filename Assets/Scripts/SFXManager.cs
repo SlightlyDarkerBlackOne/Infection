@@ -13,22 +13,23 @@ public class SFXManager : MonoBehaviour {
     public AudioSource enemyDead;
     public AudioSource itemPickedUp;
     public AudioSource soundTrack;
+    public AudioSource dash;
 
-
-    private static bool sfxmanExists;
+    #region Singleton
+    public static SFXManager Instance {get; private set;}
 
 	// Use this for initialization
-	void Start () {
-		if (!sfxmanExists) {
-            sfxmanExists = true;
-            DontDestroyOnLoad(transform.gameObject);
+	void Awake () {
+		if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	#endregion
+
+    public void PlaySound(AudioSource source){
+        source.Play();
+    }
 }

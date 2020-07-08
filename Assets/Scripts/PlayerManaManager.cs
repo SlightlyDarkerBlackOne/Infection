@@ -12,6 +12,19 @@ public class PlayerManaManager : MonoBehaviour {
     private float manaRegenTime;
     public int manaRegen = 1;
     
+    #region  Singleton
+    public static PlayerManaManager Instance {get; private set;}
+
+    void Awake()
+    {
+        if(Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else{
+            Destroy(gameObject);
+        }
+    }
+    #endregion
     // Use this for initialization
     void Start() {
 

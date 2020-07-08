@@ -2,27 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public enum PlayerState
+{
+    idle,
+    walk,
+    attack,
+    interact
+}
+public class PlayerController : MonoBehaviour
+{
 
+    public PlayerState currentState;
     public float moveSpeed;
     private float currentMoveSpeed;
-    
+
     //dodati malo kasnije WaitForSeconds(0.1) dash f-ju
     public float dashSpeed;
     [SerializeField]
     private float dashTime;
     public float startDashTime;
     public int dashManaCost = 10;
-    private PlayerManaManager playerManaManager;
+
 
     private Animator anim;
     private Rigidbody2D rb;
 
+    [SerializeField]
     private bool playerMoving;
     private Vector2 lastMove;
     private Vector2 moveInput;
 
-    private bool attacking; 
+    private bool attacking;
     public float attackTime;
     private float attackTimeCounter;
 
@@ -44,100 +54,115 @@ public class PlayerController : MonoBehaviour {
 
     bool playerFrozen = false;
 
-    void Awake(){
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+    #region Singleton
+    public static PlayerController Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    // Use this for initialization
-    void Start () {
+    #endregion
+
+    void Start(){
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        crossHair.SetActive(true);
-        playerManaManager = GetComponent<PlayerManaManager>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        currentState = PlayerState.idle;
+        //crossHair.SetActive(true);
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+    }
+    void Update(){
         Menu();
+        MoveAndAttack();
+        TrailEffect();
+        SetAnimations();
+        //ProcessInputs();
+        //AimAndShoot();
+    }
 
-        playerMoving = false;
-
-        if (!attacking)
+    void Menu(){
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
-            //Movement Mechanic
-            //Normalized so diagonal movespeed is same as vert & horz ms
-            if(playerFrozen){
+            GameObject inventoryPanel = Inventory.instance.InventoryPanel;
+
+            if (!inventoryPanel.activeSelf){
+                inventoryPanel.SetActive(true);
+            } else {
+                inventoryPanel.SetActive(false);
+            }
+        }
+    }
+    private void MoveAndAttack(){
+        playerMoving = false;
+        if (!attacking){
+            if (playerFrozen){
                 moveInput = Vector2.zero;
-            }else{
+            } else{
                 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             }
-            
-
-            if(moveInput != Vector2.zero) {
+            if (moveInput != Vector2.zero){
                 rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
                 playerMoving = true;
                 lastMove = moveInput;
-            } else {
+            } else{
                 rb.velocity = Vector2.zero;
             }
-            
             //if(meleeWeaponEquiped){}
             //Movement when attacking
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl)) && !playerFrozen)
-            {
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
+                    && !playerFrozen && (currentState != PlayerState.attack)){
                 attackTimeCounter = attackTime;
                 attacking = true;
 
-                //zaustavlja movement
-                rb.velocity = Vector2.zero;
+                SFXManager.Instance.PlaySound(SFXManager.Instance.playerAttack);
 
-                anim.SetBool("Attack", true);
-                
-                
+                rb.velocity = Vector2.zero;
                 //GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
                 //arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
             }
-
             Dash();
         }
 
-        if(attackTimeCounter >= 0)
-        {
+        if (attackTimeCounter >= 0){
             attackTimeCounter -= Time.deltaTime;
-
             //Da daje dmg dok napada
             //hitPoint.SetActive(true);
         }
 
-        if(attackTimeCounter <= 0)
-        {
+        if (attackTimeCounter <= 0){
             attacking = false;
             anim.SetBool("Attack", false);
-
             //Da ne daje dmg dok je idle
             //hitPoint.SetActive(false);
         }
-
-        if(playerMoving){
-            if (timeBtwTrail <= 0) {
+    }
+    private void SetAnimations()
+    {
+        anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
+        anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
+        anim.SetBool("PlayerMoving", playerMoving);
+        anim.SetFloat("LastMoveX", lastMove.x);
+        anim.SetFloat("LastMoveY", lastMove.y);
+    }
+    private void TrailEffect(){
+        if (playerMoving){
+            if (timeBtwTrail <= 0){
                 Instantiate(trailEffect, transform.position, Quaternion.identity);
                 timeBtwTrail = startTimeBtwTrail;
             } else {
                 timeBtwTrail -= Time.deltaTime;
             }
         }
-
-        anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
-        anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
-        anim.SetBool("PlayerMoving", playerMoving);
-        anim.SetFloat("LastMoveX", lastMove.x);
-        anim.SetFloat("LastMoveY", lastMove.y);
-
-        //ProcessInputs();
-        //AimAndShoot();
     }
-
     public void FrezePlayer(){
         playerFrozen = true;
     }
@@ -146,27 +171,52 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Dash(){
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                //lmao ovo je kaos
-                //rb.AddForce;(new Vector2(rb.velocity.x, dashSpeed));
-                if(dashTime <= 0 && playerManaManager.playerCurrentMana >= dashManaCost) {
-                    dashTime = startDashTime;
-                    rb.velocity = rb.velocity * dashSpeed;
-                    playerManaManager.TakeMana(dashManaCost);
-                }
-                else {
-                    rb.velocity = Vector2.zero;
-                }
+        if (moveInput != Vector2.zero && Input.GetKeyDown(KeyCode.Space)){
+            if (dashTime <= 0 && PlayerManaManager.Instance.playerCurrentMana >= dashManaCost){
+                dashTime = startDashTime;
+                rb.velocity = rb.velocity * dashSpeed;
+                PlayerManaManager.Instance.TakeMana(dashManaCost);
+
+                SFXManager.Instance.PlaySound(SFXManager.Instance.dash);
+            } else {
+                //rb.velocity = Vector2.zero;
             }
-            dashTime -= Time.deltaTime;
+        }
+        dashTime -= Time.deltaTime;
     }
 
     //used to access the private variable attacking
-    public bool Attacking() {
+    public bool Attacking()
+    {
         if (attacking)
             return true;
         else return false;
     }
+
+    private IEnumerator AttackCo()
+    {
+        anim.SetBool("Attack", true);
+        currentState = PlayerState.attack;
+        yield return null;
+        anim.SetBool("Attack", false);
+        yield return new WaitForSeconds(attackTime);
+        currentState = PlayerState.idle;
+    }
+
+    public void SetMoveSpeedForADuration(int modifier, int duration)
+    {
+        float oldMoveSpeed = moveSpeed;
+        moveSpeed *= modifier;
+
+        StartCoroutine(WaitCorutine(duration));
+        moveSpeed = oldMoveSpeed;
+    }
+
+    IEnumerator WaitCorutine(int duration)
+    {
+        yield return new WaitForSeconds(duration);
+    }
+
 
     /*private void AimAndShoot() {
         
@@ -194,41 +244,30 @@ public class PlayerController : MonoBehaviour {
         }
     } */
 
-
-
-    private void ProcessInputs() {
+    private void ProcessInputs()
+    {
         Vector3 mouseMovement = new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0f);
         aim = aim + mouseMovement;
-        if(aim.magnitude > 1.0f){
+        if (aim.magnitude > 1.0f)
+        {
             aim.Normalize();
         }
         isAiming = Input.GetButton("Fire1");
         endOfAiming = Input.GetButtonUp("Fire1");
-        if(crossHair != null)
+        if (crossHair != null)
             crossHair.transform.localPosition = aim * cursorDistance;
-        
+
 
         Vector2 shootingDirection = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
         shootingDirection.Normalize();
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1"))
+        {
             GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
             arrow.GetComponent<Rigidbody2D>().velocity = shootingDirection * 15.0f;
             arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(shootingDirection.y, shootingDirection.x) * Mathf.Rad2Deg);
             Destroy(arrow, 2.0f);
         }
-        
-    }
 
-    void Menu(){
-        if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)){
-            GameObject inventoryPanel = Inventory.instance.InventoryPanel;
-
-            if(!inventoryPanel.activeSelf){
-                inventoryPanel.SetActive(true);
-            } else{
-                inventoryPanel.SetActive(false);
-            }
-        }
     }
 }

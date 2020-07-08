@@ -20,26 +20,15 @@ public class HurtEnemy : MonoBehaviour {
 
     public bool yoyoEquiped;
 
-    private PlayerStats thePS;
-
-    private PlayerController pC;
-	// Use this for initialization
-	void Start () {
-
-        thePS = FindObjectOfType<PlayerStats>();
-
-        pC = FindObjectOfType<PlayerController>();
-    }
-
     private void OnTriggerEnter2D(Collider2D other) { 
         if (other.gameObject.tag == "Enemy")
         {
-            if (pC.Attacking() || yoyoEquiped) {
-                currentDamage = damageToGive + thePS.currentAttack;
+            if (PlayerController.Instance.Attacking() || yoyoEquiped) {
+                currentDamage = damageToGive + PlayerStats.Instance.currentAttack;
                 currentDamage = Crit(currentDamage); //Critical Strike
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
-                Debug.Log("DamageDone");
+                SFXManager.Instance.PlaySound(SFXManager.Instance.enemyHit);
 
                 Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
@@ -52,11 +41,12 @@ public class HurtEnemy : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Enemy") {
             if (yoyoEquiped) {
-                currentDamage = damageToGive + thePS.currentAttack;
+                currentDamage = damageToGive + PlayerStats.Instance.currentAttack;
                 currentDamage = Crit(currentDamage); //Critical Strike
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
-
+                SFXManager.Instance.PlaySound(SFXManager.Instance.enemyHit);
+                
                 Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;

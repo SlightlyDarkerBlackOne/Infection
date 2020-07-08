@@ -15,17 +15,15 @@ public class HurtPlayer : MonoBehaviour {
     public bool isShurikenTrap = false;
     public float knockbackMultiplier = 5f;
 
-    private PlayerStats thePS;
-
-	// Use this for initialization
-	void Start () {
-
-        thePS = FindObjectOfType<PlayerStats>();
-	}
+    public float startCoolDownBetweenHits = 1f;
+    private float coolDownBetweenHits = 0;
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if(coolDownBetweenHits > 0)
+		    coolDownBetweenHits -= Time.deltaTime;
+        else
+            coolDownBetweenHits = 0;
 	}
 
     //private void OnCollisionEnter2D(Collision2D coll)
@@ -33,12 +31,16 @@ public class HurtPlayer : MonoBehaviour {
     {
         if(coll.gameObject.tag == "Player")
         {
+            if(coolDownBetweenHits <= 0){
+                coll.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(DamageCalculation());
 
-            coll.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(DamageCalculation());
+                var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
+                clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
+                clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
 
-            var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
-            clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
-            clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
+                coolDownBetweenHits = startCoolDownBetweenHits;
+            }
+            
 
             //Knockback
             if(isShurikenTrap){
@@ -55,7 +57,7 @@ public class HurtPlayer : MonoBehaviour {
     }
 
     public int DamageCalculation(){
-        currentDamage = damageToGive - thePS.currentDefense;
+        currentDamage = damageToGive - PlayerStats.Instance.currentDefense;
             currentDamage = Crit(currentDamage);
             if (currentDamage <= 0)
                 currentDamage = 1;

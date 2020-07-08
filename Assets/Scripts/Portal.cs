@@ -13,16 +13,17 @@ public class Portal : MonoBehaviour
 
     public bool portalBack;
     public bool portalFromHouse;
-    public float lastLevelPosX;
-    public float lastLevelPosY;
+
+    public GameObject lastLevelPos;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player")){
-            if(hasKey && !portalBack){
+            if(hasKey && !portalBack && !portalFromHouse){
                 nextLevel.GetComponent<LevelManager>().ChangeLevel();
             } else if((hasKey && portalBack) || portalFromHouse){
-                nextLevel.GetComponent<LevelManager>().ChangeLevelBack(lastLevelPosX, lastLevelPosY);
+                nextLevel.GetComponent<LevelManager>().ChangeLevelBack(lastLevelPos.transform.localPosition.x,
+                 lastLevelPos.transform.localPosition.y);
             }
             else if(hasKey == false){
                 var go = Instantiate(textPrefab, transform.position, transform.rotation, transform);
