@@ -10,7 +10,7 @@ public class MushroomConsumable : MonoBehaviour
    void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player")){
-            GameObject player = Inventory.instance.player;
+            GameObject player = PlayerController.Instance.gameObject;
             PlayerManaManager pMm = player.GetComponent<PlayerManaManager>();
        
             if(pMm.playerCurrentMana != pMm.playerMaxMana){

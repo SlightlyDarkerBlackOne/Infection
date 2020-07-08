@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour {
     public Image manaBar;
     public Text HPText;
     public Text ManaText;
-    public PlayerHealthManager playerHealth;
-    public PlayerManaManager playerMana;
+    private PlayerHealthManager playerHealth;
+    private PlayerManaManager playerMana;
 
     private PlayerStats thePS;
     public Text levelText;

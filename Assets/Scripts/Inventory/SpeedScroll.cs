@@ -9,7 +9,7 @@ public class SpeedScroll : Item
    public int duration;
 
    public override void Use(){
-       GameObject player = Inventory.instance.player;
+       GameObject player = PlayerController.Instance.gameObject;
        PlayerController pc = player.GetComponent<PlayerController>();
        
        pc.SetMoveSpeedForADuration(speedBonusModifier, duration);

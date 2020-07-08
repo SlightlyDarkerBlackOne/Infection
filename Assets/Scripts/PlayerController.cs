@@ -75,6 +75,9 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
+        transform.position = FindObjectOfType<LevelManager>()
+                .playerLevelPosition.transform.position;
+
         currentState = PlayerState.idle;
         //crossHair.SetActive(true);
         //Cursor.lockState = CursorLockMode.Locked;

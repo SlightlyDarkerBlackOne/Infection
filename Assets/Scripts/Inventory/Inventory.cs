@@ -5,8 +5,7 @@ using System;
 public class Inventory : MonoBehaviour
 {
     public List<Item> itemList = new List<Item>();
-
-    public GameObject player;
+    
     public GameObject InventoryPanel;
 
     public static Inventory instance;

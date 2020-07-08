@@ -11,7 +11,17 @@ public class LevelManager : MonoBehaviour
 
     public GameObject playerLevelPosition;
     public GameObject levelCamera;
-    public GameObject player;
+
+    private GameObject player;
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        player = PlayerController.Instance.gameObject;
+    }
 
     public void ChangeLevel(){
         //Fade out level change

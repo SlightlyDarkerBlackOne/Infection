@@ -7,7 +7,7 @@ public class ManaConsumable : Item {
    public int heal = 0;
 
    public override void Use(){
-       GameObject player = Inventory.instance.player;
+       GameObject player = PlayerController.Instance.gameObject;
        PlayerManaManager pMm = player.GetComponent<PlayerManaManager>();
        
        if(pMm.playerCurrentMana != pMm.playerMaxMana){

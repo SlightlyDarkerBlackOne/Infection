@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour {
 
-    public Transform cameraTarget;
+    private Transform cameraTarget;
 
     public float cameraSpeed;
 
@@ -17,6 +17,7 @@ public class CameraMove : MonoBehaviour {
 
     //Defines an instance of the weather effect and changes its position in the FixedUpdate function the same as the camera
     private void Start() {
+        cameraTarget = PlayerController.Instance.gameObject.transform;
         instantiatedEffect = Instantiate(weatherEffect, transform.position, Quaternion.identity);
     }
 
