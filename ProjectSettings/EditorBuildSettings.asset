@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Scene2.unity
+    path: Assets/Scenes/PurpleLevel.unity
     guid: 911e4939f3f72d1468dcc3a951579150
   - enabled: 1
     path: Assets/Scenes/GreenLevel.unity
     guid: 13ac0e52e3aa7074e919c589008891f1
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 30906eb71799da44bb060610e01af716
   m_configObjects: {}
