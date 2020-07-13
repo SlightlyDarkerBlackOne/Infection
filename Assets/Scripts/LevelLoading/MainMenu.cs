@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        transform.Find("Play Button").GetComponent<Button_UI>()
+        transform.Find("PlayButton").GetComponent<Button_UI>()
         .ClickFunc = () => {
             Loader.Load(Loader.Scene.PurpleLevel);
         };

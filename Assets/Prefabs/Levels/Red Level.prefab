@@ -1434,7 +1434,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2157757147918953537}
   - component: {fileID: 2157757147918953551}
-  - component: {fileID: 2157757147918953536}
   m_Layer: 0
   m_Name: GreenPortal
   m_TagString: Untagged
@@ -1482,25 +1481,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0032043, y: 3.1346703}
   m_EdgeRadius: 0
---- !u!114 &2157757147918953536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2157757147918953538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decdc7b5093326348a6bc2b8455f7bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasKey: 1
-  ishouse: 0
-  nextLevel: {fileID: 0}
-  textPrefab: {fileID: 1456154812438104, guid: df7a3a5e1469db1468cf96cafdb9e8aa, type: 3}
-  portalBack: 1
-  portalFromHouse: 0
-  lastLevelPos: {fileID: 0}
 --- !u!1 &2157757147921007613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2995,7 +2975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2157757148559605580}
-  - component: {fileID: 2157757148559605579}
+  - component: {fileID: 6184435266990186497}
   m_Layer: 0
   m_Name: Red Level
   m_TagString: Untagged
@@ -3029,7 +3009,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2157757148559605579
+--- !u!114 &6184435266990186497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3038,16 +3018,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2157757148559605581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50804c73df556ec44a7e6abe68351278, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b882370310299b4fac7148ef6f8a207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: 116.6
-  minY: -57.92
-  maxX: 155.5
-  maxY: -24.1
-  playerLevelPosition: {fileID: 0}
-  levelCamera: {fileID: 0}
-  player: {fileID: 0}
+  levelName: 
+  minX: 0
+  minY: 0
+  maxX: 0
+  maxY: 0
+  startingPosition: {fileID: 0}
+  endPosition: {fileID: 0}
 --- !u!1 &2157757148560854395
 GameObject:
   m_ObjectHideFlags: 0
@@ -9417,6 +9397,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
+        type: 3}
+      propertyPath: damageToGive
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 114779091398314986, guid: 89149651d80dd164f8ee108d8061f19c,
         type: 3}
       propertyPath: MaxHealth
@@ -9426,11 +9411,6 @@ PrefabInstance:
         type: 3}
       propertyPath: expToGive
       value: 110
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
-        type: 3}
-      propertyPath: damageToGive
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89149651d80dd164f8ee108d8061f19c, type: 3}
@@ -26058,6 +26038,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
+        type: 3}
+      propertyPath: damageToGive
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 114779091398314986, guid: 89149651d80dd164f8ee108d8061f19c,
         type: 3}
       propertyPath: MaxHealth
@@ -26067,11 +26052,6 @@ PrefabInstance:
         type: 3}
       propertyPath: expToGive
       value: 110
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
-        type: 3}
-      propertyPath: damageToGive
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89149651d80dd164f8ee108d8061f19c, type: 3}
@@ -33713,15 +33693,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126fc26eeafb97b4da5d995e0131e71f, type: 3}
---- !u!4 &2826682490287139943 stripped
+--- !u!4 &4925278630634450987 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4236620673009497757, guid: 126fc26eeafb97b4da5d995e0131e71f,
+  m_CorrespondingSourceObject: {fileID: 6461537779039267537, guid: 126fc26eeafb97b4da5d995e0131e71f,
     type: 3}
   m_PrefabInstance: {fileID: 2157757148177570554}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &327957876509967908 stripped
+--- !u!4 &2826682490287139943 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1836561837865573598, guid: 126fc26eeafb97b4da5d995e0131e71f,
+  m_CorrespondingSourceObject: {fileID: 4236620673009497757, guid: 126fc26eeafb97b4da5d995e0131e71f,
     type: 3}
   m_PrefabInstance: {fileID: 2157757148177570554}
   m_PrefabAsset: {fileID: 0}
@@ -33731,15 +33711,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2157757148177570554}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2826682490872805046 stripped
+--- !u!4 &327957876509967908 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4236620673866607692, guid: 126fc26eeafb97b4da5d995e0131e71f,
+  m_CorrespondingSourceObject: {fileID: 1836561837865573598, guid: 126fc26eeafb97b4da5d995e0131e71f,
     type: 3}
   m_PrefabInstance: {fileID: 2157757148177570554}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4925278630634450987 stripped
+--- !u!4 &2826682490872805046 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6461537779039267537, guid: 126fc26eeafb97b4da5d995e0131e71f,
+  m_CorrespondingSourceObject: {fileID: 4236620673866607692, guid: 126fc26eeafb97b4da5d995e0131e71f,
     type: 3}
   m_PrefabInstance: {fileID: 2157757148177570554}
   m_PrefabAsset: {fileID: 0}
@@ -44879,6 +44859,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
+        type: 3}
+      propertyPath: damageToGive
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 114779091398314986, guid: 89149651d80dd164f8ee108d8061f19c,
         type: 3}
       propertyPath: MaxHealth
@@ -44888,11 +44873,6 @@ PrefabInstance:
         type: 3}
       propertyPath: expToGive
       value: 110
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
-        type: 3}
-      propertyPath: damageToGive
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89149651d80dd164f8ee108d8061f19c, type: 3}
@@ -78127,6 +78107,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
+        type: 3}
+      propertyPath: damageToGive
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 114779091398314986, guid: 89149651d80dd164f8ee108d8061f19c,
         type: 3}
       propertyPath: MaxHealth
@@ -78136,11 +78121,6 @@ PrefabInstance:
         type: 3}
       propertyPath: expToGive
       value: 110
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
-        type: 3}
-      propertyPath: damageToGive
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89149651d80dd164f8ee108d8061f19c, type: 3}
@@ -86267,6 +86247,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
+        type: 3}
+      propertyPath: damageToGive
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 114779091398314986, guid: 89149651d80dd164f8ee108d8061f19c,
         type: 3}
       propertyPath: MaxHealth
@@ -86276,11 +86261,6 @@ PrefabInstance:
         type: 3}
       propertyPath: expToGive
       value: 110
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007502805436104, guid: 89149651d80dd164f8ee108d8061f19c,
-        type: 3}
-      propertyPath: damageToGive
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89149651d80dd164f8ee108d8061f19c, type: 3}

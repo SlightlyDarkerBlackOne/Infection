@@ -25,8 +25,17 @@ public class EnemyHealthManager : MonoBehaviour {
             PlayerStats.Instance.AddExperience(expToGive);
 
             SFXManager.Instance.PlaySound(SFXManager.Instance.enemyDead);
+
+            DropItem();
         }
 	}
+
+    private void DropItem(){
+        GameObject item = gameObject.GetComponent<BossItems>().itemToDrop;
+        Vector3 position = gameObject.transform.position;
+        if(item != null)
+            Instantiate(item, position, Quaternion.identity);
+    }
 
     public void HurtEnemy(int damageToGive)
     {

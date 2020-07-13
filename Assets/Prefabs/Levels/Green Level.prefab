@@ -46,7 +46,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7886668127901454398}
   - component: {fileID: 7886668127901454396}
-  - component: {fileID: 7886668127901454399}
   m_Layer: 0
   m_Name: RedPortal
   m_TagString: Untagged
@@ -94,25 +93,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5176849, y: 2.3680992}
   m_EdgeRadius: 0
---- !u!114 &7886668127901454399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7886668127901454393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decdc7b5093326348a6bc2b8455f7bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasKey: 1
-  ishouse: 0
-  nextLevel: {fileID: 0}
-  textPrefab: {fileID: 1456154812438104, guid: df7a3a5e1469db1468cf96cafdb9e8aa, type: 3}
-  portalBack: 0
-  portalFromHouse: 0
-  lastLevelPos: {fileID: 0}
 --- !u!1 &7886668127906488126
 GameObject:
   m_ObjectHideFlags: 0
@@ -7256,7 +7236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7886668129460077906}
   - component: {fileID: 7886668129460077904}
-  - component: {fileID: 7886668129460077907}
   m_Layer: 0
   m_Name: PurplePortal
   m_TagString: Untagged
@@ -7304,25 +7283,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1230774, y: 3.3344631}
   m_EdgeRadius: 0
---- !u!114 &7886668129460077907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7886668129460077917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decdc7b5093326348a6bc2b8455f7bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasKey: 1
-  ishouse: 0
-  nextLevel: {fileID: 0}
-  textPrefab: {fileID: 1456154812438104, guid: df7a3a5e1469db1468cf96cafdb9e8aa, type: 3}
-  portalBack: 1
-  portalFromHouse: 0
-  lastLevelPos: {fileID: 0}
 --- !u!1 &7886668129468158079
 GameObject:
   m_ObjectHideFlags: 0
@@ -9184,7 +9144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7886668129828587784}
-  - component: {fileID: 7886668129828587785}
+  - component: {fileID: 9216704325938115491}
   m_Layer: 0
   m_Name: Green Level
   m_TagString: Untagged
@@ -9218,7 +9178,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7886668129828587785
+--- !u!114 &9216704325938115491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9227,16 +9187,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7886668129828587787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50804c73df556ec44a7e6abe68351278, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b882370310299b4fac7148ef6f8a207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: 62.7
-  minY: -57.5
-  maxX: 101.4
-  maxY: -24
-  playerLevelPosition: {fileID: 0}
-  levelCamera: {fileID: 0}
-  player: {fileID: 0}
+  levelName: 
+  minX: 0
+  minY: 0
+  maxX: 0
+  maxY: 0
+  startingPosition: {fileID: 0}
+  endPosition: {fileID: 0}
 --- !u!1 &7886668129859029917
 GameObject:
   m_ObjectHideFlags: 0
@@ -59474,24 +59434,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4863cc8ed94ef324c91750304453d0e9, type: 3}
---- !u!4 &4249136727032908749 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6306417956649359396, guid: 4863cc8ed94ef324c91750304453d0e9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7886668129494242281}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6871881549438153380 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3616040016871186765, guid: 4863cc8ed94ef324c91750304453d0e9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7886668129494242281}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7361114323398110540 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 816555167373147813, guid: 4863cc8ed94ef324c91750304453d0e9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7886668129494242281}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4764597348634919490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3417197389503599019, guid: 4863cc8ed94ef324c91750304453d0e9,
@@ -59501,6 +59443,24 @@ Transform:
 --- !u!4 &4249136727511789832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6306417956167475937, guid: 4863cc8ed94ef324c91750304453d0e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7886668129494242281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7361114323398110540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 816555167373147813, guid: 4863cc8ed94ef324c91750304453d0e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7886668129494242281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6871881549438153380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3616040016871186765, guid: 4863cc8ed94ef324c91750304453d0e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7886668129494242281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4249136727032908749 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6306417956649359396, guid: 4863cc8ed94ef324c91750304453d0e9,
     type: 3}
   m_PrefabInstance: {fileID: 7886668129494242281}
   m_PrefabAsset: {fileID: 0}

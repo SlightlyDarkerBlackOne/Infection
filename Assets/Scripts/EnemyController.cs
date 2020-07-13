@@ -49,6 +49,8 @@ public class EnemyController : MonoBehaviour {
     private float timeBetweenAttack;
     public float startTimeBetweenAttack;
 
+    public bool boss = false;
+
 
 	// Use this for initialization
 	void Start () {

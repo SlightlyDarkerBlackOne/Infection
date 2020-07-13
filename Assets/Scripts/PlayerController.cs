@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour
     public float startDashTime;
     public int dashManaCost = 10;
 
+    public float speedBonusModifier = 1;
+    private float startMoveBonusCooldown;
+    [SerializeField]
+    private float moveBonusCooldown;
+    public float moveBonusDuration;
+    public bool grantMoveBonus;
 
     private Animator anim;
     private Rigidbody2D rb;
@@ -50,7 +56,7 @@ public class PlayerController : MonoBehaviour
     bool endOfAiming;
     public float cursorDistance;
 
-    bool meleeWeaponEquiped;
+    public bool meleeWeaponEquiped;
 
     bool playerFrozen = false;
 
@@ -75,8 +81,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        transform.position = FindObjectOfType<LevelManager>()
-                .playerLevelPosition.transform.position;
+        LevelManager.Instance.PutPlayerOnStartingPosition();
 
         currentState = PlayerState.idle;
         //crossHair.SetActive(true);
@@ -122,7 +127,7 @@ public class PlayerController : MonoBehaviour
             //if(meleeWeaponEquiped){}
             //Movement when attacking
             if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
-                    && !playerFrozen && (currentState != PlayerState.attack)){
+                    && !playerFrozen && (currentState != PlayerState.attack) && meleeWeaponEquiped){
                 attackTimeCounter = attackTime;
                 attacking = true;
 
@@ -133,6 +138,7 @@ public class PlayerController : MonoBehaviour
                 //arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
             }
             Dash();
+            SetMoveSpeedForADuration();
         }
 
         if (attackTimeCounter >= 0){
@@ -187,6 +193,25 @@ public class PlayerController : MonoBehaviour
         }
         dashTime -= Time.deltaTime;
     }
+    
+    //Modifies moveSpeed if its not on cooldown 
+    //When duration ends, returns to oldMovespeed
+    private void SetMoveSpeedForADuration()
+    {
+        if(grantMoveBonus){
+            if(moveBonusCooldown <= 0){
+                moveBonusCooldown = startMoveBonusCooldown;
+                moveSpeed *= speedBonusModifier;
+            }
+            if(moveBonusDuration <= 0){
+                moveSpeed /= speedBonusModifier;
+                grantMoveBonus = false;
+            }
+            moveBonusDuration -= Time.deltaTime;
+        }
+        moveBonusCooldown -= Time.deltaTime;
+        
+    }
 
     //used to access the private variable attacking
     public bool Attacking()
@@ -205,21 +230,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(attackTime);
         currentState = PlayerState.idle;
     }
-
-    public void SetMoveSpeedForADuration(int modifier, int duration)
-    {
-        float oldMoveSpeed = moveSpeed;
-        moveSpeed *= modifier;
-
-        StartCoroutine(WaitCorutine(duration));
-        moveSpeed = oldMoveSpeed;
-    }
-
-    IEnumerator WaitCorutine(int duration)
-    {
-        yield return new WaitForSeconds(duration);
-    }
-
 
     /*private void AimAndShoot() {
         
@@ -246,6 +256,13 @@ public class PlayerController : MonoBehaviour
 
         }
     } */
+
+    public void SetMoveSpeedBonuses(float speedModifier, float duration, float cooldown){
+        grantMoveBonus = true;
+        speedBonusModifier = speedModifier;
+        moveBonusDuration = duration;
+        startMoveBonusCooldown = cooldown;
+    }
 
     private void ProcessInputs()
     {

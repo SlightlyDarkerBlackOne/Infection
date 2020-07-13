@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
                 lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
 
                 lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
-                if(lastSlotItem != null){
+                if(lastSlotItem != null && lastSlotItem.itemName == "Health Potion"){
                     lastSlotItem.Use();
                     Debug.Log("Heal " + i);
 
@@ -41,6 +41,39 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+        if(Input.GetKeyDown(KeyCode.M)){
+            Transform lastChild;
+            Item lastSlotItem = null;
+            for (int i = 1; i <= itemSlots; i++)
+            {
+                lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
+
+                lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
+                if(lastSlotItem != null && lastSlotItem.itemName == "Mana Potion"){
+                    lastSlotItem.Use();
+                    Debug.Log("Mana " + i);
+
+                    break;
+                }
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.C)){
+            Transform lastChild;
+            Item lastSlotItem = null;
+            for (int i = 1; i <= itemSlots; i++)
+            {
+                lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
+
+                lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
+                if(lastSlotItem != null && lastSlotItem.itemName == "Speed Scroll"){
+                    lastSlotItem.Use();
+                    Debug.Log("Speed " + i);
+
+                    break;
+                }
+            }
+        }
+
     }
 
     void updatePanelSlots(){
