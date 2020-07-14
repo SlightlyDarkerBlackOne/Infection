@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public float speedBonusModifier = 1;
     private float startMoveBonusCooldown;
     [SerializeField]
-    private float moveBonusCooldown;
+    public float moveBonusCooldown{get; private set;}
     public float moveBonusDuration;
     public bool grantMoveBonus;
 
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
     private void SetMoveSpeedForADuration()
     {
         if(grantMoveBonus){
-            if(moveBonusCooldown <= 0){
+            if(SpeedNotOnCooldown()){
                 moveBonusCooldown = startMoveBonusCooldown;
                 moveSpeed *= speedBonusModifier;
             }
@@ -262,6 +262,11 @@ public class PlayerController : MonoBehaviour
         speedBonusModifier = speedModifier;
         moveBonusDuration = duration;
         startMoveBonusCooldown = cooldown;
+    }
+    public bool SpeedNotOnCooldown(){
+        if(moveBonusCooldown <= 0)
+            return true;
+        else return false;
     }
 
     private void ProcessInputs()

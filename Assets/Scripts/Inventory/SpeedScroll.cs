@@ -11,10 +11,14 @@ public class SpeedScroll : Item
 
     public override void Use(){
         GameObject player = PlayerController.Instance.gameObject;
-        PlayerController pc = player.GetComponent<PlayerController>();
-       
-        pc.SetMoveSpeedBonuses(speedBonusModifier, duration, cooldown);
-
-        Inventory.instance.Remove(this);
+        PlayerController pc = PlayerController.Instance;
+        //player.GetComponent<PlayerController>();
+        
+        if(pc.SpeedNotOnCooldown()) {
+            pc.SetMoveSpeedBonuses(speedBonusModifier, duration, cooldown);
+            Inventory.instance.Remove(this);
+        } else{
+            Inventory.instance.GetComponent<ShowCooldown>().ShowFloatingText(this.itemName);
+        }
    }
 }

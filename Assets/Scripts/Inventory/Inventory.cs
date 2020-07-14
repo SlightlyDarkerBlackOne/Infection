@@ -30,13 +30,12 @@ public class Inventory : MonoBehaviour
             Item lastSlotItem = null;
             for (int i = 1; i <= itemSlots; i++)
             {
-                lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
+                lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
 
-                lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
+                InventorySlotController lastSlot = lastChild.GetComponent<InventorySlotController>();
+                lastSlotItem = lastSlot.item;
                 if(lastSlotItem != null && lastSlotItem.itemName == "Health Potion"){
-                    lastSlotItem.Use();
-                    Debug.Log("Heal " + i);
-
+                    lastSlot.Use();
                     break;
                 }
             }
@@ -46,13 +45,11 @@ public class Inventory : MonoBehaviour
             Item lastSlotItem = null;
             for (int i = 1; i <= itemSlots; i++)
             {
-                lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
+                lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
 
                 lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
                 if(lastSlotItem != null && lastSlotItem.itemName == "Mana Potion"){
                     lastSlotItem.Use();
-                    Debug.Log("Mana " + i);
-
                     break;
                 }
             }
@@ -62,13 +59,11 @@ public class Inventory : MonoBehaviour
             Item lastSlotItem = null;
             for (int i = 1; i <= itemSlots; i++)
             {
-                lastChild = InventoryPanel.transform.GetChild(transform.childCount - i);
-
+                lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
+                
                 lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
                 if(lastSlotItem != null && lastSlotItem.itemName == "Speed Scroll"){
                     lastSlotItem.Use();
-                    Debug.Log("Speed " + i);
-
                     break;
                 }
             }
