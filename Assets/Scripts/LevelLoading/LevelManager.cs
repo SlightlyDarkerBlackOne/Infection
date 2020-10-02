@@ -28,28 +28,27 @@ public class LevelManager : MonoBehaviour
         /*Camera.main.GetComponent<CameraMove>()
             .ChangeLevelBorders(levels[currentLevel].minX, levels[currentLevel].minY, 
                     levels[currentLevel].maxX, levels[currentLevel].maxY);*/
-        CurrentLevel+=2;
-        Debug.Log("level unaprijed: " + CurrentLevel);
+        CurrentLevel++;
         PutPlayerOnStartingPosition();
-        Debug.Log("Player pozicija: " + playerPositonTEst());
     }
-
     public void LevelBackward(){
         //Fade out level change
         /*Camera.main.GetComponent<CameraMove>().ChangeLevelBorders(levels[currentLevel].minX, levels[currentLevel].minY, 
                     levels[currentLevel].maxX, levels[currentLevel].maxY);*/
         CurrentLevel--;
-        Debug.Log("level unazad: " + CurrentLevel);
         PutPlayerOnEndPosition();
     }
 
+    //In the if statement adds levelPos to the starting position because of level specific offset
+    //and because player prefab can't be parented 
     public void PutPlayerOnStartingPosition(){
-        player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
-         levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
-    }
-     public Vector3 playerPositonTEst(){
-        return player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
-         levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
+        if(CurrentLevel> 0){
+            Vector2 levelPos = levels[CurrentLevel].transform.position;
+            player.transform.position = new Vector3(levelPos.x + levels[CurrentLevel].startingPosition.transform.position.x,
+                levelPos.y + levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z); 
+        } else  
+            player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
+                levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
     }
     public void PutPlayerOnEndPosition(){
         player.transform.position = new Vector3(levels[CurrentLevel].endPosition.transform.position.x,

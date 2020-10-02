@@ -18,11 +18,9 @@ public class PortalToNewScene : MonoBehaviour
                     LevelManager.Instance.LevelBackward();
                 } else{
                     Debug.Log("bum");
-                    SceneManager.LoadScene(LevelManager.Instance.levels[LevelManager.Instance.CurrentLevel + 2].levelName);
+                    SceneManager.LoadScene(LevelManager.Instance.levels[LevelManager.Instance.CurrentLevel + 1].levelName);
                     LevelManager.Instance.LevelForward();
                 }
-                
-               // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
