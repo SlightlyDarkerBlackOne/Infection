@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GreenLevel.unity
     guid: 13ac0e52e3aa7074e919c589008891f1
   - enabled: 1
+    path: Assets/Scenes/RedLevel.unity
+    guid: fa40ac4694ec2074880947ce1922b424
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 30906eb71799da44bb060610e01af716
   - enabled: 1

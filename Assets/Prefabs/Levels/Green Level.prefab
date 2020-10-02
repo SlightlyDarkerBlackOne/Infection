@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &93303249266784207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6110203150588708074}
+  m_Layer: 0
+  m_Name: EndLevelPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6110203150588708074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93303249266784207}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 105.55, y: -57.81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7886668129828587784}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7886668127895733906
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7886668127901454398}
   - component: {fileID: 7886668127901454396}
+  - component: {fileID: 6386709360072621463}
   m_Layer: 0
   m_Name: RedPortal
   m_TagString: Untagged
@@ -93,6 +124,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5176849, y: 2.3680992}
   m_EdgeRadius: 0
+--- !u!114 &6386709360072621463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886668127901454393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cbf041fb98d2e4459d6d3fff16a2944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasKey: 1
+  ishouse: 0
+  portalToPreviousScene: 0
 --- !u!1 &7886668127906488126
 GameObject:
   m_ObjectHideFlags: 0
@@ -7236,6 +7282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7886668129460077906}
   - component: {fileID: 7886668129460077904}
+  - component: {fileID: 1707905798310882933}
   m_Layer: 0
   m_Name: PurplePortal
   m_TagString: Untagged
@@ -7283,6 +7330,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1230774, y: 3.3344631}
   m_EdgeRadius: 0
+--- !u!114 &1707905798310882933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886668129460077917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cbf041fb98d2e4459d6d3fff16a2944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasKey: 1
+  ishouse: 0
+  portalToPreviousScene: 1
 --- !u!1 &7886668129468158079
 GameObject:
   m_ObjectHideFlags: 0
@@ -9160,7 +9222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7886668129828587787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9050566, y: -0.18779923, z: -10.098944}
+  m_LocalPosition: {x: 25.2, y: -43.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7886668129403482401}
@@ -9175,6 +9237,8 @@ Transform:
   - {fileID: 7886668129093807424}
   - {fileID: 7361114323398110540}
   - {fileID: 7886668128532059651}
+  - {fileID: 5861155517152801514}
+  - {fileID: 6110203150588708074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9190,13 +9254,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b882370310299b4fac7148ef6f8a207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: 
+  levelName: GreenLevel
   minX: 0
   minY: 0
   maxX: 0
   maxY: 0
-  startingPosition: {fileID: 0}
-  endPosition: {fileID: 0}
+  startingPosition: {fileID: 8844796061996461613}
+  endPosition: {fileID: 93303249266784207}
 --- !u!1 &7886668129859029917
 GameObject:
   m_ObjectHideFlags: 0
@@ -10391,6 +10455,36 @@ Transform:
   - {fileID: 8258266804391861913}
   m_Father: {fileID: 7886668129403482401}
   m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8844796061996461613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5861155517152801514}
+  m_Layer: 0
+  m_Name: StartLevelPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5861155517152801514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8844796061996461613}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 61.56, y: -24.77, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7886668129828587784}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &918413388307815978
 PrefabInstance:
@@ -59434,15 +59528,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4863cc8ed94ef324c91750304453d0e9, type: 3}
---- !u!4 &4764597348634919490 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3417197389503599019, guid: 4863cc8ed94ef324c91750304453d0e9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7886668129494242281}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4249136727511789832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6306417956167475937, guid: 4863cc8ed94ef324c91750304453d0e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7886668129494242281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6871881549438153380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3616040016871186765, guid: 4863cc8ed94ef324c91750304453d0e9,
     type: 3}
   m_PrefabInstance: {fileID: 7886668129494242281}
   m_PrefabAsset: {fileID: 0}
@@ -59452,9 +59546,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7886668129494242281}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6871881549438153380 stripped
+--- !u!4 &4764597348634919490 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3616040016871186765, guid: 4863cc8ed94ef324c91750304453d0e9,
+  m_CorrespondingSourceObject: {fileID: 3417197389503599019, guid: 4863cc8ed94ef324c91750304453d0e9,
     type: 3}
   m_PrefabInstance: {fileID: 7886668129494242281}
   m_PrefabAsset: {fileID: 0}

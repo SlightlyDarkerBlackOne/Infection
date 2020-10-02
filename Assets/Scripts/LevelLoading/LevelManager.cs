@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    private int currentLevel = 0;
+    public int CurrentLevel {get; private set;} = 0;
     public Level[] levels;
     private GameObject player;
 
@@ -18,12 +18,9 @@ public class LevelManager : MonoBehaviour
         } else{
             Destroy(gameObject);
         }
-    }
-    #endregion
-    void Start()
-    {
         player = PlayerController.Instance.gameObject;
     }
+    #endregion
 
     public void LevelForward(){
 
@@ -31,20 +28,31 @@ public class LevelManager : MonoBehaviour
         /*Camera.main.GetComponent<CameraMove>()
             .ChangeLevelBorders(levels[currentLevel].minX, levels[currentLevel].minY, 
                     levels[currentLevel].maxX, levels[currentLevel].maxY);*/
-        player.transform.position = new Vector3(levels[currentLevel].startingPosition.transform.position.x,
-         levels[currentLevel].startingPosition.transform.position.y, player.transform.position.z);
-        
+        CurrentLevel+=2;
+        Debug.Log("level unaprijed: " + CurrentLevel);
+        PutPlayerOnStartingPosition();
+        Debug.Log("Player pozicija: " + playerPositonTEst());
     }
 
-    public void LevelBack(float x, float y){
+    public void LevelBackward(){
         //Fade out level change
         /*Camera.main.GetComponent<CameraMove>().ChangeLevelBorders(levels[currentLevel].minX, levels[currentLevel].minY, 
                     levels[currentLevel].maxX, levels[currentLevel].maxY);*/
-        player.transform.position = new Vector3(x, y, player.transform.position.z);
+        CurrentLevel--;
+        Debug.Log("level unazad: " + CurrentLevel);
+        PutPlayerOnEndPosition();
     }
 
     public void PutPlayerOnStartingPosition(){
-        player.transform.position = new Vector3(levels[currentLevel].startingPosition.transform.position.x,
-         levels[currentLevel].startingPosition.transform.position.y, player.transform.position.z);
+        player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
+         levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
+    }
+     public Vector3 playerPositonTEst(){
+        return player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
+         levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
+    }
+    public void PutPlayerOnEndPosition(){
+        player.transform.position = new Vector3(levels[CurrentLevel].endPosition.transform.position.x,
+         levels[CurrentLevel].endPosition.transform.position.y, player.transform.position.z);
     }
 }
