@@ -39,17 +39,9 @@ public class LevelManager : MonoBehaviour
         PutPlayerOnEndPosition();
     }
 
-    //In the if statement adds levelPos to the starting position because of level specific offset
-    //and because player prefab can't be parented 
     public void PutPlayerOnStartingPosition(){
-        if(false){
-            Vector2 levelPos = levels[CurrentLevel].transform.position;
-            player.transform.position = new Vector3(levelPos.x + levels[CurrentLevel].startingPosition.transform.position.x,
-                levelPos.y + levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z); 
-        } else if(false) {
-              player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
-                levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
-          }      
+        player.transform.position = new Vector3(levels[CurrentLevel].startingPosition.transform.position.x,
+            levels[CurrentLevel].startingPosition.transform.position.y, player.transform.position.z);
     }
     public void PutPlayerOnEndPosition(){
         player.transform.position = new Vector3(levels[CurrentLevel].endPosition.transform.position.x,

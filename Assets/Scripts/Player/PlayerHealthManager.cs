@@ -68,6 +68,8 @@ public class PlayerHealthManager : MonoBehaviour {
     }
     private void Dead(){
         gameObject.SetActive(false);
+        SFXManager.Instance.PlaySound(SFXManager.Instance.playerDead);
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         SetToMaxHealth();
     }
@@ -76,6 +78,7 @@ public class PlayerHealthManager : MonoBehaviour {
     {
         playerCurrentHealth -= damageToGive;
 
+        SFXManager.Instance.PlaySound(SFXManager.Instance.playerHurt);
         flashActive = true;
         flashCounter = flashLength;
     }
