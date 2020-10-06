@@ -14,6 +14,8 @@ public class SFXManager : MonoBehaviour {
     public AudioSource itemPickedUp;
     public AudioSource soundTrack;
     public AudioSource dash;
+    public AudioSource speedBuff;
+    public AudioSource footsteps;
 
     #region Singleton
     public static SFXManager Instance {get; private set;}

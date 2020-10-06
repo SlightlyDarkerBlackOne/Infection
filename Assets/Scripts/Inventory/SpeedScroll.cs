@@ -18,7 +18,8 @@ public class SpeedScroll : Item
             pc.SetMoveSpeedBonuses(speedBonusModifier, duration, cooldown);
             Inventory.instance.Remove(this);
         } else{
-            Inventory.instance.GetComponent<ShowCooldown>().ShowFloatingText(this.itemName);
+            Inventory.instance.GetComponent<ShowCooldown>()
+                .ShowFloatingText(this.itemName, Color.yellow);
         }
    }
 }

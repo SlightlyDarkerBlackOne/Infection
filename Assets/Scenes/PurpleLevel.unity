@@ -1750,6 +1750,11 @@ PrefabInstance:
       propertyPath: playerDead
       value: 
       objectReference: {fileID: 147922949}
+    - target: {fileID: 1650644131258543261, guid: b5ea92041c72af7478f09684832f1df3,
+        type: 3}
+      propertyPath: speedBuff
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5ea92041c72af7478f09684832f1df3, type: 3}
 --- !u!1001 &3803730823229825344

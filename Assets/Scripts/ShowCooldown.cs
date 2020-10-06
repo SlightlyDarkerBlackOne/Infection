@@ -6,9 +6,10 @@ public class ShowCooldown : MonoBehaviour
 {
     public GameObject floatingText;
 
-    public void ShowFloatingText(string itemName){
+    public void ShowFloatingText(string itemName, Color color){
         var clone = (GameObject)Instantiate(floatingText,
             PlayerController.Instance.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<FloatingText>().displayText.color = color;
         clone.GetComponent<FloatingText>().textToShow = itemName + " is on Cooldown! " 
             + PlayerController.Instance.moveBonusCooldown;
         clone.transform.position = new Vector2(PlayerController.Instance.transform.position.x,

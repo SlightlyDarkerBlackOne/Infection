@@ -29,31 +29,19 @@ public class PlayerStats : MonoBehaviour {
         }
     }
     #endregion
-
-	// Use this for initialization
 	void Start () {
         currentHP = HPLevels[1];
         currentAttack = attackLevels[1];
         currentDefense = defenseLevels[1];
 	}
-	
-	// Update is called once per frame
 	void Update () {
-        if (currentExp >= toLevelUp[currentLevel])
-        {
-            //currentLevel++;
-
+        if (currentExp >= toLevelUp[currentLevel]){
             LevelUp();
         }
-
 	}
-
-    public void AddExperience(int experienceToAdd)
-    {
+    public void AddExperience(int experienceToAdd){
         currentExp += experienceToAdd;
     }
-
-    // 
     public void LevelUp()
     {
         currentLevel++;
@@ -62,12 +50,12 @@ public class PlayerStats : MonoBehaviour {
         PlayerHealthManager.Instance.IncreaseMaxHealth(currentHP);
         PlayerManaManager.Instance.SetMaxMana();
 
-        //U slucaju kada lvlupamo lika da mu doda samo razliku na HP koliko se povecava maxhealth
+        //Ako zelimo da mu se doda samo razlika na HP koliko se povecava maxhealth
         //PlayerHealthManager.Instance.playerCurrentHealth += currentHP - HPLevels(currentLevel - 1);
 
         currentAttack = attackLevels[currentLevel];
         currentDefense = defenseLevels[currentLevel];
-
-        SFXManager.Instance.PlaySound(SFXManager.Instance.levelUP);
+        if(currentLevel > 1)
+            SFXManager.Instance.PlaySound(SFXManager.Instance.levelUP);
     }
 }
