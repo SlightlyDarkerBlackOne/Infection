@@ -24,13 +24,29 @@ public class PlayerSkills{
    }
 
    private void UnlockSkill(Skilltype skilltype){
-       if(!IsSkillUnlocked(skilltype))
+       if(!IsSkillUnlocked(skilltype)){
             unlockedSkillTypeList.Add(skilltype);
             OnSkillUnlocked?.Invoke(this, new OnSkillUnlockedEventArgs{skillType = skilltype});
+            Debug.Log("Unlocked skill " + skilltype);
+       }
    }
 
    public bool IsSkillUnlocked(Skilltype skilltype){
        return unlockedSkillTypeList.Contains(skilltype);
+   }
+
+   public bool CanUnlock(Skilltype skilltype){
+       Skilltype skillRequirement = GetSkillRequirement(skilltype);
+
+       if(skillRequirement != Skilltype.None){
+           if(IsSkillUnlocked(skillRequirement)){
+               return true;
+           } else {
+               return false;
+           }
+       } else{
+              return true;
+       }
    }
 
    public Skilltype GetSkillRequirement(Skilltype skilltype){
@@ -43,18 +59,11 @@ public class PlayerSkills{
    }
 
    public bool TryUnlockSKill(Skilltype skilltype){
-       Skilltype skillRequirement = GetSkillRequirement(skilltype);
-
-       if(skillRequirement != Skilltype.None){
-           if(IsSkillUnlocked(skillRequirement)){
-               UnlockSkill(skilltype);
-               return true;
-           } else {
-               return false;
-           }
-       } else{
+       if(CanUnlock(skilltype)){
            UnlockSkill(skilltype);
            return true;
+       } else{
+           return false;
        }
    }
 }

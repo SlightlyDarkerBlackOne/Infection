@@ -1,29 +1,106 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using CodeMonkey.Utils;
 public class SkillTree : MonoBehaviour
 {
+    [SerializeField] private Material skillLockedMaterial;
+    [SerializeField] private Material skillUnlockableMaterial;
+    [SerializeField] private SkillUnlockPath[] skillUnlockPathArray;
+    [SerializeField] private Sprite lineSprite;
+    [SerializeField] private Sprite lineGlowSprite;
+
     private PlayerSkills playerSkills;
-        void Awake(){
-        transform.Find("PotionConsumingBtn").GetComponent<Button_UI>().ClickFunc = () => {
-            playerSkills.TryUnlockSKill(PlayerSkills.Skilltype.PotionConsuming);
-        };
-        transform.Find("HealthRegenBtn").GetComponent<Button_UI>().ClickFunc = () => {
-            playerSkills.TryUnlockSKill(PlayerSkills.Skilltype.HealthRegen);
-        };
-        transform.Find("ManaRegenBtn").GetComponent<Button_UI>().ClickFunc = () => {
-            playerSkills.TryUnlockSKill(PlayerSkills.Skilltype.ManaRegen);
-        };
-        transform.Find("DashBtn").GetComponent<Button_UI>().ClickFunc = () => {
-            playerSkills.TryUnlockSKill(PlayerSkills.Skilltype.Dash);
-        };
-        transform.Find("MoveSpeedBtn").GetComponent<Button_UI>().ClickFunc = () => {
-            playerSkills.TryUnlockSKill(PlayerSkills.Skilltype.MoveSpeed);
-        };
-    }
+    private List<SkillButton> skillButtonList;
+
 
     public void SetPlayerSkills(PlayerSkills playerSkills){
         this.playerSkills = playerSkills;
+        
+        skillButtonList = new List<SkillButton>();
+        skillButtonList.Add(new SkillButton(transform.Find("PotionConsumingBtn"), playerSkills, PlayerSkills.Skilltype.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial));
+        skillButtonList.Add(new SkillButton(transform.Find("HealthRegenBtn"), playerSkills, PlayerSkills.Skilltype.HealthRegen, skillLockedMaterial, skillUnlockableMaterial));
+        skillButtonList.Add(new SkillButton(transform.Find("ManaRegenBtn"), playerSkills, PlayerSkills.Skilltype.ManaRegen, skillLockedMaterial, skillUnlockableMaterial));
+        skillButtonList.Add(new SkillButton(transform.Find("DashBtn"), playerSkills, PlayerSkills.Skilltype.Dash, skillLockedMaterial, skillUnlockableMaterial));
+        skillButtonList.Add(new SkillButton(transform.Find("MoveSpeedBtn"), playerSkills, PlayerSkills.Skilltype.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial));
+
+        playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillUnlocked;
+        UpdateVisuals();
     }
+
+    private void PlayerSkills_OnSkillUnlocked(object sender, PlayerSkills.OnSkillUnlockedEventArgs e){
+        UpdateVisuals();
+    }
+
+    private void UpdateVisuals(){
+        foreach(SkillButton skillButton in skillButtonList){
+            skillButton.UpdateVisual();
+        }
+
+        foreach(SkillUnlockPath skillUnlockPath in skillUnlockPathArray){
+            foreach(Image linkImage in skillUnlockPath.linkImageArray){
+                linkImage.color = new Color(.5f, .5f, .5f);
+                linkImage.sprite = lineSprite;
+            }
+        }
+
+        foreach(SkillUnlockPath skillUnlockPath in skillUnlockPathArray){
+            if(playerSkills.IsSkillUnlocked(skillUnlockPath.skillType) || playerSkills.CanUnlock(skillUnlockPath.skillType)){
+                foreach(Image linkImage in skillUnlockPath.linkImageArray){
+                    linkImage.color = Color.white;
+                    linkImage.sprite = lineGlowSprite;
+                }
+            }
+        }
+    }
+
+    private class SkillButton{
+        private Transform transform;
+        private Image image;
+        private Image backgroundImage;
+        private PlayerSkills playerSkills;
+        private PlayerSkills.Skilltype skillType;
+        private Material skillLockedMaterial;
+        private Material skillUnlockableMaterial;
+
+        public SkillButton(Transform transform, PlayerSkills playerSkills, PlayerSkills.Skilltype skillType,
+             Material skillLockedMaterial, Material skillUnlockableMaterial){
+            this.transform = transform;
+            this.playerSkills = playerSkills;
+            this.skillType = skillType;
+            this.skillLockedMaterial = skillLockedMaterial;
+            this.skillUnlockableMaterial = skillUnlockableMaterial;
+
+            image = transform.Find("image").GetComponent<Image>();	
+            backgroundImage = transform.Find("background").GetComponent<Image>();
+
+            transform.GetComponent<Button_UI>().ClickFunc = () =>
+            {
+                playerSkills.TryUnlockSKill(skillType);
+            };
+        }
+
+        public void UpdateVisual(){
+            if(playerSkills.IsSkillUnlocked(skillType)){
+                image.material = null;
+                backgroundImage.material = null;
+            } else{
+                if(playerSkills.CanUnlock(skillType)){
+                    image.material = skillUnlockableMaterial;
+                    backgroundImage.material = skillUnlockableMaterial;
+                } else{
+                    image.material = skillLockedMaterial;
+                    backgroundImage.material = skillUnlockableMaterial;
+                }
+            }
+        }
+    }
+
+    [System.Serializable]
+    public class SkillUnlockPath{
+        public PlayerSkills.Skilltype skillType;
+        public Image[] linkImageArray;
+    }
+    
 }
