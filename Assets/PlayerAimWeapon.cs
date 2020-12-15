@@ -43,14 +43,17 @@ public class PlayerAimWeapon : MonoBehaviour
     }
     private void HandleShooting(){
         if(Input.GetButtonDown("Fire1")){
-            aimAnimator.SetTrigger("Draw");
+            aimAnimator.SetBool("Drawing", true);
+        } else if (Input.GetButtonUp("Fire1") && bowAttackCooldown > 0){
+            aimAnimator.SetBool("Drawing", false);
         }
         if (Input.GetButtonUp("Fire1") && bowAttackCooldown <= 0) {
             aimAnimator.SetTrigger("Shoot");
+            aimAnimator.SetBool("Drawing", false);
             bowAttackCooldown = bowAttackTime;
 
             GameObject arrow = Instantiate(arrowPrefab, endPointPosition.position, Quaternion.identity);
-            arrow.GetComponent<Rigidbody2D>().velocity = aimDirection * 5.0f;
+            arrow.GetComponent<Rigidbody2D>().velocity = aimDirection * 15.0f;
             arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg);
             Destroy(arrow, 2.0f);  
         }
