@@ -88,26 +88,13 @@ public class PlayerController : MonoBehaviour
         //Cursor.visible = false;
     }
     void Update(){
-        Menu();
         MoveAndAttack();
         TrailEffect();
         SetAnimations();
         //ProcessInputs();
-        //AimAndShoot();
+        AimAndShoot();
     }
-
-    void Menu(){
-        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
-        {
-            GameObject inventoryPanel = Inventory.instance.InventoryPanel;
-
-            if (!inventoryPanel.activeSelf){
-                inventoryPanel.SetActive(true);
-            } else {
-                inventoryPanel.SetActive(false);
-            }
-        }
-    }
+    
     private void MoveAndAttack(){
         playerMoving = false;
         if (!attacking){
@@ -226,13 +213,14 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.idle;
     }
 
-    /*private void AimAndShoot() {
+    private void AimAndShoot() {
         
-        aim = new Vector3(Input.GetAxis("AimHorizontal"), Input.GetAxis("AimVertical"), 0.0f);
+        aim = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
         Vector2 shootingDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
         // For joystick
         if (aim.magnitude > 0.0f) {
+            Debug.Log("joYstick");
             aim.Normalize();
 
             crossHair.transform.localPosition = aim * 0.4f;
@@ -250,7 +238,7 @@ public class PlayerController : MonoBehaviour
             crossHair.SetActive(false);
 
         }
-    } */
+    } 
     public void IncreaseMoveSpeed(){
         moveSpeed += moveSpeed/10;
     }

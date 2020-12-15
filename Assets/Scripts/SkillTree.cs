@@ -10,20 +10,25 @@ public class SkillTree : MonoBehaviour
     [SerializeField] private SkillUnlockPath[] skillUnlockPathArray;
     [SerializeField] private Sprite lineSprite;
     [SerializeField] private Sprite lineGlowSprite;
+    [SerializeField] private Sprite unlockedBackgroundImage;
 
     private PlayerSkills playerSkills;
     private List<SkillButton> skillButtonList;
 
+    public static SkillTree instance;
 
+    private void Start() {
+        instance = this;
+    }
     public void SetPlayerSkills(PlayerSkills playerSkills){
         this.playerSkills = playerSkills;
         
         skillButtonList = new List<SkillButton>();
-        skillButtonList.Add(new SkillButton(transform.Find("PotionConsumingBtn"), playerSkills, PlayerSkills.Skilltype.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial));
-        skillButtonList.Add(new SkillButton(transform.Find("HealthRegenBtn"), playerSkills, PlayerSkills.Skilltype.HealthRegen, skillLockedMaterial, skillUnlockableMaterial));
-        skillButtonList.Add(new SkillButton(transform.Find("ManaRegenBtn"), playerSkills, PlayerSkills.Skilltype.ManaRegen, skillLockedMaterial, skillUnlockableMaterial));
-        skillButtonList.Add(new SkillButton(transform.Find("DashBtn"), playerSkills, PlayerSkills.Skilltype.Dash, skillLockedMaterial, skillUnlockableMaterial));
-        skillButtonList.Add(new SkillButton(transform.Find("MoveSpeedBtn"), playerSkills, PlayerSkills.Skilltype.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial));
+        skillButtonList.Add(new SkillButton(transform.Find("PotionConsumingBtn"), playerSkills, PlayerSkills.Skilltype.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(transform.Find("HealthRegenBtn"), playerSkills, PlayerSkills.Skilltype.HealthRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(transform.Find("ManaRegenBtn"), playerSkills, PlayerSkills.Skilltype.ManaRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(transform.Find("DashBtn"), playerSkills, PlayerSkills.Skilltype.Dash, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(transform.Find("MoveSpeedBtn"), playerSkills, PlayerSkills.Skilltype.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
 
         playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillUnlocked;
         UpdateVisuals();
@@ -59,18 +64,20 @@ public class SkillTree : MonoBehaviour
         private Transform transform;
         private Image image;
         private Image backgroundImage;
+        private Sprite unlockedBackgroundImage;
         private PlayerSkills playerSkills;
         private PlayerSkills.Skilltype skillType;
         private Material skillLockedMaterial;
         private Material skillUnlockableMaterial;
 
         public SkillButton(Transform transform, PlayerSkills playerSkills, PlayerSkills.Skilltype skillType,
-             Material skillLockedMaterial, Material skillUnlockableMaterial){
+             Material skillLockedMaterial, Material skillUnlockableMaterial, Sprite unlockedBackgroundImage){
             this.transform = transform;
             this.playerSkills = playerSkills;
             this.skillType = skillType;
             this.skillLockedMaterial = skillLockedMaterial;
             this.skillUnlockableMaterial = skillUnlockableMaterial;
+            this.unlockedBackgroundImage = unlockedBackgroundImage;
 
             image = transform.Find("image").GetComponent<Image>();	
             backgroundImage = transform.Find("background").GetComponent<Image>();
@@ -85,6 +92,7 @@ public class SkillTree : MonoBehaviour
             if(playerSkills.IsSkillUnlocked(skillType)){
                 image.material = null;
                 backgroundImage.material = null;
+                backgroundImage.sprite = unlockedBackgroundImage;
             } else{
                 if(playerSkills.CanUnlock(skillType)){
                     image.material = skillUnlockableMaterial;

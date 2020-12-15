@@ -22,6 +22,7 @@ public class EnemyHealthManager : MonoBehaviour {
             Destroy(gameObject);
             PlayerStats.Instance.AddExperience(expToGive);
             SFXManager.Instance.PlaySound(SFXManager.Instance.enemyDead);
+            UIManager.Instance.MonsterKilled();
         }
 	}
 
