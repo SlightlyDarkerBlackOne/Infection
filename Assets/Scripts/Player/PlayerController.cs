@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         TrailEffect();
         SetAnimations();
         //ProcessInputs();
-        AimAndShoot();
+        //AimAndShoot();
     }
     
     private void MoveAndAttack(){
