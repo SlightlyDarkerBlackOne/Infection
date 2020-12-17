@@ -11,9 +11,10 @@ public class PlayerAimWeapon : MonoBehaviour
     public Transform endPointPosition;
     private float bowAttackCooldown;
     public float bowAttackTime;
+    private float angle;
 
     private void Awake() {
-        aimTransform = transform.Find("Aim");
+        aimTransform = transform.Find("Weapons").Find("Aim");
         aimAnimator = aimTransform.GetComponentInChildren<Animator>();
         aimDirection = Vector3.zero;
     }
@@ -38,7 +39,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 transform.position.y + 0.3f, transform.position.z);
 
         aimDirection = (mousePosition - playerCenterPosition).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         aimTransform.eulerAngles = new Vector3(0,0,angle);
     }
     private void HandleShooting(){
@@ -52,10 +53,26 @@ public class PlayerAimWeapon : MonoBehaviour
             aimAnimator.SetBool("Drawing", false);
             bowAttackCooldown = bowAttackTime;
 
-            GameObject arrow = Instantiate(arrowPrefab, endPointPosition.position, Quaternion.identity);
-            arrow.GetComponent<Rigidbody2D>().velocity = aimDirection * 15.0f;
-            arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg);
-            Destroy(arrow, 2.0f);  
+            //SingleArrow();
+            FireMultipleArrows(6);
+        }
+    }
+    private void SingleArrow(){
+        GameObject arrow = Instantiate(arrowPrefab, endPointPosition.position, Quaternion.identity);
+        arrow.GetComponent<Rigidbody2D>().velocity = aimDirection * 15.0f;
+        arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg);
+        Destroy(arrow, 2.0f);
+    }
+    private void FireMultipleArrows(int numOfArrows){
+        float offset = 30f;
+        for (int i = 0; i < numOfArrows; i++)
+        {
+            Quaternion newAngle = Quaternion.AngleAxis ((offset * (i - (numOfArrows / 2))), transform.up);
+            if(i%2 == 0)
+                aimTransform.eulerAngles = new Vector3(0,0,angle+i*offset);
+            else
+                aimTransform.eulerAngles = new Vector3(0,0,angle-i*offset);
+            SingleArrow();
         }
     }
 }

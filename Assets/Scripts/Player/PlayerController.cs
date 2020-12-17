@@ -215,12 +215,11 @@ public class PlayerController : MonoBehaviour
 
     private void AimAndShoot() {
         
-        aim = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-        Vector2 shootingDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        aim = new Vector3(Input.GetAxis("AimHorizontal"), Input.GetAxis("AimVertical"), 0.0f);
+        Vector2 shootingDirection = new Vector2(Input.GetAxis("AimHorizontal"), Input.GetAxis("AimVertical"));
         
         // For joystick
         if (aim.magnitude > 0.0f) {
-            Debug.Log("joYstick");
             aim.Normalize();
 
             crossHair.transform.localPosition = aim * 0.4f;
