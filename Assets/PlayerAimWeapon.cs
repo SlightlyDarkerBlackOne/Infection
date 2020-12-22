@@ -53,8 +53,11 @@ public class PlayerAimWeapon : MonoBehaviour
             aimAnimator.SetBool("Drawing", false);
             bowAttackCooldown = bowAttackTime;
 
-            //SingleArrow();
-            FireMultipleArrows(6);
+            SingleArrow();
+            SingleArrow();
+            SingleArrow();
+            
+            //FireMultipleArrows(6);
         }
     }
     private void SingleArrow(){
