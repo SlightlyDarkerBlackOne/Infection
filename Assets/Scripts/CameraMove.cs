@@ -18,7 +18,7 @@ public class CameraMove : MonoBehaviour {
     //Defines an instance of the weather effect and changes its position in the FixedUpdate function the same as the camera
     private void Start() {
         cameraTarget = PlayerController.Instance.gameObject.transform;
-        instantiatedEffect = Instantiate(weatherEffect, transform.position, Quaternion.identity);
+        //instantiatedEffect = Instantiate(weatherEffect, transform.position, Quaternion.identity);
     }
 
     private void FixedUpdate()
@@ -35,7 +35,7 @@ public class CameraMove : MonoBehaviour {
 
             transform.position = new Vector3(clampX, clampY, -10f);
 
-            instantiatedEffect.transform.position = transform.position;
+            //instantiatedEffect.transform.position = transform.position;
         }
     }
 

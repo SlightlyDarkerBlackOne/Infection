@@ -16,6 +16,7 @@ public class SFXManager : MonoBehaviour {
     public AudioSource dash;
     public AudioSource speedBuff;
     public AudioSource footsteps;
+    public AudioSource[] bowFire;
 
     #region Singleton
     public static SFXManager Instance {get; private set;}
@@ -33,5 +34,11 @@ public class SFXManager : MonoBehaviour {
 
     public void PlaySound(AudioSource source){
         source.Play();
+    }
+
+    public void PlayBowFireSound()
+    {
+        int random = Random.Range(0, 3);
+        bowFire[random].Play();
     }
 }
