@@ -42,9 +42,7 @@ public class DialogueManager : MonoBehaviour {
 
         foreach (string sentence in dialogue.sentences) {
             sentences.Enqueue(sentence);
-
         }
-
         DisplayNextSentence();
     }
 
@@ -53,15 +51,14 @@ public class DialogueManager : MonoBehaviour {
             EndDialogue();
             return;
         }
-
         string sentence = sentences.Dequeue();
 
-        //zaustavlja animiranje prosle recenice ako pocnemo s novom (continue button)
+        //Stops animating last sentence if we start with the new one (continue button)
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
     }
 
-    //ispisuje slovo po slovo u dialogu
+    //Writes letter by letter in dialogue
     IEnumerator TypeSentence (string sentence) {
         dialogueText.text = "";
         foreach(char letter in sentence.ToCharArray()) {

@@ -24,7 +24,7 @@ public class HurtEnemy : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) { 
         if (other.gameObject.tag == "Enemy")
         {
-            if (PlayerController.Instance.Attacking() || yoyoEquiped) {
+            if (PlayerController.Instance.Attacking() || yoyoEquiped || bowEquipped) {
                 currentDamage = damageToGive + PlayerStats.Instance.currentAttack;
                 currentDamage = Crit(currentDamage); //Critical Strike
 
@@ -35,6 +35,10 @@ public class HurtEnemy : MonoBehaviour {
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
                 clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
+                if (bowEquipped)
+                {
+                    Destroy(gameObject, 0.001f);
+                }
             }
         }
     }
