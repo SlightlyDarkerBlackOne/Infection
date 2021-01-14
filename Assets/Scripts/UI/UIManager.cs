@@ -58,7 +58,6 @@ public class UIManager : MonoBehaviour {
 
         numberOfSlainBugs.text = numberOfSlainBugsCounter.ToString();
         
-
         xpBar.value = thePS.currentExp / thePS.toLevelUp[thePS.currentLevel];
     }
 

@@ -30,5 +30,19 @@ public class Hotkeys : MonoBehaviour
                 skillTreePanel.SetActive(false);
             }
         }
+        //CharacterScreen
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GameObject characterPanel = CharacterScreenUI.instance.gameObject;
+
+            if (!characterPanel.activeSelf)
+            {
+                characterPanel.SetActive(true);
+            }
+            else
+            {
+                characterPanel.SetActive(false);
+            }
+        }
     }
 }
