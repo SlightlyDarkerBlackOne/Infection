@@ -15,6 +15,8 @@ public class SkillTree : MonoBehaviour
     private PlayerSkills playerSkills;
     private List<SkillButton> skillButtonList;
 
+    public GameObject skillTreePanel;
+
     public static SkillTree instance;
 
     private void Start() {
@@ -24,11 +26,11 @@ public class SkillTree : MonoBehaviour
         this.playerSkills = playerSkills;
         
         skillButtonList = new List<SkillButton>();
-        skillButtonList.Add(new SkillButton(transform.Find("PotionConsumingBtn"), playerSkills, PlayerSkills.Skilltype.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(transform.Find("HealthRegenBtn"), playerSkills, PlayerSkills.Skilltype.HealthRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(transform.Find("ManaRegenBtn"), playerSkills, PlayerSkills.Skilltype.ManaRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(transform.Find("DashBtn"), playerSkills, PlayerSkills.Skilltype.Dash, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(transform.Find("MoveSpeedBtn"), playerSkills, PlayerSkills.Skilltype.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("PotionConsumingBtn"), playerSkills, PlayerSkills.Skilltype.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("HealthRegenBtn"), playerSkills, PlayerSkills.Skilltype.HealthRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("ManaRegenBtn"), playerSkills, PlayerSkills.Skilltype.ManaRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("DashBtn"), playerSkills, PlayerSkills.Skilltype.Dash, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("MoveSpeedBtn"), playerSkills, PlayerSkills.Skilltype.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
 
         playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillUnlocked;
         UpdateVisuals();

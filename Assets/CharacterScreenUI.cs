@@ -12,6 +12,8 @@ public class CharacterScreenUI : MonoBehaviour
     [SerializeField] Text defenceText;
     [SerializeField] Text monstersSlainText;
 
+    public GameObject characterScreenPanel;
+
     public static CharacterScreenUI instance;
 
     private void Start()

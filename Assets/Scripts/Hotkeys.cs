@@ -22,7 +22,7 @@ public class Hotkeys : MonoBehaviour
         }
         //Skilltree
         if(Input.GetKeyDown(KeyCode.J)){
-            GameObject skillTreePanel = SkillTree.instance.gameObject;
+            GameObject skillTreePanel = SkillTree.instance.skillTreePanel;
 
             if (!skillTreePanel.activeSelf){
                 skillTreePanel.SetActive(true);
@@ -33,7 +33,7 @@ public class Hotkeys : MonoBehaviour
         //CharacterScreen
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GameObject characterPanel = CharacterScreenUI.instance.gameObject;
+            GameObject characterPanel = CharacterScreenUI.instance.characterScreenPanel;
 
             if (!characterPanel.activeSelf)
             {

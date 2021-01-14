@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        LevelManager.Instance.PutPlayerOnStartingPosition();
+        //LevelManager.Instance.PutPlayerOnStartingPosition();
 
         currentState = PlayerState.idle;
         //crossHair.SetActive(true);
