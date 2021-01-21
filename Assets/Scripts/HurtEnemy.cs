@@ -20,11 +20,12 @@ public class HurtEnemy : MonoBehaviour {
 
     public bool yoyoEquiped;
     public bool bowEquipped;
+    public bool bladeVortex;
 
     private void OnTriggerEnter2D(Collider2D other) { 
         if (other.gameObject.tag == "Enemy")
         {
-            if (PlayerController.Instance.Attacking() || yoyoEquiped || bowEquipped) {
+            if (PlayerController.Instance.Attacking() || yoyoEquiped || bowEquipped || bladeVortex) {
                 currentDamage = damageToGive + PlayerStats.Instance.currentAttack;
                 currentDamage = Crit(currentDamage); //Critical Strike
 

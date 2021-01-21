@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 114410232036618628}
   - component: {fileID: 114515726479555442}
   - component: {fileID: 515929754979320697}
-  - component: {fileID: 114140366156114932}
+  - component: {fileID: 3281079001361204461}
   m_Layer: 5
   m_Name: Floating Text
   m_TagString: Untagged
@@ -195,7 +195,7 @@ MonoBehaviour:
   moveSpeed: 2
   displayText: {fileID: 114412856001354280}
   textToShow: 
---- !u!114 &114140366156114932
+--- !u!114 &3281079001361204461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1456154812438104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac0413ef951a2342b68c961dba4f979, type: 3}
+  m_Script: {fileID: 11500000, guid: 39042163897764346b1c6b159622ad59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 2
+  timeToDestroy: 3

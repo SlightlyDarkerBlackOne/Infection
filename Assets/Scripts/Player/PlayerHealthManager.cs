@@ -71,6 +71,7 @@ public class PlayerHealthManager : MonoBehaviour {
         SFXManager.Instance.PlaySound(SFXManager.Instance.playerDead);
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameObject.SetActive(true);
         SetToMaxHealth();
     }
 

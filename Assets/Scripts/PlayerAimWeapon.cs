@@ -11,7 +11,7 @@ public class PlayerAimWeapon : MonoBehaviour
     Vector3 aimDirection;
     public GameObject arrowPrefab;
     public Transform endPointPosition;
-    private float bowAttackCooldown;
+    private float bowAttackCooldown = 0;
     public float bowAttackTime;
     private float angle;
 
@@ -27,11 +27,6 @@ public class PlayerAimWeapon : MonoBehaviour
         HandleAiming();
         HandleShooting();
 
-        if (bowAttackCooldown >= 0){
-            bowAttackCooldown -= Time.deltaTime;
-            //Da daje dmg dok napada
-            //hitPoint.SetActive(true);
-        }
     }
 
     private void HandleAiming(){
@@ -53,7 +48,7 @@ public class PlayerAimWeapon : MonoBehaviour
             else if (Input.GetButtonUp("Fire1") && bowAttackCooldown > 0){
                 aimAnimator.SetBool("Drawing", false);
             }
-            if (Input.GetButtonUp("Fire1") && bowAttackCooldown <= 0){
+            else if (Input.GetButtonUp("Fire1") && bowAttackCooldown <= 0){
                 //if (EventSystem.current.IsPointerOverGameObject()) return;
                 SFXManager.Instance.PlayBowFireSound();
 
@@ -64,6 +59,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 SingleArrow();
                 //FireMultipleArrows(6);
             }
+            bowAttackCooldown -= Time.deltaTime;
         }
     }
     private void SingleArrow(){

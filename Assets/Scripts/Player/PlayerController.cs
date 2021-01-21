@@ -6,6 +6,7 @@ public enum PlayerState
 {
     idle,
     walk,
+    dash,
     attack,
     interact
 }
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        //LevelManager.Instance.PutPlayerOnStartingPosition();
+        LevelManager.Instance.PutPlayerOnStartingPosition(gameObject);
 
         currentState = PlayerState.idle;
         //crossHair.SetActive(true);
@@ -107,22 +108,26 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
                 playerMoving = true;
                 lastMove = moveInput;
-            } else{
+            } else if(currentState != PlayerState.dash){
                 rb.velocity = Vector2.zero;
             }
             //if(meleeWeaponEquiped){}
             //Movement when attacking
             if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.RightControl))
                     && !playerFrozen && (currentState != PlayerState.attack) && meleeWeaponEquiped){
+                currentState = PlayerState.attack;
                 attackTimeCounter = attackTime;
                 attacking = true;
 
                 SFXManager.Instance.PlaySound(SFXManager.Instance.playerAttack);
 
                 rb.velocity = Vector2.zero;
+                Debug.Log("Stopatt: ");
+
                 //GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
                 //arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(15.0f, 0.0f);
             }
+            currentState = PlayerState.idle;
             Dash();
             SetMoveSpeedForADuration();
         }
@@ -167,8 +172,11 @@ public class PlayerController : MonoBehaviour
     public void Dash(){
         if (moveInput != Vector2.zero && Input.GetKeyDown(KeyCode.Space)){
             if (dashTime <= 0 && PlayerManaManager.Instance.playerCurrentMana >= dashManaCost){
+                currentState = PlayerState.dash;
                 dashTime = startDashTime;
+                Debug.Log("Velocity: " + rb.velocity);
                 rb.velocity = rb.velocity * dashSpeed;
+                Debug.Log("Dash Velocity: " + rb.velocity);
                 PlayerManaManager.Instance.TakeMana(dashManaCost);
 
                 SFXManager.Instance.PlaySound(SFXManager.Instance.dash);

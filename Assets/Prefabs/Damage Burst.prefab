@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4075997392296568}
   - component: {fileID: 198151052987828386}
   - component: {fileID: 199421019824804920}
-  - component: {fileID: 114780987208574916}
+  - component: {fileID: 3052847248312937462}
   m_Layer: 0
   m_Name: Damage Burst
   m_TagString: Untagged
@@ -1354,7 +1354,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -1362,8 +1362,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.8679245, g: 0.25792095, b: 0.25792095, a: 1}
+        key1: {r: 0.6320754, g: 0.14012992, b: 0.14012992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4812,7 +4812,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &114780987208574916
+--- !u!114 &3052847248312937462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4821,7 +4821,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248191044452486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac0413ef951a2342b68c961dba4f979, type: 3}
+  m_Script: {fileID: 11500000, guid: 39042163897764346b1c6b159622ad59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 0.5
+  timeToDestroy: 2
