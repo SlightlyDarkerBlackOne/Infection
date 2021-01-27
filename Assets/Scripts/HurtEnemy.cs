@@ -32,10 +32,12 @@ public class HurtEnemy : MonoBehaviour {
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
                 SFXManager.Instance.PlaySound(SFXManager.Instance.enemyHit);
 
-                Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+                GameObject burst = Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+                Destroy(burst, 2f);
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
                 clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
+                Destroy(clone, 2f);
                 if (bowEquipped)
                 {
                     Destroy(gameObject, 0.001f);
@@ -52,12 +54,14 @@ public class HurtEnemy : MonoBehaviour {
 
                 other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
                 SFXManager.Instance.PlaySound(SFXManager.Instance.enemyHit);
-                
-                Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+
+                GameObject burst = Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+                Destroy(burst, 2f);
                 var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
                 clone.transform.position = new Vector2(hitPoint.position.x, hitPoint.position.y);
-                if(bowEquipped){
+                Destroy(clone, 2f);
+                if (bowEquipped){
                     Destroy(gameObject, 0.001f);
                 }
             }

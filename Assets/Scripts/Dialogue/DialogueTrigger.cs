@@ -25,7 +25,10 @@ public class DialogueTrigger : MonoBehaviour {
             if(!shownAllready)
                 TriggerDialogue();
             if (showOnce)
+            {
                 shownAllready = true;
+                Destroy(gameObject);
+            }
         }
     }
 }

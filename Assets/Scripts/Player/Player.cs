@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
                 //SetManaRegen();
                 break;
             case PlayerSkills.Skilltype.MoveSpeed:
-                PlayerController.Instance.IncreaseMoveSpeed();
+                PlayerController2D.Instance.IncreaseMoveSpeed();
                 break;
             case PlayerSkills.Skilltype.PotionConsuming:
                 //EnablePotionConsuming();

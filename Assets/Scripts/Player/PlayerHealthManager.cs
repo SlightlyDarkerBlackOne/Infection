@@ -67,12 +67,13 @@ public class PlayerHealthManager : MonoBehaviour {
         }
     }
     private void Dead(){
-        gameObject.SetActive(false);
         SFXManager.Instance.PlaySound(SFXManager.Instance.playerDead);
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        gameObject.SetActive(true);
+
+        SceneManager.LoadScene(LevelManager.Instance.levels[0].levelName);
+        LevelManager.Instance.SetToLevelOne();
+
         SetToMaxHealth();
+        PlayerManaManager.Instance.SetMaxMana();
     }
 
     public void HurtPlayer(int damageToGive)

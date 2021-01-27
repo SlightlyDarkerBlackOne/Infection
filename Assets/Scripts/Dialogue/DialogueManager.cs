@@ -31,7 +31,7 @@ public class DialogueManager : MonoBehaviour {
     
     //For starting a dialogue and also for starting quest dialogue
     public void StartDialogue(Dialogue dialogue) {
-        PlayerController.Instance.FrezePlayer();
+        PlayerController2D.Instance.FrezePlayer();
         animator.SetBool("IsOpen", true);
 
         nameText.text = dialogue.name;
@@ -69,6 +69,6 @@ public class DialogueManager : MonoBehaviour {
 
     void EndDialogue() {
         animator.SetBool("IsOpen", false);
-        PlayerController.Instance.UnFreezePlayer();
+        PlayerController2D.Instance.UnFreezePlayer();
     }
 }

@@ -46,4 +46,10 @@ public class LevelManager : MonoBehaviour
         player.transform.position = new Vector3(levels[CurrentLevel].endPosition.transform.position.x,
          levels[CurrentLevel].endPosition.transform.position.y, player.transform.position.z);
     }
+
+    public void SetToLevelOne()
+    {
+        CurrentLevel = 0;
+        PutPlayerOnStartingPosition(PlayerController.Instance.gameObject);
+    }
 }

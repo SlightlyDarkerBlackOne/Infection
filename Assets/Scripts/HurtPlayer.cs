@@ -26,7 +26,6 @@ public class HurtPlayer : MonoBehaviour {
             coolDownBetweenHits = 0;
 	}
 
-    //private void OnCollisionEnter2D(Collision2D coll)
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if(coll.gameObject.tag == "Player")
@@ -37,6 +36,7 @@ public class HurtPlayer : MonoBehaviour {
                 var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
                 clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
+                Destroy(clone, 2f);
 
                 coolDownBetweenHits = startCoolDownBetweenHits;
             }

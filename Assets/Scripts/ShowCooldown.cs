@@ -8,11 +8,11 @@ public class ShowCooldown : MonoBehaviour
 
     public void ShowFloatingText(string itemName, Color color){
         var clone = (GameObject)Instantiate(floatingText,
-            PlayerController.Instance.transform.position, Quaternion.Euler(Vector3.zero));
+            PlayerController2D.Instance.transform.position, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<FloatingText>().displayText.color = color;
         clone.GetComponent<FloatingText>().textToShow = itemName + " is on Cooldown! " 
-            + PlayerController.Instance.moveBonusCooldown;
+            + PlayerController2D.Instance.MoveBonusCooldown;
         clone.transform.position = new Vector2(PlayerController.Instance.transform.position.x,
-            PlayerController.Instance.transform.position.y);
+            PlayerController2D.Instance.transform.position.y);
     }
 }

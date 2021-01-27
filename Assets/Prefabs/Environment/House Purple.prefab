@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7363168285809631800}
   - component: {fileID: -1681866391473187930}
   - component: {fileID: 8414184202124050838}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: House Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}

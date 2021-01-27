@@ -12,12 +12,10 @@ public enum PlayerState
 }
 public class PlayerController : MonoBehaviour
 {
-
     public PlayerState currentState;
     public float moveSpeed;
     private float currentMoveSpeed;
 
-    //dodati malo kasnije WaitForSeconds(0.1) dash f-ju
     public float dashSpeed;
     [SerializeField]
     private float dashTime;
@@ -81,7 +79,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        LevelManager.Instance.PutPlayerOnStartingPosition(gameObject);
+        //LevelManager.Instance.PutPlayerOnStartingPosition(gameObject);
 
         currentState = PlayerState.idle;
         //crossHair.SetActive(true);
@@ -202,7 +200,6 @@ public class PlayerController : MonoBehaviour
             moveBonusDuration -= Time.deltaTime;
         }
         moveBonusCooldown -= Time.deltaTime;
-        
     }
 
     //used to access the private variable attacking

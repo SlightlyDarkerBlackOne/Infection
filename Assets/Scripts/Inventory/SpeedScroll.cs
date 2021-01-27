@@ -10,8 +10,8 @@ public class SpeedScroll : Item
     public int cooldown = 5;
 
     public override void Use(){
-        GameObject player = PlayerController.Instance.gameObject;
-        PlayerController pc = PlayerController.Instance;
+        GameObject player = PlayerController2D.Instance.gameObject;
+        PlayerController2D pc = PlayerController2D.Instance;
         //player.GetComponent<PlayerController>();
         
         if(pc.SpeedNotOnCooldown()) {
