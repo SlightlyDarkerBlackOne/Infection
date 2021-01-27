@@ -1,4 +1,4 @@
-# RPG Bug Game
+# Infection
 
 Simple pixelart RPG game about bugs and survival. The player roams the world fighting against bugs and searching for the antidote.
 
@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Unity 2019.4.0f1
+Unity 2019.2.1f1
 ```
 
 ### Installing
@@ -25,7 +25,7 @@ Unzip and open with Unity Hub
 
 ## Deployment
 
-Clone repo and open with Unity 2019.4.0f1 version.
+Clone repo and open with Unity 2019.2.1f1 version.
 
 ## Built With
 
@@ -35,10 +35,10 @@ Clone repo and open with Unity 2019.4.0f1 version.
 ## Authors
 
 * **Karlo Cividini** - *Coding & Graphics*
-* **Ida Tortić** - *Pixelart and UI*
+* **Ida Tortić** - *Pixelart*
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration from diablo, zelda, terraria and similar type games
+* Hat tip to Brackeys, CodeMonkey, Blacktornprod and others whose code was used
+* Inspiration from path of exile, diablo, zelda, terraria and similar type games
 
