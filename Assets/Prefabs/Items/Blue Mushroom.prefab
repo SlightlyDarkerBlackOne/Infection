@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 722629758715911780}
   - component: {fileID: 722629758715911803}
-  - component: {fileID: 3742344961044969107}
   - component: {fileID: 2609852695099483747}
   - component: {fileID: 1780470257}
   m_Layer: 0
@@ -83,19 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3742344961044969107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722629758715911781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddb0b39289bc7c4448fee4dd0ebaee67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heal: 20
 --- !u!61 &2609852695099483747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,4 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb0b39289bc7c4448fee4dd0ebaee67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heal: 20
+  hpHeal: 0
+  manaHeal: 5
+  speedBuffDuration: 0
