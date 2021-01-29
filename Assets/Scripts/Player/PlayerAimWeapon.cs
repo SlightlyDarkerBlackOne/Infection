@@ -16,7 +16,7 @@ public class PlayerAimWeapon : MonoBehaviour
     private float angle;
 
     private void Awake() {
-        aimTransform = transform.Find("Weapons").Find("Aim");
+        aimTransform = transform.Find("Animation").Find("Weapons").Find("Aim");
         aimAnimator = aimTransform.GetComponentInChildren<Animator>();
         aimDirection = Vector3.zero;
     }

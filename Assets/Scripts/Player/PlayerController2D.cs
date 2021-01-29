@@ -60,7 +60,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        anim = transform.Find("Animation").GetComponent<Animator>();
         state = State.Normal;
     }
     #endregion
