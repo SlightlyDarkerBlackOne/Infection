@@ -12,7 +12,7 @@ public class ShowCooldown : MonoBehaviour
         clone.GetComponent<FloatingText>().displayText.color = color;
         clone.GetComponent<FloatingText>().textToShow = itemName + " is on Cooldown! " 
             + PlayerController2D.Instance.MoveBonusCooldown;
-        clone.transform.position = new Vector2(PlayerController.Instance.transform.position.x,
+        clone.transform.position = new Vector2(PlayerController2D.Instance.transform.position.x,
             PlayerController2D.Instance.transform.position.y);
     }
 }

@@ -6,6 +6,7 @@ public class DialogueTrigger : MonoBehaviour {
 
     public bool showOnce;
     public bool story;
+    public bool destroy;
     private bool shownAllready = false;
 
     public Dialogue dialogue;
@@ -27,7 +28,8 @@ public class DialogueTrigger : MonoBehaviour {
             if (showOnce)
             {
                 shownAllready = true;
-                Destroy(gameObject);
+                if(destroy)
+                    Destroy(gameObject);
             }
         }
     }

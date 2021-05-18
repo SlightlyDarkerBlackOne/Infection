@@ -28,14 +28,14 @@ public class LevelManager : MonoBehaviour
             .ChangeLevelBorders(levels[currentLevel].minX, levels[currentLevel].minY, 
                     levels[currentLevel].maxX, levels[currentLevel].maxY);*/
         CurrentLevel++;
-        PutPlayerOnStartingPosition(PlayerController.Instance.gameObject);
+        PutPlayerOnStartingPosition(PlayerController2D.Instance.gameObject);
     }
     public void LevelBackward(){
         //Fade out level change
         /*Camera.main.GetComponent<CameraMove>().ChangeLevelBorders(levels[currentLevel].minX, levels[currentLevel].minY, 
                     levels[currentLevel].maxX, levels[currentLevel].maxY);*/
         CurrentLevel--;
-        PutPlayerOnEndPosition(PlayerController.Instance.gameObject);
+        PutPlayerOnEndPosition(PlayerController2D.Instance.gameObject);
     }
 
     public void PutPlayerOnStartingPosition(GameObject player){
@@ -50,6 +50,6 @@ public class LevelManager : MonoBehaviour
     public void SetToLevelOne()
     {
         CurrentLevel = 0;
-        PutPlayerOnStartingPosition(PlayerController.Instance.gameObject);
+        PutPlayerOnStartingPosition(PlayerController2D.Instance.gameObject);
     }
 }

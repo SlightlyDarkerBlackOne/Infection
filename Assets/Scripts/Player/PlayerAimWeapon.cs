@@ -15,6 +15,8 @@ public class PlayerAimWeapon : MonoBehaviour
     public float bowAttackTime;
     private float angle;
 
+    public bool rangedWeaponEquiped;
+
     private void Awake() {
         aimTransform = transform.Find("Animation").Find("Weapons").Find("Aim");
         aimAnimator = aimTransform.GetComponentInChildren<Animator>();
@@ -40,7 +42,7 @@ public class PlayerAimWeapon : MonoBehaviour
         aimTransform.eulerAngles = new Vector3(0,0,angle);
     }
     private void HandleShooting(){
-        if (!PlayerController2D.Instance.playerFrozen){
+        if (!PlayerController2D.Instance.playerFrozen && rangedWeaponEquiped){
             if (Input.GetButtonDown("Fire1")){
                 //if (EventSystem.current.IsPointerOverGameObject()) return;
                 aimAnimator.SetBool("Drawing", true);
@@ -79,5 +81,17 @@ public class PlayerAimWeapon : MonoBehaviour
                 aimTransform.eulerAngles = new Vector3(0,0,angle-i*offset);
             SingleArrow();
         }
+    }
+
+    public void SetActiveAimWeaponTransform(Transform newAimTransform) {
+        aimTransform = newAimTransform;
+        aimAnimator = aimTransform.GetComponentInChildren<Animator>();
+        endPointPosition = aimTransform.Find("EndPointPosition").transform;
+        bowAttackTime = aimTransform.Find("Bow").GetComponent<RangedWeapon>().baseAttackTime;
+
+        rangedWeaponEquiped = true;
+    }
+    public void RangedWeaponNotEquipped() {
+        rangedWeaponEquiped = false;
     }
 }

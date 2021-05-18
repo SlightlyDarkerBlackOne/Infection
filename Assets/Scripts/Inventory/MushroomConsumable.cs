@@ -25,6 +25,7 @@ public class MushroomConsumable : MonoBehaviour
 
                 if (pMm.playerCurrentMana != pMm.playerMaxMana) {
                     pMm.HealMana(manaHeal);
+                    SFXManager.Instance.PlaySound(SFXManager.Instance.manaPotion);
                     gameObject.SetActive(false);
                 }
             } else if(hpHeal != 0) {

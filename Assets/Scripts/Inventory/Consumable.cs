@@ -8,7 +8,7 @@ public class Consumable : Item
    public int heal = 0;
 
    public override void Use(){
-       GameObject player = PlayerController.Instance.gameObject;
+       GameObject player = PlayerController2D.Instance.gameObject;
        PlayerHealthManager phm = player.GetComponent<PlayerHealthManager>();
        
        if(phm.playerCurrentHealth != phm.playerMaxHealth){

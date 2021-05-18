@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour {
 	void Start () {
 
         rb = GetComponent<Rigidbody2D>();
-        player = PlayerController.Instance.transform;
+        player = PlayerController2D.Instance.transform;
         anim = GetComponent<Animator>();
         hurtPlayer = GetComponent<HurtPlayer>();
 

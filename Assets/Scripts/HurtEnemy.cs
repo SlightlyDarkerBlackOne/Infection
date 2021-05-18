@@ -25,7 +25,7 @@ public class HurtEnemy : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) { 
         if (other.gameObject.tag == "Enemy")
         {
-            if (PlayerController.Instance.Attacking() || yoyoEquiped || bowEquipped || bladeVortex) {
+            if (yoyoEquiped || bowEquipped || bladeVortex) {
                 currentDamage = damageToGive + PlayerStats.Instance.currentAttack;
                 currentDamage = Crit(currentDamage); //Critical Strike
 
@@ -43,6 +43,11 @@ public class HurtEnemy : MonoBehaviour {
                     Destroy(gameObject, 0.001f);
                 }
             }
+        } else if (other.gameObject.tag == "Breakable") {
+            if (bowEquipped && other.gameObject.GetComponent<Sign>().broken == false) {
+                Destroy(gameObject, 0.001f);
+            }
+            other.gameObject.GetComponent<Sign>().Break();
         }
     }
 
@@ -65,7 +70,7 @@ public class HurtEnemy : MonoBehaviour {
                     Destroy(gameObject, 0.001f);
                 }
             }
-        }
+        } 
     }
 
     private int Crit(int damage) {

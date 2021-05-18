@@ -30,7 +30,7 @@ public class PlayerHealthManager : MonoBehaviour {
     #endregion
 	void Start () {
         playerCurrentHealth = playerMaxHealth;
-        playerSprite = GetComponent<SpriteRenderer>();
+        playerSprite = transform.Find("Animation").GetComponent<SpriteRenderer>();
 	}
 
 	

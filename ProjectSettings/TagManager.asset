@@ -7,8 +7,9 @@ TagManager:
   - Enemy
   - Weapon
   - Dialogue
-  - breakable
   - UICanvas
+  - Breakable
+  - Aim
   layers:
   - Default
   - TransparentFX

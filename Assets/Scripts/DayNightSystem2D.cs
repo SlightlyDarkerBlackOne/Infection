@@ -53,6 +53,11 @@ public class DayNightSystem2D : MonoBehaviour
     [Tooltip("Midnight color, you can adjust based on best color for this cycle")]
     public Color midnight; // Eg: 00:00 at 06:00
 
+    public float sunriseIntensity;
+    public float dayIntensity;
+    public float nightIntensity;
+    public float midnightIntensity;
+
     [Header("Objects")]
     [Tooltip("Objects to turn on and off based on day night cycles, you can use this example for create some custom stuffs")]
     public Light2D[] mapLights; // enable/disable in day/night states
@@ -69,7 +74,8 @@ public class DayNightSystem2D : MonoBehaviour
         cycleCurrentTime += Time.deltaTime;
 
         // Check if cycle time reach cycle duration time
-        if (cycleCurrentTime >= cycleMaxTime) 
+        if (((dayCycle == DayCycles.Sunrise || dayCycle == DayCycles.Sunset) && cycleCurrentTime >= cycleMaxTime/2) 
+            || (cycleCurrentTime >= cycleMaxTime && (dayCycle != DayCycles.Sunrise || dayCycle != DayCycles.Sunset))) 
         {
             cycleCurrentTime = 0; // back to 0 (restarting cycle time)
             dayCycle++; // change cycle state
@@ -87,27 +93,35 @@ public class DayNightSystem2D : MonoBehaviour
         {
             ControlLightMaps(false); // disable map light (keep enable only at night)
             globalLight.color = Color.Lerp(sunrise, day, percent);
+            globalLight.intensity = Mathf.Lerp(sunriseIntensity, dayIntensity, percent);
         }
 
         // Mid Day state
-        if(dayCycle == DayCycles.Day)
+        if(dayCycle == DayCycles.Day) {
             globalLight.color = Color.Lerp(day, sunset, percent);
-
+            globalLight.intensity = Mathf.Lerp(dayIntensity, sunriseIntensity, percent);
+    }
+            
         // Sunset state
-        if(dayCycle == DayCycles.Sunset)
+        if (dayCycle == DayCycles.Sunset) {
             globalLight.color = Color.Lerp(sunset, night, percent);
+            globalLight.intensity = Mathf.Lerp(sunriseIntensity, nightIntensity, percent);
+        }
 
         // Night state
         if(dayCycle == DayCycles.Night)
         {
             ControlLightMaps(true); // enable map lights (disable only in day states)
-            globalLight.color = Color.Lerp(night, midnight, percent);        
+            globalLight.color = Color.Lerp(night, midnight, percent);
+            globalLight.intensity = Mathf.Lerp(nightIntensity, midnightIntensity, percent);
         }
 
         // Midnight state
-        if(dayCycle == DayCycles.Midnight)
-            globalLight.color = Color.Lerp(midnight, day, percent);     
-     }
+        if(dayCycle == DayCycles.Midnight) {
+            globalLight.color = Color.Lerp(midnight, sunrise, percent);
+            globalLight.intensity = Mathf.Lerp(midnightIntensity, sunriseIntensity, percent);
+        }
+    }
 
      void ControlLightMaps(bool status)
      {
