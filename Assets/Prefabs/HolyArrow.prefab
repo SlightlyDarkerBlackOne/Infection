@@ -147,8 +147,11 @@ MonoBehaviour:
   critMultiplier: 3
   damageBurst: {fileID: 1248191044452486, guid: 5f0bf37ffa5eb2e4fae1def7ee912fb9,
     type: 3}
+  arrowBreak: {fileID: 2930156122999800338, guid: 9d6f5fc511b5aa84e95ce3c3f3f56584,
+    type: 3}
   hitPoint: {fileID: 5387612618472808770}
   damageNumber: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
     type: 3}
   yoyoEquiped: 0
   bowEquipped: 1
+  bladeVortex: 0

@@ -15,6 +15,7 @@ public class HurtEnemy : MonoBehaviour {
     private int crit;
 
     public GameObject damageBurst;
+    public GameObject arrowBreak;
     public Transform hitPoint;
     public GameObject damageNumber;
 
@@ -48,6 +49,11 @@ public class HurtEnemy : MonoBehaviour {
                 Destroy(gameObject, 0.001f);
             }
             other.gameObject.GetComponent<Sign>().Break();
+        } else if (other.gameObject.tag == "Solid") {
+            SFXManager.Instance.PlaySound(SFXManager.Instance.bowHitSolid);
+            GameObject arrowBreakEffect = Instantiate(arrowBreak, hitPoint.position, hitPoint.rotation);
+            Destroy(arrowBreakEffect, 2f);
+            Destroy(gameObject, 0.001f);
         }
     }
 

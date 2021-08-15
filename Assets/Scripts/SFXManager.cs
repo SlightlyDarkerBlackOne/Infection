@@ -22,6 +22,7 @@ public class SFXManager : MonoBehaviour {
     public AudioSource footsteps;
     public AudioSource breakCrate;
     public AudioSource manaPotion;
+    public AudioSource bowHitSolid;
     public AudioSource[] bowFire;
 
     #region Singleton
@@ -54,6 +55,10 @@ public class SFXManager : MonoBehaviour {
 
     public void PlayBossMusic(AudioSource source) {
         soundTrack.Stop();
+        PlayOnLoop(source);
+    }
+    public void PlaySoundTrack(AudioSource source) {
+        bossTrackDrums.Stop();
         PlayOnLoop(source);
     }
 }

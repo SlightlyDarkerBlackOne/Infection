@@ -17,6 +17,7 @@ public class RangedEnemy : MonoBehaviour
     private Transform player;
 
     public bool boss;
+    private bool bossMusicStarted = false;
 
     private void Start() {
         player = PlayerController2D.Instance.transform;
@@ -49,8 +50,12 @@ public class RangedEnemy : MonoBehaviour
 
     private void StartBossFight() {
         //Start boss music
-        SFXManager.Instance.PlaySound(SFXManager.Instance.bossSpawnGrunt);
-        SFXManager.Instance.PlayBossMusic(SFXManager.Instance.bossTrackDrums);
+        if(bossMusicStarted != true) {
+            SFXManager.Instance.PlaySound(SFXManager.Instance.bossSpawnGrunt);
+            SFXManager.Instance.PlayBossMusic(SFXManager.Instance.bossTrackDrums);
+            bossMusicStarted = true;
+        }
+        
     }
 
     //Showing chasing and unchasing distance gizmos

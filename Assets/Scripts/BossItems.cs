@@ -15,15 +15,17 @@ public class BossItems : MonoBehaviour
     void Start()
     {
         boss = gameObject.GetComponent<EnemyHealthManager>();
+        boss.OnEnemyDeath += EnemyHealthManager_OnDeath;
     }
-    void Update(){
-        if(boss.CurrentHealth <= 0)
-            DropItems();
+   
+    private void EnemyHealthManager_OnDeath(object sender, System.EventArgs e) {
+        DropItems();
     }
 
     private void DropItems(){
         Vector3 position = gameObject.transform.position;
         if(itemToDrop != null)
             Instantiate(itemToDrop, position, Quaternion.identity);
+        SFXManager.Instance.PlaySoundTrack(SFXManager.Instance.soundTrack);
     }
 }

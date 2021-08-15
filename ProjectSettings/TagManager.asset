@@ -10,6 +10,7 @@ TagManager:
   - UICanvas
   - Breakable
   - Aim
+  - Solid
   layers:
   - Default
   - TransparentFX
