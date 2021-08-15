@@ -2271,9 +2271,14 @@ MonoBehaviour:
   enemyDead: {fileID: 1650644131865281361}
   itemPickedUp: {fileID: 1650644132197449530}
   soundTrack: {fileID: 1650644132307364954}
+  bossTrackDrums: {fileID: 0}
+  bossSpawnGrunt: {fileID: 0}
   dash: {fileID: 1650644132301452500}
   speedBuff: {fileID: 0}
   footsteps: {fileID: 0}
+  breakCrate: {fileID: 0}
+  manaPotion: {fileID: 0}
+  bowHitSolid: {fileID: 0}
   bowFire: []
 --- !u!1 &1650644131291551246
 GameObject:
@@ -2959,19 +2964,18 @@ MonoBehaviour:
   questNumber: 0
   theQM: {fileID: 1650644132792433909}
   startDialogue:
-    name: Pig Chaser
+    name: Spiderlinger
     sentences:
-    - Find the fat Pig and bring me his head!
+    - Kill 10 spiderlings
   endDialogue:
     name: 
     sentences:
-    - U can have my daughter now. She's a cute little hor. But beware, the only thing
-      she ever wants is cuddling!
+    - 
   isItemQuest: 0
   targetItem: 
-  isEnemyQuest: 0
-  targetEnemy: 
-  enemiesToKill: 0
+  isEnemyQuest: 1
+  targetEnemy: Spiderling
+  enemiesToKill: 10
   enemyKillCount: 0
 --- !u!1 &1650644131856221169
 GameObject:
@@ -3870,6 +3874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showOnce: 0
   story: 0
+  destroy: 0
   dialogue:
     name: DajPivu
     sentences:
@@ -4424,7 +4429,7 @@ GameObject:
   - component: {fileID: 1650644132556519218}
   - component: {fileID: 1650644132556519217}
   m_Layer: 5
-  m_Name: Quest 2
+  m_Name: Quest 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4442,7 +4447,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650644132792433910}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4461,7 +4466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69088ac17c1d2554aac081912fdfc2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questNumber: 2
+  questNumber: 3
   theQM: {fileID: 1650644132792433909}
   startDialogue:
     name: Find me
@@ -4619,7 +4624,7 @@ GameObject:
   - component: {fileID: 1650644132614091807}
   - component: {fileID: 1650644132614091776}
   m_Layer: 5
-  m_Name: Quest 1
+  m_Name: Quest 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4637,7 +4642,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650644132792433910}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4656,7 +4661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69088ac17c1d2554aac081912fdfc2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questNumber: 1
+  questNumber: 2
   theQM: {fileID: 1650644132792433909}
   startDialogue:
     name: Money Maker
@@ -4944,6 +4949,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1650644131838270821}
+  - {fileID: 7963573360586374191}
   - {fileID: 1650644132614091807}
   - {fileID: 1650644132556519218}
   m_Father: {fileID: 1650644132151950892}
@@ -4987,6 +4993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showOnce: 0
   story: 0
+  destroy: 0
   dialogue:
     name: 
     sentences: []
@@ -5535,6 +5542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showOnce: 0
   story: 0
+  destroy: 0
   dialogue:
     name: Bubolina
     sentences:
@@ -5797,6 +5805,70 @@ RectTransform:
   m_AnchoredPosition: {x: 329, y: 186}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &4233982114138022591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7963573360586374191}
+  - component: {fileID: 9180647986215369723}
+  m_Layer: 5
+  m_Name: Quest 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &7963573360586374191
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233982114138022591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1650644132792433910}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9180647986215369723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233982114138022591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69088ac17c1d2554aac081912fdfc2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questNumber: 0
+  theQM: {fileID: 1650644132792433909}
+  startDialogue:
+    name: Spider Killer
+    sentences:
+    - Kill Spider Boss
+  endDialogue:
+    name: 
+    sentences:
+    - 
+  isItemQuest: 0
+  targetItem: 
+  isEnemyQuest: 1
+  targetEnemy: Spiderling Boss
+  enemiesToKill: 1
+  enemyKillCount: 0
 --- !u!1 &7761756459349377445
 GameObject:
   m_ObjectHideFlags: 0

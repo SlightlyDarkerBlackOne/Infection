@@ -11,7 +11,7 @@ public class QuestManager : MonoBehaviour
     public string itemCollected;
 
     [HideInInspector]
-    public string enemyKilled;
+    public string enemyKilled = "";
     
     #region Singleton
     public static QuestManager Instance {get; private set;}

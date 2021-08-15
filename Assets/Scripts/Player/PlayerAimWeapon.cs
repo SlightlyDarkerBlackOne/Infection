@@ -67,7 +67,8 @@ public class PlayerAimWeapon : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab, endPointPosition.position, Quaternion.identity);
         arrow.GetComponent<Rigidbody2D>().velocity = aimDirection * 15.0f;
         arrow.transform.Rotate(0.0f, 0.0f, Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg);
-        Destroy(arrow, 2.0f);
+        //Range for now
+        Destroy(arrow, 0.3f);
     }
     private void FireMultipleArrows(int numOfArrows){
         float offset = 30f;

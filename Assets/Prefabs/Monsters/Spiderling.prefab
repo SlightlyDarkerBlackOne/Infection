@@ -229,7 +229,7 @@ MonoBehaviour:
   MaxHealth: 12
   CurrentHealth: 0
   expToGive: 25
-  enemyQuestName: 
+  enemyQuestName: Spiderling
 --- !u!114 &114007502805436104
 MonoBehaviour:
   m_ObjectHideFlags: 0

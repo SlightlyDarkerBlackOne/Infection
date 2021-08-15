@@ -6,8 +6,6 @@ public class QuestObject : MonoBehaviour
 {
     public int questNumber;
 
-    public QuestManager theQM;
-
     public Dialogue startDialogue;
     public Dialogue endDialogue;
 
@@ -27,16 +25,16 @@ public class QuestObject : MonoBehaviour
 
     private void Update() {
         if (isItemQuest) {
-            if(theQM.itemCollected == targetItem) {
-                theQM.itemCollected = null;
+            if(QuestManager.Instance.itemCollected == targetItem) {
+                QuestManager.Instance.itemCollected = null;
 
                 EndQuest();
             }
         }
 
         if (isEnemyQuest) {
-            if(theQM.enemyKilled == targetEnemy) {
-                theQM.enemyKilled = null;
+            if(QuestManager.Instance.enemyKilled == targetEnemy) {
+                QuestManager.Instance.enemyKilled = "";
 
                 enemyKillCount++;
             }
@@ -48,12 +46,12 @@ public class QuestObject : MonoBehaviour
     }
 
     public void StartQuest() {
-        theQM.ShowQuestText(startDialogue);
+        QuestManager.Instance.ShowQuestText(startDialogue);
     }
 
     public void EndQuest() {
-        theQM.ShowQuestText(endDialogue);
-        theQM.questCompleted[questNumber] = true;
+        QuestManager.Instance.ShowQuestText(endDialogue);
+        QuestManager.Instance.questCompleted[questNumber] = true;
         gameObject.SetActive(false);
     }
 }
