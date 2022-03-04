@@ -31,7 +31,7 @@ public class HurtPlayer : MonoBehaviour {
         if(coll.gameObject.tag == "Player")
         {
             if(coolDownBetweenHits <= 0){
-                coll.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(DamageCalculation());
+                coll.gameObject.GetComponent<Player>().playerHealthManager.TakeDamage(DamageCalculation());
 
                 var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
                 clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;

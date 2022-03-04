@@ -9,9 +9,9 @@ public class Consumable : Item
 
    public override void Use(){
        GameObject player = PlayerController2D.Instance.gameObject;
-       PlayerHealthManager phm = player.GetComponent<PlayerHealthManager>();
+       PlayerHealthManager phm = player.GetComponent<Player>().playerHealthManager;
        
-       if(phm.playerCurrentHealth != phm.playerMaxHealth){
+       if(phm.CanHeal()){
            phm.Heal(heal);
            Inventory.instance.Remove(this);
        } else {

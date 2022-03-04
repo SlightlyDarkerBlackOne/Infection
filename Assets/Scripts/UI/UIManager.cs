@@ -36,7 +36,9 @@ public class UIManager : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
-        playerHealth = PlayerHealthManager.Instance;
+        playerHealth = PlayerController2D.Instance.GetComponent<Player>().playerHealthManager;
+        playerHealth.HealthChangedEvent += UpdateHealthUI;
+
         playerMana = PlayerManaManager.Instance;
         thePS = GetComponent<PlayerStats>();
 
@@ -48,12 +50,15 @@ public class UIManager : MonoBehaviour {
         UpdateUIElements();
     }
 
-    private void UpdateUIElements(){
-        healthBar.fillAmount = playerHealth.playerCurrentHealth / playerHealth.playerMaxHealth;
-        manaBar.fillAmount = playerMana.playerCurrentMana / playerMana.playerMaxMana;
+    private void UpdateHealthUI(float health, float maxHealth) {
+        healthBar.fillAmount = health / maxHealth;
+        HPText.text = "HP: " + health + "/" + maxHealth;
+    }
 
-        HPText.text = "HP: " + playerHealth.playerCurrentHealth + "/" + playerHealth.playerMaxHealth;
+    private void UpdateUIElements(){
+        manaBar.fillAmount = playerMana.playerCurrentMana / playerMana.playerMaxMana;
         ManaText.text = "Mana: " + playerMana.playerCurrentMana + "/" + playerMana.playerMaxMana;
+
         levelText.text = "Lvl: " + thePS.currentLevel;
 
         numberOfSlainBugs.text = numberOfSlainBugsCounter.ToString();

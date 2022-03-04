@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour {
         currentLevel++;
         currentHP = HPLevels[currentLevel];
 
-        PlayerHealthManager.Instance.IncreaseMaxHealth(currentHP);
+        PlayerController2D.Instance.GetComponent<Player>().playerHealthManager.IncreaseMaxHealth(currentHP);
         PlayerManaManager.Instance.SetMaxMana();
 
         //Ako zelimo da mu se doda samo razlika na HP koliko se povecava maxhealth

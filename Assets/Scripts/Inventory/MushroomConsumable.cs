@@ -18,7 +18,7 @@ public class MushroomConsumable : MonoBehaviour
     {
         if(other.CompareTag("Player")){
             GameObject player = PlayerController2D.Instance.gameObject;
-            PlayerHealthManager pHm = PlayerHealthManager.Instance;
+            PlayerHealthManager pHm = player.GetComponent<Player>().playerHealthManager;
             PlayerController2D pC = PlayerController2D.Instance;
             if (manaHeal != 0) {
                 PlayerManaManager pMm = player.GetComponent<PlayerManaManager>();
@@ -29,7 +29,7 @@ public class MushroomConsumable : MonoBehaviour
                     gameObject.SetActive(false);
                 }
             } else if(hpHeal != 0) {
-                if (pHm.playerCurrentHealth != pHm.playerMaxHealth) {
+                if (pHm.CanHeal()) {
                     pHm.Heal(hpHeal);
                     gameObject.SetActive(false);
                 }
@@ -38,7 +38,7 @@ public class MushroomConsumable : MonoBehaviour
                 pC.SetMoveSpeedBonuses(2, speedBuffDuration, 2);
                 gameObject.SetActive(false);
             } else if(hpDamage != 0) {
-                pHm.HurtPlayer(hpDamage);
+                pHm.TakeDamage(hpDamage);
                 gameObject.SetActive(false);
             }               
         }

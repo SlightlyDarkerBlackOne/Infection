@@ -3,69 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerHealthManager : MonoBehaviour {
-
-    public float playerMaxHealth;
-    public float playerCurrentHealth;
-
-    private bool flashActive;
-    public float flashLength;
-    private float flashCounter;
+[CreateAssetMenu(fileName = "PlayerHealthManagerScriptableObject", menuName = "ScriptableObjects/Player Health Manager")]
+public class PlayerHealthManager : HealthManagerSO {
 
     private SpriteRenderer playerSprite;
 
-    #region Singleton
-    public static PlayerHealthManager Instance {get; private set;}
-
-    void Awake()
-    {
-        if(Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else{
-            Destroy(gameObject);
-        }
-    }
-    #endregion
 	void Start () {
-        playerCurrentHealth = playerMaxHealth;
-        playerSprite = transform.Find("Animation").GetComponent<SpriteRenderer>();
-	}
+        playerSprite = PlayerController2D.Instance.transform.Find("Animation").GetComponent<SpriteRenderer>();
+    }
 
-	
 	// Update is called once per frame
 	void Update () {
-		if(playerCurrentHealth <= 0)
-        {
+		if(currentHealth <= 0){
             Dead();
         }
-
-        Flash();
+        Flash(playerSprite);
 	}
 
-    //Flashing the player sprite with white when he takes damage
-    private void Flash(){
-        if (flashActive)
-        {
-            if (flashCounter > flashLength * 0.66f)
-            {
-                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
-            } else if(flashCounter > flashLength * 0.33f)
-            {
-                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-            } else if(flashCounter > 0)
-            {
-                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
-            } else
-            {
-                playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
-                flashActive = false;
-            }
-
-            flashCounter -= Time.deltaTime;
-        }
-    }
     private void Dead(){
         SFXManager.Instance.PlaySound(SFXManager.Instance.playerDead);
 
@@ -76,32 +30,13 @@ public class PlayerHealthManager : MonoBehaviour {
         PlayerManaManager.Instance.SetMaxMana();
     }
 
-    public void HurtPlayer(int damageToGive)
-    {
-        playerCurrentHealth -= damageToGive;
-
+    public override void TakeDamage(int damageToGive){
+        base.TakeDamage(damageToGive);
         SFXManager.Instance.PlaySound(SFXManager.Instance.playerHurt);
-        flashActive = true;
-        flashCounter = flashLength;
     }
 
-    public void SetToMaxHealth()
-    {
-        playerCurrentHealth = playerMaxHealth;
-    }
-
-    public void IncreaseMaxHealth(float newMaxHealth){
-        playerMaxHealth = newMaxHealth;
-
-        SetToMaxHealth();
-    }
-
-    public void Heal(float healAmount){
-        playerCurrentHealth += healAmount;
-        if(playerCurrentHealth >= playerMaxHealth){
-            playerCurrentHealth = playerMaxHealth;
-        }
-
+    public override void Heal(float healAmount){
+        base.Heal(healAmount);
         SFXManager.Instance.PlaySound(SFXManager.Instance.playerHealed);
     }
 }

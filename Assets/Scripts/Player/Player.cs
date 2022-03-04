@@ -5,10 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private PlayerSkills playerSkills;
-
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
+    public PlayerHealthManager playerHealthManager;
     void Awake()
     {
         playerSkills = new PlayerSkills();
