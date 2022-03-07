@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class HurtPlayer : MonoBehaviour {
 
-    public int damageToGive;
-    private int currentDamage;
-    public GameObject damageNumber;
+    [SerializeField]
+    private int damageToGive;
+    private int _currentDamage;
+    [SerializeField]
+    private GameObject damageNumber;
 
-    public int critChance;
-    public int critMultiplier;
+    [SerializeField]
+    private int critChance;
+    [SerializeField]
+    private int critMultiplier;
     private int crit;
 
-    public bool isShurikenTrap = false;
-    public float knockbackMultiplier = 5f;
+    [SerializeField]
+    private bool isShurikenTrap = false;
+    [SerializeField]
+    private float knockbackMultiplier = 5f;
 
-    public float startCoolDownBetweenHits = 1f;
+    [SerializeField]
+    private float startCoolDownBetweenHits = 1f;
     private float coolDownBetweenHits = 0;
 	
 	// Update is called once per frame
@@ -34,7 +41,7 @@ public class HurtPlayer : MonoBehaviour {
                 coll.gameObject.GetComponent<Player>().playerHealthManager.TakeDamage(DamageCalculation());
 
                 var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
-                clone.GetComponent<FloatingNumbers>().damageNumber = currentDamage;
+                clone.GetComponent<FloatingNumbers>().damageNumber = _currentDamage;
                 clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
                 Destroy(clone, 2f);
 
@@ -57,18 +64,17 @@ public class HurtPlayer : MonoBehaviour {
     }
 
     public int DamageCalculation(){
-        currentDamage = damageToGive - PlayerStats.Instance.currentDefense;
-            currentDamage = Crit(currentDamage);
-            if (currentDamage <= 0)
-                currentDamage = 1;
+        _currentDamage = Crit(damageToGive) - PlayerStats.Instance.currentDefense;
+        if (_currentDamage <= 0)
+            _currentDamage = 1;
         
-        return currentDamage;
+        return _currentDamage;
     }
 
     private int Crit(int damage) {
         crit = Random.Range(0, 100);
         if (crit > (100 - critChance))
-            return currentDamage *= critMultiplier;
+            return _currentDamage *= critMultiplier;
         else {
             return damage;
         }

@@ -44,9 +44,13 @@ public class UIManager : MonoBehaviour {
 
         numberOfSlainBugs.text = "0";
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnDisable() {
+        playerHealth.HealthChangedEvent -= UpdateHealthUI;
+    }
+
+    // Update is called once per frame
+    void Update () {
         UpdateUIElements();
     }
 
