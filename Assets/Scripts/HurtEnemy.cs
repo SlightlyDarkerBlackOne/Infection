@@ -49,7 +49,7 @@ public class HurtEnemy : MonoBehaviour {
                 Destroy(gameObject, 0.001f);
             }
             other.gameObject.GetComponent<Sign>().Break();
-        } else if (other.gameObject.tag == "Solid") {
+        } else if (other.gameObject.tag == "Solid" && bowEquipped) {
             SFXManager.Instance.PlaySound(SFXManager.Instance.bowHitSolid);
             GameObject arrowBreakEffect = Instantiate(arrowBreak, hitPoint.position, hitPoint.rotation);
             Destroy(arrowBreakEffect, 2f);
