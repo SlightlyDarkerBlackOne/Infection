@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class LevelManager : MonoBehaviour
     public void SetToLevelOne()
     {
         CurrentLevel = 0;
+        SceneManager.LoadScene(levels[0].levelName);
         PutPlayerOnStartingPosition(PlayerController2D.Instance.gameObject);
     }
 }

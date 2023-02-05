@@ -9,10 +9,6 @@ public abstract class HealthManagerSO : ScriptableObject
     [SerializeField]
     private float maxHealth;
 
-    private bool flashActive;
-    public float flashLength;
-    private float flashCounter;
-
     public event Action<float, float> HealthChangedEvent;
 
     private void OnEnable() {
@@ -46,26 +42,13 @@ public abstract class HealthManagerSO : ScriptableObject
     }
     public virtual void TakeDamage(int damageToGive) {
         currentHealth -= damageToGive;
-        flashActive = true;
-        flashCounter = flashLength;
+        FlashSprite.Instance.SetCounter();
+        if(currentHealth <= 0) {
+            Die();
+        }
 
         HealthChangedEvent?.Invoke(currentHealth, maxHealth);
     }
-    //Flashing the unit sprite with white when it takes damage
-    protected virtual void Flash(SpriteRenderer spriteRenderer) {
-        if (flashActive) {
-            if (flashCounter > flashLength * 0.66f) {
-                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
-            } else if (flashCounter > flashLength * 0.33f) {
-                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
-            } else if (flashCounter > 0) {
-                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
-            } else {
-                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
-                flashActive = false;
-            }
 
-            flashCounter -= Time.deltaTime;
-        }
-    }
+    protected abstract void Die();
 }

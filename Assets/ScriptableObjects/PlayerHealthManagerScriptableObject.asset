@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3086a172a89daa440af90c8fec7715d9, type: 3}
   m_Name: PlayerHealthManagerScriptableObject
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 13.16
   flashLength: 0.3
+  deathScreenDelay: 3

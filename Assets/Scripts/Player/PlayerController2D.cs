@@ -65,6 +65,9 @@ public class PlayerController2D : MonoBehaviour
     }
     #endregion
 
+    private void Start() {
+        PlayerHealthManager.PlayerDead += PlayerDied;
+    }
     // Update is called once per frame
     void Update() {
         Move();
@@ -225,4 +228,12 @@ public class PlayerController2D : MonoBehaviour
         startMoveBonusCooldown = cooldown;
     }
 
+    private void PlayerDied() {
+        FrezePlayer();
+        anim.SetBool("Dead", true);
+    }
+    public void PlayerAlive() {
+        UnFreezePlayer();
+        anim.SetBool("Dead", false);
+    }
 }

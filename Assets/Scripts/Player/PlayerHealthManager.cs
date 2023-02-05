@@ -1,30 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System;
 
 [CreateAssetMenu(fileName = "PlayerHealthManagerScriptableObject", menuName = "ScriptableObjects/Player Health Manager")]
 public class PlayerHealthManager : HealthManagerSO {
 
-    private SpriteRenderer playerSprite;
+    [SerializeField]
+    private float deathScreenDelay = 1f;
 
-	void Start () {
-        playerSprite = PlayerController2D.Instance.transform.Find("Animation").GetComponent<SpriteRenderer>();
-    }
+    public static event Action PlayerDead;
 
-	// Update is called once per frame
-	void Update () {
-		if(currentHealth <= 0){
-            Dead();
-        }
-        Flash(playerSprite);
-	}
-
-    private void Dead(){
+    protected override void Die(){
         SFXManager.Instance.PlaySound(SFXManager.Instance.playerDead);
-
-        SceneManager.LoadScene(LevelManager.Instance.levels[0].levelName);
-        LevelManager.Instance.SetToLevelOne();
+        PlayerDead?.Invoke();
 
         SetToMaxHealth();
         PlayerManaManager.Instance.SetMaxMana();

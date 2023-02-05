@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class QuestManager : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class QuestManager : MonoBehaviour
 
     [HideInInspector]
     public string enemyKilled = "";
-    
+
+    public event Action<int> QuestFinishedEvent;
+
     #region Singleton
     public static QuestManager Instance {get; private set;}
     /// <summary>
@@ -22,7 +25,7 @@ public class QuestManager : MonoBehaviour
     {
         if(Instance == null){
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }else{
             Destroy(gameObject);
         }
@@ -35,6 +38,11 @@ public class QuestManager : MonoBehaviour
 
     public void ShowQuestText(Dialogue questDialogue) {
         DialogueManager.Instance.StartDialogue(questDialogue);
+    }
+
+    public void InvokeEvent(int questNumber) {
+        QuestManager.Instance.QuestFinishedEvent?.Invoke(questNumber);
+
     }
 
     /*public void TriggerQuestDialogue(Dialogue questDialogue) {

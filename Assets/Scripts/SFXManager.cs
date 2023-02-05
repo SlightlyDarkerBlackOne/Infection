@@ -25,6 +25,8 @@ public class SFXManager : MonoBehaviour {
     public AudioSource bowHitSolid;
     public AudioSource[] bowFire;
 
+    public AudioSource deathScreenFail;
+
     #region Singleton
     public static SFXManager Instance {get; private set;}
 
@@ -32,13 +34,19 @@ public class SFXManager : MonoBehaviour {
 	void Awake () {
 		if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
 	}
-	#endregion
+    #endregion
 
+    private void Start() {
+        PlayerHealthManager.PlayerDead += PlayDeathScreen;
+    }
+    //private void OnDisable() {
+    //    PlayerController2D.Instance.GetComponent<Player>().playerHealthManager.PlayerDead -= PlayDeathScreen;
+    //}
     public void PlaySound(AudioSource source){
         source.Play();
     }
@@ -60,5 +68,9 @@ public class SFXManager : MonoBehaviour {
     public void PlaySoundTrack(AudioSource source) {
         bossTrackDrums.Stop();
         PlayOnLoop(source);
+    }
+
+    private void PlayDeathScreen() {
+        deathScreenFail.Play();
     }
 }

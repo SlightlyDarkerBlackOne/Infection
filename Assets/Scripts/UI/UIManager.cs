@@ -19,6 +19,10 @@ public class UIManager : MonoBehaviour {
     private int numberOfSlainBugsCounter = 0;
     [SerializeField]
     private Animator textPopup;
+    [SerializeField]
+    private GameObject[] checkmarks;
+    [SerializeField]
+    private GameObject deadPanel;
 
     #region Singleton
     public static UIManager Instance {get; private set;}
@@ -38,6 +42,8 @@ public class UIManager : MonoBehaviour {
     void Start () {
         playerHealth = PlayerController2D.Instance.GetComponent<Player>().playerHealthManager;
         playerHealth.HealthChangedEvent += UpdateHealthUI;
+        PlayerHealthManager.PlayerDead += ShowDeathScreen;
+        QuestManager.Instance.QuestFinishedEvent += ShowQuestCheckmark;
 
         playerMana = PlayerManaManager.Instance;
         thePS = GetComponent<PlayerStats>();
@@ -73,5 +79,17 @@ public class UIManager : MonoBehaviour {
     public void MonsterKilled(){
         numberOfSlainBugsCounter++;
         textPopup.SetTrigger("TextPopUp");
+    }
+
+    private void ShowQuestCheckmark(int questNumber) {
+        checkmarks[questNumber].GetComponent<Animator>().SetTrigger("Show");
+    }
+
+    private void ShowDeathScreen() {
+        Debug.Log("showdeathscreen");
+        deadPanel.GetComponent<Animator>().SetBool("isShowing", true);
+    }
+    public void HideDeathScreen() {
+        deadPanel.GetComponent<Animator>().SetBool("isShowing", false);
     }
 }

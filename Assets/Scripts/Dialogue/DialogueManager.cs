@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour {
 
     private Queue<string> sentences;
 
+    private PlayerHealthManager playerHealth;
     #region Singleton
     public static DialogueManager Instance {get; private set;}
     void Awake()
@@ -27,7 +28,10 @@ public class DialogueManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         sentences = new Queue<string>();
-	}
+
+        //playerHealth = PlayerController2D.Instance.GetComponent<Player>().playerHealthManager;
+        PlayerHealthManager.PlayerDead += EndDialogue;
+    }
     
     //For starting a dialogue and also for starting quest dialogue
     public void StartDialogue(Dialogue dialogue) {

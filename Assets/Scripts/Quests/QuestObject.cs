@@ -18,8 +18,6 @@ public class QuestObject : MonoBehaviour
     public int enemiesToKill;
     public int enemyKillCount;
 
-    public event Action QuestFinishedEvent;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -53,9 +51,9 @@ public class QuestObject : MonoBehaviour
     }
 
     public void EndQuest() {
-        QuestFinishedEvent?.Invoke();
         QuestManager.Instance.ShowQuestText(endDialogue);
         QuestManager.Instance.questCompleted[questNumber] = true;
+        QuestManager.Instance.InvokeEvent(questNumber);
         gameObject.SetActive(false);
     }
 }

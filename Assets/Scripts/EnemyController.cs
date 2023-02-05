@@ -100,7 +100,7 @@ public class EnemyController : MonoBehaviour {
         anim.SetBool("isFollowing", true);
         transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * moveSpeedChaseModifier * Time.deltaTime);
         RotateTowards(player.position);
-        anim.SetBool("isMoving", true);
+        //anim.SetBool("isMoving", true);
 
         //If its close enough start attacking the player
         if(hasAttackRange){
@@ -135,7 +135,7 @@ public class EnemyController : MonoBehaviour {
 
             if (timeToMoveCounter < 0f) {
                 moving = false;
-                anim.SetBool("isMoving", false);
+                //anim.SetBool("isMoving", false);
                 timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
             }
 
@@ -145,7 +145,7 @@ public class EnemyController : MonoBehaviour {
 
             if (timeBetweenMoveCounter < 0f) {
                 moving = true;
-                anim.SetBool("isMoving", true);
+                //anim.SetBool("isMoving", true);
                 timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
 
                 moveDirection = new Vector3(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed, 0f);
