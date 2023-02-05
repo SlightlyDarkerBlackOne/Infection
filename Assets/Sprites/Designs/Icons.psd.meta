@@ -876,7 +876,7 @@ TextureImporter:
       213: 21300574
     second: Icons_143
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -893,10 +893,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -935,9 +937,35 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -3985,9 +4013,153 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Icons_5: 21300298
+      Icons_100: 21300488
+      Icons_133: 21300554
+      Icons_110: 21300508
+      Icons_89: 21300466
+      Icons_39: 21300366
+      Icons_32: 21300352
+      Icons_35: 21300358
+      Icons_128: 21300544
+      Icons_106: 21300500
+      Icons_10: 21300308
+      Icons_131: 21300550
+      Icons_26: 21300340
+      Icons_18: 21300324
+      Icons_119: 21300526
+      Icons_28: 21300344
+      Icons_105: 21300498
+      Icons_19: 21300326
+      Icons_15: 21300318
+      Icons_88: 21300464
+      Icons_4: 21300296
+      Icons_6: 21300300
+      Icons_118: 21300524
+      Icons_41: 21300370
+      Icons_73: 21300434
+      Icons_58: 21300404
+      Icons_117: 21300522
+      Icons_9: 21300306
+      Icons_78: 21300444
+      Icons_113: 21300514
+      Icons_112: 21300512
+      Icons_0: 21300288
+      Icons_76: 21300440
+      Icons_16: 21300320
+      Icons_49: 21300386
+      Icons_46: 21300380
+      Icons_38: 21300364
+      Icons_99: 21300486
+      Icons_77: 21300442
+      Icons_52: 21300392
+      Icons_95: 21300478
+      Icons_129: 21300546
+      Icons_132: 21300552
+      Icons_25: 21300338
+      Icons_55: 21300398
+      Icons_84: 21300456
+      Icons_48: 21300384
+      Icons_31: 21300350
+      Icons_135: 21300558
+      Width3X: 21300400
+      Icons_69: 21300426
+      Icons_92: 21300472
+      Icons_54: 21300396
+      Icons_103: 21300494
+      Icons_50: 21300388
+      Icon71: 21300430
+      Icons_104: 21300496
+      Icons_12: 21300312
+      Icons_64: 21300416
+      Icons_97: 21300482
+      Icons_70: 21300428
+      Icons_124: 21300536
+      Icons_85: 21300458
+      Icons_30: 21300348
+      Icons_101: 21300490
+      Icons_57: 21300402
+      Icons_3: 21300294
+      Icons_44Width2X: 21300376
+      Icons_109: 21300506
+      Icons_102: 21300492
+      Icons_36: 21300360
+      Icons_130: 21300548
+      Icons_21: 21300330
+      Icons_51: 21300390
+      Icons_121: 21300530
+      Icons_126: 21300540
+      Icons_140: 21300568
+      Icons_14: 21300316
+      Icons_137: 21300562
+      Icons_40: 21300368
+      Icons_72: 21300432
+      Icons_116: 21300520
+      Icons_62: 21300412
+      Icons_66: 21300420
+      Icons_139: 21300566
+      Icons_67: 21300422
+      Icons_114: 21300516
+      Icons_47: 21300382
+      Icons_27: 21300342
+      Icons_23: 21300334
+      Icons_75: 21300438
+      Icons_134: 21300556
+      Icons_68: 21300424
+      Icons_125: 21300538
+      Icons_37: 21300362
+      Icons_13: 21300314
+      Icons_29: 21300346
+      Icons_65: 21300418
+      Icons_42: 21300372
+      Icons_17: 21300322
+      Icons_81: 21300450
+      Icons_87: 21300462
+      Icons_83: 21300454
+      Icons_122: 21300532
+      Icons_96: 21300480
+      Icons_86: 21300460
+      Icons_34: 21300356
+      Icons_91: 21300470
+      Icons_2: 21300292
+      Icons_53: 21300394
+      Icons_143: 21300574
+      Icons_108: 21300504
+      Icons_63: 21300414
+      Icons_79: 21300446
+      Icons_120: 21300528
+      Icons_24: 21300336
+      Icons_115: 21300518
+      Icons_20: 21300328
+      Icons_93: 21300474
+      Icons_136: 21300560
+      Icons_80: 21300448
+      Icons_141: 21300570
+      Icons_11: 21300310
+      Icons_59: 21300406
+      Icons_111: 21300510
+      Icons_22: 21300332
+      Icons_142: 21300572
+      Icons_74: 21300436
+      Icons_1: 21300290
+      Icons_8: 21300304
+      Icons_45: 21300378
+      Icons_94: 21300476
+      Icons_98: 21300484
+      Icons_127: 21300542
+      Icons_123: 21300534
+      Icons_82: 21300452
+      Icons_60: 21300408
+      Icons_107: 21300502
+      Icons_138: 21300564
+      Icon_Large1x2_Test: 21300374
+      Icons_90: 21300468
+      Icons_33: 21300354
+      Icons_7: 21300302
+      Icons_61: 21300410
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 1
-  pSDShowRemoveMatteOption: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

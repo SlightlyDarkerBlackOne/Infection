@@ -81,7 +81,7 @@ TextureImporter:
       213: 7318911596518737548
     second: Red Ant Animations 25
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -98,10 +98,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -140,9 +142,35 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
@@ -712,9 +740,35 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Red Ant Animations 2: -2132442098890106037
+      Red Ant Animations 21: 8914241549857625729
+      Red Ant Animations 9: 2108823118110234670
+      Red Ant Animations 10: -7246376686458261508
+      Red Ant Animations 5: 1474747541892579912
+      Red Ant Animations 11: 7283928397533716576
+      Red Ant Animations 17: 7677356268016878193
+      Red Ant Animations 8: -1050767211906002789
+      Red Ant Animations 18: -3926512664570997577
+      Red Ant Animations 7: -2552608751262613774
+      Red Ant Animations 13: -8754133434201514785
+      Red Ant Animations 20: 7852812917816720045
+      Red Ant Animations 22: 7330505160023896025
+      Red Ant Animations 14: 2927815793366755806
+      Red Ant Animations 24: 5215317599271535362
+      Red Ant Animations 3: 6411740966416518614
+      Red Ant Animations 16: 3617060188647319052
+      Red Ant Animations 25: 7318911596518737548
+      Red Ant Animations 15: -3736344146346573052
+      Red Ant Animations 1: -6027506875413459065
+      Red Ant Animations 0: -704196332478222706
+      Red Ant Animations 23: 6917092960761189943
+      Red Ant Animations 4: 3949052329371604700
+      Red Ant Animations 6: 4556696365393991881
+      Red Ant Animations 19: -1063087096896926674
+      Red Ant Animations 12: -2327733241229403254
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

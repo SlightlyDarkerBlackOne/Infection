@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.LWRP;
 
 /*
 - Creator:    Two TV Games (@gallighanmaker)
@@ -25,7 +24,7 @@ public class DayNightSystem2D : MonoBehaviour
     [Header("Controllers")]
     
     [Tooltip("Global light 2D component, we need to use this object to place light in all map objects")]
-    public UnityEngine.Experimental.Rendering.Universal.Light2D globalLight; // global light
+    public UnityEngine.Rendering.Universal.Light2D globalLight; // global light
     
     [Tooltip("This is a current cycle time, you can change for private float but we keep public only for debug")]
     public float cycleCurrentTime = 0; // current cycle time
@@ -60,7 +59,7 @@ public class DayNightSystem2D : MonoBehaviour
 
     [Header("Objects")]
     [Tooltip("Objects to turn on and off based on day night cycles, you can use this example for create some custom stuffs")]
-    public UnityEngine.Experimental.Rendering.Universal.Light2D[] mapLights; // enable/disable in day/night states
+    public UnityEngine.Rendering.Universal.Light2D[] mapLights; // enable/disable in day/night states
 
     void Start() 
     {
@@ -127,7 +126,7 @@ public class DayNightSystem2D : MonoBehaviour
      {
          // loop in light array of objects to enable/disable
          if(mapLights.Length > 0)
-            foreach(UnityEngine.Experimental.Rendering.Universal.Light2D _light in mapLights)
+            foreach(UnityEngine.Rendering.Universal.Light2D _light in mapLights)
                 _light.gameObject.SetActive(status);
      }
 }

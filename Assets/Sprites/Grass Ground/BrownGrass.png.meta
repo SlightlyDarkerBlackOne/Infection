@@ -303,7 +303,7 @@ TextureImporter:
       213: 21300198
     second: BrownGrass_99
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -320,10 +320,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -362,6 +364,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -377,6 +381,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2500,9 +2516,109 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      BrownGrass_36: 21300072
+      BrownGrass_73: 21300146
+      BrownGrass_7: 21300014
+      BrownGrass_81: 21300162
+      BrownGrass_44: 21300088
+      BrownGrass_72: 21300144
+      BrownGrass_69: 21300138
+      BrownGrass_86: 21300172
+      BrownGrass_88: 21300176
+      BrownGrass_8: 21300016
+      BrownGrass_49: 21300098
+      BrownGrass_90: 21300180
+      BrownGrass_14: 21300028
+      BrownGrass_38: 21300076
+      BrownGrass_21: 21300042
+      BrownGrass_45: 21300090
+      BrownGrass_78: 21300156
+      BrownGrass_92: 21300184
+      BrownGrass_22: 21300044
+      BrownGrass_1: 21300002
+      BrownGrass_41: 21300082
+      BrownGrass_62: 21300124
+      BrownGrass_85: 21300170
+      BrownGrass_59: 21300118
+      BrownGrass_82: 21300164
+      BrownGrass_47: 21300094
+      BrownGrass_76: 21300152
+      BrownGrass_5: 21300010
+      BrownGrass_39: 21300078
+      BrownGrass_11: 21300022
+      BrownGrass_26: 21300052
+      BrownGrass_15: 21300030
+      BrownGrass_3: 21300006
+      BrownGrass_31: 21300062
+      BrownGrass_71: 21300142
+      BrownGrass_18: 21300036
+      BrownGrass_63: 21300126
+      BrownGrass_35: 21300070
+      BrownGrass_32: 21300064
+      BrownGrass_91: 21300182
+      BrownGrass_64: 21300128
+      BrownGrass_42: 21300084
+      BrownGrass_2: 21300004
+      BrownGrass_75: 21300150
+      BrownGrass_19: 21300038
+      BrownGrass_28: 21300056
+      BrownGrass_53: 21300106
+      BrownGrass_94: 21300188
+      BrownGrass_96: 21300192
+      BrownGrass_57: 21300114
+      BrownGrass_74: 21300148
+      BrownGrass_83: 21300166
+      BrownGrass_34: 21300068
+      BrownGrass_23: 21300046
+      BrownGrass_68: 21300136
+      BrownGrass_37: 21300074
+      BrownGrass_0: 21300000
+      BrownGrass_17: 21300034
+      BrownGrass_70: 21300140
+      BrownGrass_61: 21300122
+      BrownGrass_6: 21300012
+      BrownGrass_33: 21300066
+      BrownGrass_56: 21300112
+      BrownGrass_10: 21300020
+      BrownGrass_89: 21300178
+      BrownGrass_9: 21300018
+      BrownGrass_51: 21300102
+      BrownGrass_60: 21300120
+      BrownGrass_87: 21300174
+      BrownGrass_12: 21300024
+      BrownGrass_80: 21300160
+      BrownGrass_55: 21300110
+      BrownGrass_29: 21300058
+      BrownGrass_97: 21300194
+      BrownGrass_25: 21300050
+      BrownGrass_54: 21300108
+      BrownGrass_13: 21300026
+      BrownGrass_50: 21300100
+      BrownGrass_65: 21300130
+      BrownGrass_66: 21300132
+      BrownGrass_16: 21300032
+      BrownGrass_20: 21300040
+      BrownGrass_77: 21300154
+      BrownGrass_24: 21300048
+      BrownGrass_95: 21300190
+      BrownGrass_98: 21300196
+      BrownGrass_46: 21300092
+      BrownGrass_58: 21300116
+      BrownGrass_27: 21300054
+      BrownGrass_67: 21300134
+      BrownGrass_84: 21300168
+      BrownGrass_4: 21300008
+      BrownGrass_30: 21300060
+      BrownGrass_48: 21300096
+      BrownGrass_79: 21300158
+      BrownGrass_99: 21300198
+      BrownGrass_43: 21300086
+      BrownGrass_40: 21300080
+      BrownGrass_93: 21300186
+      BrownGrass_52: 21300104
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

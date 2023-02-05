@@ -276,7 +276,7 @@ TextureImporter:
       213: 21300180
     second: Sprite Sheet_v19_89
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -293,10 +293,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -335,6 +337,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -350,6 +354,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1735,9 +1751,72 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Sprite Sheet_v19_74: 21300150
+      Sprite Sheet_v19_49: 21300100
+      Sprite Sheet_v19_70: 21300142
+      Sprite Sheet_v19_82: 21300166
+      Sprite Sheet_v19_56: 21300114
+      Sprite Sheet_v19_37: 21300074
+      Sprite Sheet_v19_65: 21300132
+      Sprite Sheet_v19_30: 21300060
+      Sprite Sheet_v19_31: 21300062
+      Sprite Sheet_v19_43: 21300088
+      Sprite Sheet_v19_44: 21300090
+      Sprite Sheet_v19_67: 21300136
+      Sprite Sheet_v19_45: 21300092
+      Sprite Sheet_v19_83: 21300168
+      Sprite Sheet_v19_26: 21300052
+      Sprite Sheet_v19_85: 21300172
+      Sprite Sheet_v19_57: 21300116
+      Sprite Sheet_v19_32: 21300064
+      Sprite Sheet_v19_68: 21300138
+      Sprite Sheet_v19_52: 21300106
+      Sprite Sheet_v19_60: 21300122
+      Sprite Sheet_v19_75: 21300152
+      Sprite Sheet_v19_36: 21300072
+      Sprite Sheet_v19_86: 21300174
+      Sprite Sheet_v19_42: 21300086
+      Sprite Sheet_v19_39: 21300078
+      Sprite Sheet_v19_66: 21300134
+      Sprite Sheet_v19_73: 21300148
+      Sprite Sheet_v19_78: 21300158
+      Sprite Sheet_v19_12: 21300024
+      Sprite Sheet_v19_1: 21300002
+      Sprite Sheet_v19_21: 21300042
+      Sprite Sheet_v19_84: 21300170
+      Sprite Sheet_v19_14: 21300028
+      Sprite Sheet_v19_77: 21300156
+      Sprite Sheet_v19_61: 21300124
+      Sprite Sheet_v19_5: 21300010
+      Sprite Sheet_v19_13: 21300026
+      Sprite Sheet_v19_50: 21300102
+      Sprite Sheet_v19_40: 21300082
+      Sprite Sheet_v19_2: 21300004
+      Sprite Sheet_v19_4: 21300008
+      Sprite Sheet_v19_41: 21300084
+      Sprite Sheet_v19_3: 21300006
+      Sprite Sheet_v19_10: 21300020
+      Sprite Sheet_v19_20: 21300040
+      Sprite Sheet_v19_25: 21300050
+      Sprite Sheet_v19_7: 21300014
+      Sprite Sheet_v19_23: 21300046
+      Sprite Sheet_v19_69: 21300140
+      Sprite Sheet_v19_22: 21300044
+      Sprite Sheet_v19_38: 21300080
+      Sprite Sheet_v19_51: 21300104
+      Sprite Sheet_v19_76: 21300154
+      Sprite Sheet_v19_16: 21300032
+      Sprite Sheet_v19_35: 21300070
+      Sprite Sheet_v19_15: 21300030
+      Sprite Sheet_v19_46: 21300094
+      Sprite Sheet_v19_11: 21300022
+      Sprite Sheet_v19_59: 21300120
+      Sprite Sheet_v19_58: 21300118
+      Sprite Sheet_v19_0: 21300000
+      Sprite Sheet_v19_6: 21300012
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

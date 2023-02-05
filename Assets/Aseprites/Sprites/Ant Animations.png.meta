@@ -81,7 +81,7 @@ TextureImporter:
       213: 21300050
     second: Ant Animations 25
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -98,9 +98,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -110,8 +113,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -132,9 +135,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -150,6 +159,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
@@ -719,9 +740,35 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Ant Animations 2: 21300004
+      Ant Animations 6: 21300012
+      Ant Animations 7: 21300014
+      Ant Animations 13: 21300026
+      Ant Animations 16: 21300032
+      Ant Animations 21: 21300042
+      Ant Animations 24: 21300048
+      Ant Animations 5: 21300010
+      Ant Animations 25: 21300050
+      Ant Animations 0: 21300000
+      Ant Animations 14: 21300028
+      Ant Animations 3: 21300006
+      Ant Animations 9: 21300018
+      Ant Animations 23: 21300046
+      Ant Animations 10: 21300020
+      Ant Animations 17: 21300034
+      Ant Animations 22: 21300044
+      Ant Animations 8: 21300016
+      Ant Animations 4: 21300008
+      Ant Animations 20: 21300040
+      Ant Animations 12: 21300024
+      Ant Animations 15: 21300030
+      Ant Animations 11: 21300022
+      Ant Animations 1: 21300002
+      Ant Animations 19: 21300038
+      Ant Animations 18: 21300036
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
