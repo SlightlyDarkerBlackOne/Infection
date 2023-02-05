@@ -303,7 +303,7 @@ TextureImporter:
       213: -3678059054585622366
     second: LightGreenGrass_99
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -320,9 +320,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -332,8 +335,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -354,9 +357,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -372,6 +381,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2495,9 +2516,109 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      LightGreenGrass_85: -6732743705654365577
+      LightGreenGrass_21: 6078064960338914828
+      LightGreenGrass_38: 1339444862698947509
+      LightGreenGrass_31: 2011526593023375941
+      LightGreenGrass_82: 1210469810277907187
+      LightGreenGrass_35: 5649316348116001359
+      LightGreenGrass_78: -5531975422543497848
+      LightGreenGrass_19: -3423733973096094210
+      LightGreenGrass_7: -8734493784447581761
+      LightGreenGrass_60: -4483856758652479966
+      LightGreenGrass_96: 2905035215154337679
+      LightGreenGrass_16: -789476628334437841
+      LightGreenGrass_34: -6725837758603403397
+      LightGreenGrass_10: -2743650752831388848
+      LightGreenGrass_86: 236488671314615594
+      LightGreenGrass_4: 624294830700416521
+      LightGreenGrass_68: -5245626225309796200
+      LightGreenGrass_87: 70521236474018682
+      LightGreenGrass_69: -1723323364962913489
+      LightGreenGrass_48: -8973507253612523278
+      LightGreenGrass_53: -491099408283868490
+      LightGreenGrass_75: -1763036262295554597
+      LightGreenGrass_66: 4673089044094873941
+      LightGreenGrass_71: 3511616588359588282
+      LightGreenGrass_64: -1328358091156346762
+      LightGreenGrass_26: 3504832465141404760
+      LightGreenGrass_33: 481473754797833900
+      LightGreenGrass_56: -3940750624561945148
+      LightGreenGrass_67: 4769876822878568474
+      LightGreenGrass_84: 1566880141227453371
+      LightGreenGrass_83: 3404076060698432105
+      LightGreenGrass_12: -6510922523231251110
+      LightGreenGrass_90: -886152770454434883
+      LightGreenGrass_36: 8364604107042253603
+      LightGreenGrass_77: -3106441865276962721
+      LightGreenGrass_17: 8612471982972362203
+      LightGreenGrass_51: -5573206129878782861
+      LightGreenGrass_72: -6035850567007707373
+      LightGreenGrass_20: -9217763627768956926
+      LightGreenGrass_73: 4381377473433149940
+      LightGreenGrass_46: -7047661403080274176
+      LightGreenGrass_40: 993687149180375982
+      LightGreenGrass_30: -657280444961780322
+      LightGreenGrass_74: -4750090329652652473
+      LightGreenGrass_23: 3531107298604149686
+      LightGreenGrass_18: -6337663076496523206
+      LightGreenGrass_49: -7952616029991140270
+      LightGreenGrass_58: -6651933633823598995
+      LightGreenGrass_0: -648581044009567167
+      LightGreenGrass_41: -5336759846855669993
+      LightGreenGrass_57: 7508048768475474408
+      LightGreenGrass_28: 8222318632776535672
+      LightGreenGrass_39: -7850065117369691384
+      LightGreenGrass_43: 2565413951973770559
+      LightGreenGrass_79: -6570171193564125352
+      LightGreenGrass_95: -8254334590982434849
+      LightGreenGrass_13: -4491630593028396376
+      LightGreenGrass_1: -5556557425568480925
+      LightGreenGrass_14: -7324872325792110444
+      LightGreenGrass_92: 2703172903385230988
+      LightGreenGrass_52: 519852043305016709
+      LightGreenGrass_6: -4519942621147951964
+      LightGreenGrass_62: -4990398594523614831
+      LightGreenGrass_65: 7622433355384398752
+      LightGreenGrass_45: 2816933666118610711
+      LightGreenGrass_5: -3442673155653074442
+      LightGreenGrass_9: -4655858844672052451
+      LightGreenGrass_47: -1984461842077935734
+      LightGreenGrass_59: 323482829900788898
+      LightGreenGrass_93: -9119560548299390431
+      LightGreenGrass_80: -5277549534773868883
+      LightGreenGrass_44: 739805236483742736
+      LightGreenGrass_97: 949431917663449797
+      LightGreenGrass_98: -8177874429393527741
+      LightGreenGrass_32: 238568258495931574
+      LightGreenGrass_3: 6399025145021112534
+      LightGreenGrass_8: 8332836757548026127
+      LightGreenGrass_24: 1973090782967234125
+      LightGreenGrass_25: 2084074014335609969
+      LightGreenGrass_2: 1831572441396048165
+      LightGreenGrass_76: 2259333577122621898
+      LightGreenGrass_54: -8445438923909628005
+      LightGreenGrass_27: -4167538176316077674
+      LightGreenGrass_22: 7252066492962120275
+      LightGreenGrass_37: 6121185507703782807
+      LightGreenGrass_88: 5919628866077734353
+      LightGreenGrass_15: 5456011288721682718
+      LightGreenGrass_81: -7643167692044949368
+      LightGreenGrass_89: 2634946159442816972
+      LightGreenGrass_91: -6507531574503533370
+      LightGreenGrass_42: -4951450916884618631
+      LightGreenGrass_99: -3678059054585622366
+      LightGreenGrass_29: 42564614144458339
+      LightGreenGrass_63: 55327255123375550
+      LightGreenGrass_55: -331316093309372640
+      LightGreenGrass_61: -3260018903075334037
+      LightGreenGrass_11: -708263429934244610
+      LightGreenGrass_50: -3804424760995110206
+      LightGreenGrass_70: 213759420444710393
+      LightGreenGrass_94: 3470250483443399987
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

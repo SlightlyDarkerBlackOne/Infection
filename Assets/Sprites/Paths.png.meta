@@ -159,7 +159,7 @@ TextureImporter:
       213: 2792828965288000531
     second: Paths_51
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -176,9 +176,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -188,8 +191,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -210,9 +213,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -228,6 +237,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1343,9 +1364,61 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Paths_27: 4293574451749514896
+      Paths_8: 3869002630833696219
+      Paths_15: -4027651923015401807
+      Paths_34: 7415096570786106894
+      Paths_9: 1032831899005383666
+      Paths_33: 1716488531059338762
+      Paths_38: 644978757099892652
+      Paths_18: 6540186439469655368
+      Paths_47: -58480778742623323
+      Paths_43: 8421263148901558043
+      Paths_48: 918734526384201253
+      Paths_30: 2311350124965158962
+      Paths_23: 4664197484747400253
+      Paths_24: -1622805882018213921
+      Paths_42: 6906210087880788425
+      Paths_35: 4221623157077771916
+      Paths_6: -3197776780982355621
+      Paths_4: 8795567671476409454
+      Paths_28: -5157118840093676223
+      Paths_39: 1126599742730208720
+      Paths_40: -4810870417857120581
+      Paths_44: 7607320017852270917
+      Paths_17: -5477152483909052595
+      Paths_26: -6186127608944756639
+      Paths_3: -8907765607471424367
+      Paths_19: -7826156862444152178
+      Paths_51: 2792828965288000531
+      Paths_11: 6132567450817400298
+      Paths_46: -1572113037828186758
+      Paths_20: -2253086267498222065
+      Paths_37: -3882292290888690681
+      Paths_41: 2654279937990358826
+      Paths_5: -82048364263676023
+      Paths_0: -3975216232760467619
+      Paths_13: -450705048401623539
+      Paths_45: 555533485853231726
+      Paths_1: -1571907141483303039
+      Paths_7: -6216437916036447127
+      Paths_29: 3990742193723989832
+      Paths_22: -6786230809556607421
+      Paths_31: -6050728566063336969
+      Paths_12: 4198283865616621513
+      Paths_49: -4015127741968571075
+      Paths_16: 8257945182436292259
+      Paths_2: 4341512326976455624
+      Paths_14: 468462783865732299
+      Paths_10: -6619031256468213252
+      Paths_21: -5677220914259844000
+      Paths_32: -8005384179421122497
+      Paths_25: 8300348825489993277
+      Paths_50: -6310003067062519100
+      Paths_36: 6256928336263274438
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

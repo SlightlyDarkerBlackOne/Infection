@@ -303,7 +303,7 @@ TextureImporter:
       213: 21300198
     second: MeteorPinkGrass_99
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -320,10 +320,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -362,6 +364,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -377,6 +381,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2500,9 +2516,109 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      MeteorPinkGrass_87: 21300174
+      MeteorPinkGrass_18: 21300036
+      MeteorPinkGrass_7: 21300014
+      MeteorPinkGrass_70: 21300140
+      MeteorPinkGrass_89: 21300178
+      MeteorPinkGrass_20: 21300040
+      MeteorPinkGrass_74: 21300148
+      MeteorPinkGrass_5: 21300010
+      MeteorPinkGrass_51: 21300102
+      MeteorPinkGrass_45: 21300090
+      MeteorPinkGrass_48: 21300096
+      MeteorPinkGrass_52: 21300104
+      MeteorPinkGrass_13: 21300026
+      MeteorPinkGrass_56: 21300112
+      MeteorPinkGrass_10: 21300020
+      MeteorPinkGrass_0: 21300000
+      MeteorPinkGrass_68: 21300136
+      MeteorPinkGrass_53: 21300106
+      MeteorPinkGrass_72: 21300144
+      MeteorPinkGrass_15: 21300030
+      MeteorPinkGrass_54: 21300108
+      MeteorPinkGrass_98: 21300196
+      MeteorPinkGrass_97: 21300194
+      MeteorPinkGrass_24: 21300048
+      MeteorPinkGrass_32: 21300064
+      MeteorPinkGrass_34: 21300068
+      MeteorPinkGrass_75: 21300150
+      MeteorPinkGrass_58: 21300116
+      MeteorPinkGrass_35: 21300070
+      MeteorPinkGrass_55: 21300110
+      MeteorPinkGrass_38: 21300076
+      MeteorPinkGrass_88: 21300176
+      MeteorPinkGrass_93: 21300186
+      MeteorPinkGrass_11: 21300022
+      MeteorPinkGrass_3: 21300006
+      MeteorPinkGrass_16: 21300032
+      MeteorPinkGrass_47: 21300094
+      MeteorPinkGrass_46: 21300092
+      MeteorPinkGrass_30: 21300060
+      MeteorPinkGrass_31: 21300062
+      MeteorPinkGrass_23: 21300046
+      MeteorPinkGrass_61: 21300122
+      MeteorPinkGrass_39: 21300078
+      MeteorPinkGrass_90: 21300180
+      MeteorPinkGrass_40: 21300080
+      MeteorPinkGrass_29: 21300058
+      MeteorPinkGrass_43: 21300086
+      MeteorPinkGrass_41: 21300082
+      MeteorPinkGrass_2: 21300004
+      MeteorPinkGrass_69: 21300138
+      MeteorPinkGrass_22: 21300044
+      MeteorPinkGrass_28: 21300056
+      MeteorPinkGrass_71: 21300142
+      MeteorPinkGrass_1: 21300002
+      MeteorPinkGrass_73: 21300146
+      MeteorPinkGrass_12: 21300024
+      MeteorPinkGrass_96: 21300192
+      MeteorPinkGrass_62: 21300124
+      MeteorPinkGrass_95: 21300190
+      MeteorPinkGrass_17: 21300034
+      MeteorPinkGrass_4: 21300008
+      MeteorPinkGrass_60: 21300120
+      MeteorPinkGrass_82: 21300164
+      MeteorPinkGrass_50: 21300100
+      MeteorPinkGrass_91: 21300182
+      MeteorPinkGrass_66: 21300132
+      MeteorPinkGrass_80: 21300160
+      MeteorPinkGrass_14: 21300028
+      MeteorPinkGrass_37: 21300074
+      MeteorPinkGrass_76: 21300152
+      MeteorPinkGrass_67: 21300134
+      MeteorPinkGrass_79: 21300158
+      MeteorPinkGrass_9: 21300018
+      MeteorPinkGrass_81: 21300162
+      MeteorPinkGrass_84: 21300168
+      MeteorPinkGrass_64: 21300128
+      MeteorPinkGrass_83: 21300166
+      MeteorPinkGrass_65: 21300130
+      MeteorPinkGrass_49: 21300098
+      MeteorPinkGrass_27: 21300054
+      MeteorPinkGrass_59: 21300118
+      MeteorPinkGrass_19: 21300038
+      MeteorPinkGrass_26: 21300052
+      MeteorPinkGrass_77: 21300154
+      MeteorPinkGrass_57: 21300114
+      MeteorPinkGrass_42: 21300084
+      MeteorPinkGrass_8: 21300016
+      MeteorPinkGrass_85: 21300170
+      MeteorPinkGrass_99: 21300198
+      MeteorPinkGrass_86: 21300172
+      MeteorPinkGrass_36: 21300072
+      MeteorPinkGrass_33: 21300066
+      MeteorPinkGrass_44: 21300088
+      MeteorPinkGrass_63: 21300126
+      MeteorPinkGrass_25: 21300050
+      MeteorPinkGrass_94: 21300188
+      MeteorPinkGrass_21: 21300042
+      MeteorPinkGrass_92: 21300184
+      MeteorPinkGrass_78: 21300156
+      MeteorPinkGrass_6: 21300012
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

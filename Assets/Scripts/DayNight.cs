@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.LWRP;
+using UnityEngine.Rendering;
 
 public class DayNight : MonoBehaviour
 {
-    public UnityEngine.Experimental.Rendering.Universal.Light2D sun;
+    public UnityEngine.Rendering.Universal.Light2D sun;
     public float cycleSpeed = 0.1f;
 
     void Start() {
-        sun = GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+        sun = GetComponent<UnityEngine.Rendering.Universal.Light2D>();
         StartCoroutine(Sunrise());
     }
 

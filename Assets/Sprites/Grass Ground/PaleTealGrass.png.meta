@@ -303,7 +303,7 @@ TextureImporter:
       213: 21300198
     second: PaleTealGrass_99
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -320,10 +320,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -362,6 +364,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -377,6 +381,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2500,9 +2516,109 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      PaleTealGrass_43: 21300086
+      PaleTealGrass_82: 21300164
+      PaleTealGrass_51: 21300102
+      PaleTealGrass_65: 21300130
+      PaleTealGrass_11: 21300022
+      PaleTealGrass_93: 21300186
+      PaleTealGrass_36: 21300072
+      PaleTealGrass_77: 21300154
+      PaleTealGrass_1: 21300002
+      PaleTealGrass_72: 21300144
+      PaleTealGrass_40: 21300080
+      PaleTealGrass_25: 21300050
+      PaleTealGrass_19: 21300038
+      PaleTealGrass_39: 21300078
+      PaleTealGrass_81: 21300162
+      PaleTealGrass_71: 21300142
+      PaleTealGrass_5: 21300010
+      PaleTealGrass_99: 21300198
+      PaleTealGrass_59: 21300118
+      PaleTealGrass_60: 21300120
+      PaleTealGrass_68: 21300136
+      PaleTealGrass_14: 21300028
+      PaleTealGrass_34: 21300068
+      PaleTealGrass_64: 21300128
+      PaleTealGrass_87: 21300174
+      PaleTealGrass_29: 21300058
+      PaleTealGrass_13: 21300026
+      PaleTealGrass_76: 21300152
+      PaleTealGrass_6: 21300012
+      PaleTealGrass_28: 21300056
+      PaleTealGrass_97: 21300194
+      PaleTealGrass_74: 21300148
+      PaleTealGrass_92: 21300184
+      PaleTealGrass_85: 21300170
+      PaleTealGrass_90: 21300180
+      PaleTealGrass_45: 21300090
+      PaleTealGrass_47: 21300094
+      PaleTealGrass_31: 21300062
+      PaleTealGrass_4: 21300008
+      PaleTealGrass_17: 21300034
+      PaleTealGrass_61: 21300122
+      PaleTealGrass_24: 21300048
+      PaleTealGrass_95: 21300190
+      PaleTealGrass_98: 21300196
+      PaleTealGrass_69: 21300138
+      PaleTealGrass_9: 21300018
+      PaleTealGrass_63: 21300126
+      PaleTealGrass_88: 21300176
+      PaleTealGrass_57: 21300114
+      PaleTealGrass_53: 21300106
+      PaleTealGrass_75: 21300150
+      PaleTealGrass_96: 21300192
+      PaleTealGrass_84: 21300168
+      PaleTealGrass_50: 21300100
+      PaleTealGrass_35: 21300070
+      PaleTealGrass_33: 21300066
+      PaleTealGrass_66: 21300132
+      PaleTealGrass_62: 21300124
+      PaleTealGrass_12: 21300024
+      PaleTealGrass_27: 21300054
+      PaleTealGrass_91: 21300182
+      PaleTealGrass_22: 21300044
+      PaleTealGrass_83: 21300166
+      PaleTealGrass_8: 21300016
+      PaleTealGrass_32: 21300064
+      PaleTealGrass_86: 21300172
+      PaleTealGrass_46: 21300092
+      PaleTealGrass_38: 21300076
+      PaleTealGrass_48: 21300096
+      PaleTealGrass_10: 21300020
+      PaleTealGrass_49: 21300098
+      PaleTealGrass_56: 21300112
+      PaleTealGrass_7: 21300014
+      PaleTealGrass_55: 21300110
+      PaleTealGrass_67: 21300134
+      PaleTealGrass_79: 21300158
+      PaleTealGrass_54: 21300108
+      PaleTealGrass_58: 21300116
+      PaleTealGrass_70: 21300140
+      PaleTealGrass_26: 21300052
+      PaleTealGrass_30: 21300060
+      PaleTealGrass_44: 21300088
+      PaleTealGrass_78: 21300156
+      PaleTealGrass_15: 21300030
+      PaleTealGrass_73: 21300146
+      PaleTealGrass_52: 21300104
+      PaleTealGrass_0: 21300000
+      PaleTealGrass_2: 21300004
+      PaleTealGrass_20: 21300040
+      PaleTealGrass_37: 21300074
+      PaleTealGrass_23: 21300046
+      PaleTealGrass_80: 21300160
+      PaleTealGrass_3: 21300006
+      PaleTealGrass_21: 21300042
+      PaleTealGrass_41: 21300082
+      PaleTealGrass_18: 21300036
+      PaleTealGrass_42: 21300084
+      PaleTealGrass_16: 21300032
+      PaleTealGrass_89: 21300178
+      PaleTealGrass_94: 21300188
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
