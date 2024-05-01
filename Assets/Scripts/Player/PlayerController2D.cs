@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum PlayerState
 {
@@ -8,7 +9,7 @@ public enum PlayerState
 	Frozen,
 }
 
-public class PlayerController2D : MonoBehaviour
+public class PlayerController2D : MessagingBehaviour
 {
 	public PlayerState PlayerState { get; private set; }
 	public float MoveBonusCooldown { get; private set; }
@@ -26,6 +27,8 @@ public class PlayerController2D : MonoBehaviour
 	[SerializeField] private Rigidbody2D m_rigidBody2D;
 	[SerializeField] private Animator m_animator;
 
+	[SerializeField] private PlayerManaManager m_playerManaManager;
+
 	private float m_rollSpeedOngoing;
 	private float m_timeBtwTrail;
 	private float m_dashTime;
@@ -41,27 +44,16 @@ public class PlayerController2D : MonoBehaviour
 	private bool m_grantMoveBonus;
 	private bool m_isDashButtonDown;
 
-	#region Singleton
-	public static PlayerController2D Instance { get; private set; }
-
-	void Awake()
+	private void Awake()
 	{
-		if (Instance == null)
-		{
-			Instance = this;
-			DontDestroyOnLoad(gameObject);
-		}
-		else
-		{
-			Destroy(gameObject);
-		}
+		Subscribe(MessageType.FreezePlayer, OnFreezePlayer);
+		Subscribe(MessageType.PlayerDied, PlayerDied);
+		Subscribe(MessageType.TeleportPlayer, OnTeleportPlayer);
 	}
-	#endregion
 
 	private void Start()
 	{
 		PlayerState = PlayerState.Normal;
-		PlayerHealthManager.PlayerDead += PlayerDied;
 	}
 
 	private void Update()
@@ -76,7 +68,7 @@ public class PlayerController2D : MonoBehaviour
 			m_isDashButtonDown = true;
 		}
 
-		if (m_dashTime >= 0 || PlayerManaManager.Instance.playerCurrentMana <= m_dashManaCost)
+		if (m_dashTime >= 0 || m_playerManaManager.playerCurrentMana <= m_dashManaCost)
 		{
 			m_isDashButtonDown = false;
 		}
@@ -104,6 +96,14 @@ public class PlayerController2D : MonoBehaviour
 			case PlayerState.Rolling:
 				m_rigidBody2D.velocity = m_rollDir * m_rollSpeed;
 				break;
+		}
+	}
+
+	private void OnTeleportPlayer(object _position)
+	{
+		if (_position is Vector3 position)
+		{
+			transform.position = position;
 		}
 	}
 
@@ -150,10 +150,10 @@ public class PlayerController2D : MonoBehaviour
 				{
 					m_rollDir = m_lastMoveDir;
 					m_rollSpeedOngoing = m_rollSpeed;
-					if (m_dashTime <= 0 && PlayerManaManager.Instance.playerCurrentMana >= m_dashManaCost)
+					if (m_dashTime <= 0 && m_playerManaManager.playerCurrentMana >= m_dashManaCost)
 					{
-						PlayerManaManager.Instance.TakeMana(m_dashManaCost);
-						SFXManager.Instance.PlaySound(SFXManager.Instance.dash);
+						m_playerManaManager.TakeMana(m_dashManaCost);
+						MessagingSystem.Publish(MessageType.PlayerDash);
 						PlayerState = PlayerState.Rolling;
 					}
 				}
@@ -178,7 +178,7 @@ public class PlayerController2D : MonoBehaviour
 	private void Dash()
 	{
 		if (m_isDashButtonDown && m_dashTime <= 0 &&
-				PlayerManaManager.Instance.playerCurrentMana >= m_dashManaCost)
+				m_playerManaManager.playerCurrentMana >= m_dashManaCost)
 		{
 			m_dashTime = m_startDashTime;
 			Vector3 dashPosition = transform.position + m_lastMoveDir * m_dashSpeed;
@@ -192,8 +192,8 @@ public class PlayerController2D : MonoBehaviour
 
 			m_rigidBody2D.MovePosition(dashPosition);
 
-			PlayerManaManager.Instance.TakeMana(m_dashManaCost);
-			SFXManager.Instance.PlaySound(SFXManager.Instance.dash);
+			m_playerManaManager.TakeMana(m_dashManaCost);
+			MessagingSystem.Publish(MessageType.PlayerDash);
 			m_isDashButtonDown = false;
 		}
 	}
@@ -227,7 +227,7 @@ public class PlayerController2D : MonoBehaviour
 	{
 		if (m_grantMoveBonus)
 		{
-			if (SpeedNotOnCooldown())
+			if (!IsSpeedBonusOnCD())
 			{
 				MoveBonusCooldown = m_startMoveBonusCooldown;
 				m_moveSpeed *= m_speedBonusModifier;
@@ -242,19 +242,27 @@ public class PlayerController2D : MonoBehaviour
 		MoveBonusCooldown -= Time.deltaTime;
 	}
 
-	public bool SpeedNotOnCooldown()
+	public bool IsSpeedBonusOnCD()
 	{
 		if (MoveBonusCooldown <= 0)
-			return true;
-		else return false;
+			return false;
+		else return true;
 	}
 
-	public void FrezePlayer()
+	private void OnFreezePlayer(object _obj)
+	{
+		if(_obj is bool shouldFreezePlayer)
+		{
+			m_playerFrozen = shouldFreezePlayer;
+		}
+	}
+
+	private void FrezePlayer()
 	{
 		m_playerFrozen = true;
 	}
 
-	public void UnFreezePlayer()
+	private void UnFreezePlayer()
 	{
 		m_playerFrozen = false;
 	}
@@ -272,7 +280,7 @@ public class PlayerController2D : MonoBehaviour
 		m_startMoveBonusCooldown = cooldown;
 	}
 
-	private void PlayerDied()
+	private void PlayerDied(object _obj)
 	{
 		FrezePlayer();
 		m_animator.SetBool("Dead", true);

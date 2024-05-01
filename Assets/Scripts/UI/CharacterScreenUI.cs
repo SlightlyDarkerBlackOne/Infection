@@ -1,32 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterScreenUI : MonoBehaviour
 {
+	[SerializeField] Text healthText;
+	[SerializeField] Text levelText;
+	[SerializeField] Text attackText;
+	[SerializeField] Text defenceText;
+	[SerializeField] Text monstersSlainText;
 
-    [SerializeField] Text healthText;
-    [SerializeField] Text levelText;
-    [SerializeField] Text attackText;
-    [SerializeField] Text defenceText;
-    [SerializeField] Text monstersSlainText;
+	public GameObject characterScreenPanel;
 
-    public GameObject characterScreenPanel;
+	public static CharacterScreenUI instance;
 
-    public static CharacterScreenUI instance;
+	[SerializeField] private PlayerStatsSO m_playerStatsSO;
 
-    private void Start()
-    {
-        instance = this;
-    }
+	private void Start()
+	{
+		instance = this;
+	}
 
-    private void Update()
-    {
-        healthText.text = PlayerStats.Instance.currentHP.ToString();
-        levelText.text = PlayerStats.Instance.currentLevel.ToString();
-        attackText.text = PlayerStats.Instance.currentAttack.ToString();
-        defenceText.text = PlayerStats.Instance.currentDefense.ToString();
-        monstersSlainText.text = UIManager.Instance.numberOfSlainBugs.text;
-    }
+	private void Update()
+	{
+		healthText.text = m_playerStatsSO.currentHP.ToString();
+		levelText.text = m_playerStatsSO.currentLevel.ToString();
+		attackText.text = m_playerStatsSO.currentAttack.ToString();
+		defenceText.text = m_playerStatsSO.currentDefense.ToString();
+		monstersSlainText.text = m_playerStatsSO.numberOfSlainBugs.ToString();
+	}
 }

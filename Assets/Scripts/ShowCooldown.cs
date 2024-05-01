@@ -1,18 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ShowCooldown : MonoBehaviour
+public class ShowCooldown : MessagingBehaviour
 {
-    public GameObject floatingText;
+	[SerializeField] private GameObject m_floatingText;
+	[SerializeField] private PlayerController2D m_player;
 
-    public void ShowFloatingText(string itemName, Color color){
-        var clone = (GameObject)Instantiate(floatingText,
-            PlayerController2D.Instance.transform.position, Quaternion.Euler(Vector3.zero));
-        clone.GetComponent<FloatingText>().displayText.color = color;
-        clone.GetComponent<FloatingText>().textToShow = itemName + " is on Cooldown! " 
-            + PlayerController2D.Instance.MoveBonusCooldown;
-        clone.transform.position = new Vector2(PlayerController2D.Instance.transform.position.x,
-            PlayerController2D.Instance.transform.position.y);
-    }
+	private float m_lastShownTime;
+	private float m_showTextCooldown = 1f;
+
+	private void OnEnable()
+	{
+		Subscribe(MessageType.ShowCooldown, OnShowCooldown);
+	}
+
+	private void OnShowCooldown(object _obj)
+	{
+		if (_obj is string itemName)
+		{
+			if (Time.time - m_lastShownTime >= m_showTextCooldown)
+			{
+				ShowFloatingText(itemName, Color.yellow);
+				m_lastShownTime = Time.time;
+			}
+		}
+	}
+
+	public void ShowFloatingText(string itemName, Color color)
+	{
+		var clone = (GameObject)Instantiate(m_floatingText, m_player.transform.position, Quaternion.Euler(Vector3.zero));
+		clone.GetComponent<FloatingText>().displayText.color = color;
+		clone.GetComponent<FloatingText>().textToShow = itemName + " is on Cooldown! " + m_player.MoveBonusCooldown;
+		clone.transform.position = new Vector2(m_player.transform.position.x, m_player.transform.position.y);
+	}
 }

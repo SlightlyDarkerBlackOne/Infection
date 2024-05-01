@@ -1,56 +1,77 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CameraMove : MonoBehaviour {
+public class CameraMove : MessagingBehaviour
+{
+	[SerializeField] private float m_cameraSpeed = 5;
+	[SerializeField] private GameObject m_weatherEffect;
+	[SerializeField] private Transform m_cameraTarget;
 
-    private Transform cameraTarget;
+	private float m_minX = 8.4f;
+	private float m_minY = -57.5f;
+	private float m_maxX = 47.5f;
+	private float m_maxY = -24f;
 
-    public float cameraSpeed;
+	private bool m_isClampingCamera = true;
 
-    public float minX;
-    public float minY;
-    public float maxX;
-    public float maxY;
-    public GameObject weatherEffect;
-    private GameObject instantiatedEffect;
+	private void Start()
+	{
+		Subscribe(MessageType.RestrictCamera, OnRestrictCamera);
+		Subscribe(MessageType.UnRestrictCamera, OnUnRestrictCamera);
+		Subscribe(MessageType.TeleportPlayer, OnTeleportPlayer);
+	}
 
-    //Defines an instance of the weather effect and changes its position in the FixedUpdate function the same as the camera
-    private void Start() {
-        cameraTarget = PlayerController2D.Instance.gameObject.transform;
-        //instantiatedEffect = Instantiate(weatherEffect, transform.position, Quaternion.identity);
-    }
+	private void OnTeleportPlayer(object obj)
+	{
+		if (m_cameraTarget != null)
+		{
+			transform.position = m_cameraTarget.position;
+		}
+	}
 
-    private void FixedUpdate()
-    {
-        if(cameraTarget != null)
-        {
-            var newPos = Vector2.Lerp(transform.position, cameraTarget.position, 
-                Time.deltaTime * cameraSpeed);
+	private void OnUnRestrictCamera(object obj)
+	{
+		m_isClampingCamera = false;
+	}
 
-            var vect3 = new Vector3(newPos.x, newPos.y, -10f);
+	private void OnRestrictCamera(object obj)
+	{
+		m_isClampingCamera = true;
+	}
 
-            var clampX = Mathf.Clamp(vect3.x, minX, maxX);
-            var clampY = Mathf.Clamp(vect3.y, minY, maxY);
+	private void FixedUpdate()
+	{
+		if (m_cameraTarget != null)
+		{
+			var newPos = Vector2.Lerp(transform.position, m_cameraTarget.position,
+				Time.deltaTime * m_cameraSpeed);
 
-            transform.position = new Vector3(clampX, clampY, -10f);
+			var newPositionVector = new Vector3(newPos.x, newPos.y, -10f);
 
-            //instantiatedEffect.transform.position = transform.position;
-        }
-    }
+			if (m_isClampingCamera)
+			{
+				var clampX = Mathf.Clamp(newPositionVector.x, m_minX, m_maxX);
+				var clampY = Mathf.Clamp(newPositionVector.y, m_minY, m_maxY);
+				transform.position = new Vector3(clampX, clampY, -10f);
+			}
+			else
+			{
+				transform.position = newPositionVector;
+			}
+		}
+	}
 
-    /*Changes level borders for the main camera
+	/*Changes level borders for the main camera
     Checks if the new values are 0 so we can change only maxY position of the 
     camera on a single level to simplify entering into houses*/
-    public void ChangeLevelBorders(float minxNew, float minyNew, float maxxNew, float maxyNew){
-            if(minxNew != 0)
-                minX = minxNew;
-            if(minyNew != 0)
-                minY = minyNew;
-
-            if(maxxNew != 0)
-                maxX = maxxNew;
-            if(maxyNew != 0)
-                maxY = maxyNew;
-        }
+	public void ChangeLevelBorders(float minxNew, float minyNew, float maxxNew, float maxyNew)
+	{
+		if (minxNew != 0)
+			m_minX = minxNew;
+		if (minyNew != 0)
+			m_minY = minyNew;
+		if (maxxNew != 0)
+			m_maxX = maxxNew;
+		if (maxyNew != 0)
+			m_maxY = maxyNew;
+	}
 }

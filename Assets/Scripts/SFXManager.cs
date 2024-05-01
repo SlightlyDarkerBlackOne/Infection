@@ -1,76 +1,141 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SFXManager : MonoBehaviour {
+public class SFXManager : MessagingBehaviour
+{
+	public AudioSource playerHurt;
+	public AudioSource playerDead;
+	public AudioSource playerAttack;
+	public AudioSource levelUP;
+	public AudioSource playerHealed;
+	public AudioSource enemyHit;
+	public AudioSource enemyDead;
+	public AudioSource itemPickedUp;
 
-    public AudioSource playerHurt;
-    public AudioSource playerDead;
-    public AudioSource playerAttack;
-    public AudioSource levelUP;
-    public AudioSource playerHealed;
-    public AudioSource enemyHit;
-    public AudioSource enemyDead;
-    public AudioSource itemPickedUp;
+	public AudioSource soundTrack;
+	public AudioSource bossTrackDrums;
+	public AudioSource bossSpawnGrunt;
 
-    public AudioSource soundTrack;
-    public AudioSource bossTrackDrums;
-    public AudioSource bossSpawnGrunt;
+	public AudioSource dash;
+	public AudioSource speedBuff;
+	public AudioSource footsteps;
+	public AudioSource breakCrate;
+	public AudioSource manaPotion;
+	public AudioSource bowHitSolid;
+	public AudioSource[] bowFire;
 
-    public AudioSource dash;
-    public AudioSource speedBuff;
-    public AudioSource footsteps;
-    public AudioSource breakCrate;
-    public AudioSource manaPotion;
-    public AudioSource bowHitSolid;
-    public AudioSource[] bowFire;
+	public AudioSource deathScreenFail;
 
-    public AudioSource deathScreenFail;
-
-    #region Singleton
-    public static SFXManager Instance {get; private set;}
-
-	// Use this for initialization
-	void Awake () {
-		if (Instance == null) {
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(gameObject);
-        }
+	private void Awake()
+	{
+		Subscribe(MessageType.PlayerDamaged, OnPlayerDamaged);
+		Subscribe(MessageType.PlayerHealed, OnPlayerHealed);
+		Subscribe(MessageType.PlayerDied, PlayDeathScreenSound);
+		Subscribe(MessageType.LevelUp, PlayLevelUpSound);
+		Subscribe(MessageType.PlayerDash, PlayDashSound);
+		Subscribe(MessageType.BreakCrate, PlayBreakCrateSound);
+		Subscribe(MessageType.ManaPotionPop, PlayManaPotionPopSound);
+		Subscribe(MessageType.BossSpawned, BossSpawned);
+		Subscribe(MessageType.BowFired, PlayBowFireSound);
+		Subscribe(MessageType.ItemPickedUp, ItemPickedUp); 
+		Subscribe(MessageType.BowHitSolid, BowHitSolid); 
+		Subscribe(MessageType.EnemyHit, EnemyHit);
+		Subscribe(MessageType.EnemyKilled, EnemyDead);
+		Subscribe(MessageType.BossDied, BossDied);
 	}
-    #endregion
 
-    private void Start() {
-        PlayerHealthManager.PlayerDead += PlayDeathScreen;
-    }
-    //private void OnDisable() {
-    //    PlayerController2D.Instance.GetComponent<Player>().playerHealthManager.PlayerDead -= PlayDeathScreen;
-    //}
-    public void PlaySound(AudioSource source){
-        source.Play();
-    }
-    private void PlayOnLoop(AudioSource source) {
-        source.Play();
-        source.loop = true;
-    }
+	private void BossDied(object obj)
+	{
+		PlaySoundTrack(soundTrack);
+	}
 
-    public void PlayBowFireSound()
-    {
-        int random = Random.Range(0, 3);
-        bowFire[random].Play();
-    }
+	private void EnemyDead(object obj)
+	{
+		PlaySound(enemyDead);
 
-    public void PlayBossMusic(AudioSource source) {
-        soundTrack.Stop();
-        PlayOnLoop(source);
-    }
-    public void PlaySoundTrack(AudioSource source) {
-        bossTrackDrums.Stop();
-        PlayOnLoop(source);
-    }
+	}
 
-    private void PlayDeathScreen() {
-        deathScreenFail.Play();
-    }
+	private void EnemyHit(object obj)
+	{
+		PlaySound(enemyHit);
+	}
+
+	private void BowHitSolid(object obj)
+	{
+		PlaySound(bowHitSolid);
+	}
+
+	private void OnPlayerDamaged(object obj)
+	{
+		PlaySound(playerHurt);
+	}
+
+	private void OnPlayerHealed(object obj)
+	{
+		PlaySound(playerHealed);
+	}
+
+	private void PlayLevelUpSound(object obj)
+	{
+		PlaySound(levelUP);
+	}
+
+	private void PlayDashSound(object obj)
+	{
+		PlaySound(dash);
+	}
+
+	private void PlayBreakCrateSound(object obj)
+	{
+		PlaySound(breakCrate);
+	}
+
+	private void PlayManaPotionPopSound(object obj)
+	{
+		PlaySound(manaPotion);
+	}
+
+	private void BossSpawned(object obj)
+	{
+		PlaySound(bossSpawnGrunt); 
+		PlayBossMusic(bossTrackDrums);
+	}
+
+	private void ItemPickedUp(object obj)
+	{
+		PlaySound(itemPickedUp);
+	}
+
+	public void PlaySound(AudioSource source)
+	{
+		source.Play();
+	}
+
+	private void PlayOnLoop(AudioSource source)
+	{
+		source.Play();
+		source.loop = true;
+	}
+
+	public void PlayBowFireSound(object obj)
+	{
+		int random = Random.Range(0, 3);
+		bowFire[random].Play();
+	}
+
+	public void PlayBossMusic(AudioSource source)
+	{
+		soundTrack.Stop();
+		PlayOnLoop(source);
+	}
+
+	public void PlaySoundTrack(AudioSource source)
+	{
+		bossTrackDrums.Stop();
+		PlayOnLoop(source);
+	}
+
+	private void PlayDeathScreenSound(object _obj)
+	{
+		deathScreenFail.Play();
+	}
 }

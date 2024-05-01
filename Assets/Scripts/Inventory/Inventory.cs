@@ -1,108 +1,131 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
+
 public class Inventory : MonoBehaviour
 {
-    public List<Item> itemList = new List<Item>();
-    
-    public GameObject InventoryPanel;
+	public List<Item> itemList = new List<Item>();
 
-    public static Inventory instance;
+	public GameObject InventoryPanel;
 
-    public float itemSlots;
+	public static Inventory instance;
 
-    void Start()
-    {
-        instance = this;
-        updatePanelSlots();
-    }
+	public float itemSlots;
 
-    void Update()
-    {
-        HealWithHotkey();
-    }
+	void Start()
+	{
+		instance = this;
+		UpdatePanelSlots();
+	}
 
-    //Heals the player with hotkey 'H' removing last potion in the inventory
-    void HealWithHotkey(){
-        if(Input.GetKeyDown(KeyCode.H)){
-            Transform lastChild;
-            Item lastSlotItem = null;
-            for (int i = 1; i <= itemSlots; i++)
-            {
-                lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
+	void Update()
+	{
+		HealWithHotkey();
+	}
 
-                InventorySlotController lastSlot = lastChild.GetComponent<InventorySlotController>();
-                lastSlotItem = lastSlot.item;
-                if(lastSlotItem != null && lastSlotItem.itemName == "Health Potion"){
-                    lastSlot.Use();
-                    break;
-                }
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.M)){
-            Transform lastChild;
-            Item lastSlotItem = null;
-            for (int i = 1; i <= itemSlots; i++)
-            {
-                lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
+	//Heals the player with hotkey 'H' removing last potion in the inventory
+	void HealWithHotkey()
+	{
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			Transform lastChild;
+			Item lastSlotItem = null;
 
-                lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
-                if(lastSlotItem != null && lastSlotItem.itemName == "Mana Potion"){
-                    lastSlotItem.Use();
-                    break;
-                }
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.C)){
-            Transform lastChild;
-            Item lastSlotItem = null;
-            for (int i = 1; i <= itemSlots; i++)
-            {
-                lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
-                
-                lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
-                if(lastSlotItem != null && lastSlotItem.itemName == "Speed Scroll"){
-                    lastSlotItem.Use();
-                    break;
-                }
-            }
-        }
+			for (int i = 1; i <= itemSlots; i++)
+			{
+				lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
 
-    }
+				InventorySlotController lastSlot = lastChild.GetComponent<InventorySlotController>();
+				lastSlotItem = lastSlot.item;
 
-    void updatePanelSlots(){
-        int index = 0;
-        foreach(Transform child in InventoryPanel.transform){
-            
-            InventorySlotController slot = child.GetComponent<InventorySlotController>();
+				if (lastSlotItem != null && lastSlotItem.itemName == "Health Potion")
+				{
+					lastSlot.Use();
+					break;
+				}
+			}
+		}
 
-            if(index < itemList.Count){
-                slot.item = itemList[index];
-            } else{
-                slot.item = null;
-            }
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			Transform lastChild;
+			Item lastSlotItem = null;
 
-            slot.updateInfo();
-            index++;
-        }
-    }
+			for (int i = 1; i <= itemSlots; i++)
+			{
+				lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
 
-    public void Add(Item item){
-        if(InventoryNotFull()){
-            itemList.Add(item);
-        }
-        updatePanelSlots();
-    }
+				lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
 
-    public void Remove(Item item){
-        itemList.Remove(item);
-        updatePanelSlots();
-    }
+				if (lastSlotItem != null && lastSlotItem.itemName == "Mana Potion")
+				{
+					lastSlotItem.Use();
+					break;
+				}
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			Transform lastChild;
+			Item lastSlotItem = null;
 
-    public bool InventoryNotFull(){
-        if(itemList.Count < itemSlots)
-            return true;
-        else return false;
-    }
+			for (int i = 1; i <= itemSlots; i++)
+			{
+				lastChild = InventoryPanel.transform.GetChild(InventoryPanel.transform.childCount - i);
+
+				lastSlotItem = lastChild.GetComponent<InventorySlotController>().item;
+
+				if (lastSlotItem != null && lastSlotItem.itemName == "Speed Scroll")
+				{
+					lastSlotItem.Use();
+					break;
+				}
+			}
+		}
+
+	}
+
+	void UpdatePanelSlots()
+	{
+		int index = 0;
+		foreach (Transform child in InventoryPanel.transform)
+		{
+
+			InventorySlotController slot = child.GetComponent<InventorySlotController>();
+
+			if (index < itemList.Count)
+			{
+				slot.item = itemList[index];
+			}
+			else
+			{
+				slot.item = null;
+			}
+
+			slot.UpdateInfo();
+			index++;
+		}
+	}
+
+	public void Add(Item item)
+	{
+		if (InventoryNotFull())
+		{
+			itemList.Add(item);
+		}
+
+		UpdatePanelSlots();
+	}
+
+	public void Remove(Item item)
+	{
+		itemList.Remove(item);
+		UpdatePanelSlots();
+	}
+
+	public bool InventoryNotFull()
+	{
+		if (itemList.Count < itemSlots)
+			return true;
+		else return false;
+	}
 }

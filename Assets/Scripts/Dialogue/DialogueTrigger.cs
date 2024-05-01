@@ -1,36 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour {
+public class DialogueTrigger : MonoBehaviour
+{
+	public bool showOnce;
+	public bool story;
+	public bool destroy;
+	private bool shownAllready = false;
 
-    public bool showOnce;
-    public bool story;
-    public bool destroy;
-    private bool shownAllready = false;
+	public Dialogue dialogue;
 
-    public Dialogue dialogue;
+	private void Start()
+	{
+		if (story)
+		{
+			TriggerDialogue();
+		}
+	}
 
-    private void Start(){
-        if (story){
-            TriggerDialogue();
-        }
-    }
-    public void TriggerDialogue(){
-        DialogueManager.Instance.StartDialogue(dialogue);
-    }
+	public void TriggerDialogue()
+	{
+		MessagingSystem.Publish(MessageType.StartDialogue, dialogue);
+	}
 
-    //When entering dialogue or NPC dialogue zone
-    private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.gameObject.tag == "Player") {
-            if(!shownAllready)
-                TriggerDialogue();
-            if (showOnce)
-            {
-                shownAllready = true;
-                if(destroy)
-                    Destroy(gameObject);
-            }
-        }
-    }
+	//When entering dialogue or NPC dialogue zone
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.tag == "Player")
+		{
+			if (!shownAllready)
+				TriggerDialogue();
+			if (showOnce)
+			{
+				shownAllready = true;
+				if (destroy)
+					Destroy(gameObject);
+			}
+		}
+	}
 }
