@@ -1,39 +1,44 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private PlayerSkills playerSkills;
-    public PlayerHealthManager playerHealthManager;
-    void Awake()
-    {
-        playerSkills = new PlayerSkills();
-        playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillsUnlocked;
-    }
+	private PlayerSkills playerSkills;
+	public PlayerHealthManager playerHealthManager;
 
-    private void PlayerSkills_OnSkillsUnlocked(object sender, PlayerSkills.OnSkillUnlockedEventArgs e){
-        switch (e.skillType){
-            case PlayerSkills.Skilltype.HealthRegen:
-                //SetHealthRegen();
-                break;
-            case PlayerSkills.Skilltype.ManaRegen:
-                //SetManaRegen();
-                break;
-            case PlayerSkills.Skilltype.MoveSpeed:
-                PlayerController2D.Instance.IncreaseMoveSpeed();
-                break;
-            case PlayerSkills.Skilltype.PotionConsuming:
-                //EnablePotionConsuming();
-                break;
-        }
-    }
+	[SerializeField] private PlayerController2D m_playerController2D;
 
-    public PlayerSkills GetPlayerSkills(){
-        return playerSkills;
-    }
+	private void Awake()
+	{
+		playerSkills = new PlayerSkills();
+		playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillsUnlocked;
+	}
 
-    public bool CanUseDash(){
-        return playerSkills.IsSkillUnlocked(PlayerSkills.Skilltype.Dash);
-    }
+	private void PlayerSkills_OnSkillsUnlocked(object sender, PlayerSkills.OnSkillUnlockedEventArgs e)
+	{
+		switch (e.skillType)
+		{
+			case PlayerSkills.Skilltype.HealthRegen:
+				//SetHealthRegen();
+				break;
+			case PlayerSkills.Skilltype.ManaRegen:
+				//SetManaRegen();
+				break;
+			case PlayerSkills.Skilltype.MoveSpeed:
+				m_playerController2D.IncreaseMoveSpeed();
+				break;
+			case PlayerSkills.Skilltype.PotionConsuming:
+				//EnablePotionConsuming();
+				break;
+		}
+	}
+
+	public PlayerSkills GetPlayerSkills()
+	{
+		return playerSkills;
+	}
+
+	public bool CanUseDash()
+	{
+		return playerSkills.IsSkillUnlocked(PlayerSkills.Skilltype.Dash);
+	}
 }

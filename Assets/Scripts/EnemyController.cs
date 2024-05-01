@@ -1,190 +1,205 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnemyController : MonoBehaviour {
+public class EnemyController : MonoBehaviour
+{
 
-    public float moveSpeed;
-    public float moveSpeedChaseModifier;
-    public float rotationSpeed;
-    private Vector2 minWalkPoint;
-    private Vector2 maxWalkPoint;
+	public float moveSpeed;
+	public float moveSpeedChaseModifier;
+	public float rotationSpeed;
+	private Vector2 minWalkPoint;
+	private Vector2 maxWalkPoint;
 
-    private Rigidbody2D rb;
+	private Rigidbody2D rb;
 
-    private bool moving;
+	private bool moving;
 
-    private Animator anim;
+	private Animator anim;
 
-    public float timeBetweenMove;
-    private float timeBetweenMoveCounter;
-    public float timeToMove;
-    private float timeToMoveCounter;
+	public float timeBetweenMove;
+	private float timeBetweenMoveCounter;
+	public float timeToMove;
+	private float timeToMoveCounter;
 
-    private Vector3 moveDirection;
+	private Vector3 moveDirection;
 
-    //for level reload if the player dies
-    public float waitToReload;
-    public bool reloading;
-    private Transform player;
+	//for level reload if the player dies
+	public float waitToReload;
+	public bool reloading;
+	private Transform m_playerTransform;
 
-    public Collider2D walkZone;
-    private bool hasWalkZone;
+	public Collider2D walkZone;
+	private bool hasWalkZone;
 
-    public float chasingDistance;
-    public float unChasingDistance;
+	public float chasingDistance;
+	public float unChasingDistance;
 
-    public float attackRange;
-    public int attackDelay;
-    private float lastAttackTime;
+	public float attackRange;
+	public int attackDelay;
+	private float lastAttackTime;
 
-    public bool hasAttackRange = false;
-    public Transform attackPos;
-
-
-    public LayerMask whatIsPlayer;
-
-    private HurtPlayer hurtPlayer;
-
-    private float timeBetweenAttack;
-    public float startTimeBetweenAttack;
-
-    public bool boss = false;
+	public bool hasAttackRange = false;
+	public Transform attackPos;
 
 
-	// Use this for initialization
-	void Start () {
+	public LayerMask whatIsPlayer;
 
-        rb = GetComponent<Rigidbody2D>();
-        player = PlayerController2D.Instance.transform;
-        anim = GetComponent<Animator>();
-        hurtPlayer = GetComponent<HurtPlayer>();
+	private HurtPlayer hurtPlayer;
 
-        timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
-        timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
+	private float timeBetweenAttack;
+	public float startTimeBetweenAttack;
 
-        if(walkZone != null) {
-            minWalkPoint = walkZone.bounds.min;
-            maxWalkPoint = walkZone.bounds.max;
-            hasWalkZone = true;
-        }
-        
+	public bool boss = false;
+
+	private void Start()
+	{
+		rb = GetComponent<Rigidbody2D>();
+		m_playerTransform = FindObjectOfType<PlayerController2D>().transform;
+		anim = GetComponent<Animator>();
+		hurtPlayer = GetComponent<HurtPlayer>();
+
+		timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
+		timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
+
+		if (walkZone != null)
+		{
+			minWalkPoint = walkZone.bounds.min;
+			maxWalkPoint = walkZone.bounds.max;
+			hasWalkZone = true;
+		}
 	}
-	
-	void Update () { 
 
-        //Ako je unutar chase udaljenosti lovi ga
-        if(Vector2.Distance(transform.position, player.position) < chasingDistance) {
-            Chase();
-        }
-        
-        //Ako je izaso izvan chase udaljenosti prestani ga lovit (patroliraj)
-        if (Vector2.Distance(transform.position, player.position) > unChasingDistance) {
-            Patrol();
-        }
+	void Update()
+	{
+		//Ako je unutar chase udaljenosti lovi ga
+		if (Vector2.Distance(transform.position, m_playerTransform.position) < chasingDistance)
+		{
+			Chase();
+		}
 
-        if (reloading)
-        {
-            waitToReload -= Time.deltaTime;
-            if(waitToReload < 0)
-            {
-                //reload scene
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().builtindex);
-            }
-        }
+		//Ako je izaso izvan chase udaljenosti prestani ga lovit (patroliraj)
+		if (Vector2.Distance(transform.position, m_playerTransform.position) > unChasingDistance)
+		{
+			Patrol();
+		}
 
-    }
+		if (reloading)
+		{
+			waitToReload -= Time.deltaTime;
 
-    void Chase() {
-        //Debug.Log("Chasing");
-        anim.SetBool("isFollowing", true);
-        transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * moveSpeedChaseModifier * Time.deltaTime);
-        RotateTowards(player.position);
-        //anim.SetBool("isMoving", true);
+			if (waitToReload < 0)
+			{
+				//reload scene
+				//SceneManager.LoadScene(SceneManager.GetActiveScene().builtindex);
+			}
+		}
+	}
 
-        //If its close enough start attacking the player
-        if(hasAttackRange){
-            Collider2D playerToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsPlayer);
+	void Chase()
+	{
+		//Debug.Log("Chasing");
+		anim.SetBool("isFollowing", true);
+		transform.position = Vector2.MoveTowards(transform.position, m_playerTransform.position, moveSpeed * moveSpeedChaseModifier * Time.deltaTime);
+		RotateTowards(m_playerTransform.position);
+		//anim.SetBool("isMoving", true);
 
-            if(timeBetweenAttack <= 0){
-                if(playerToDamage != null){
-                    anim.SetBool("isAttacking", true);
-                    playerToDamage.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(hurtPlayer.DamageCalculation());
-                    timeBetweenAttack = startTimeBetweenAttack;
-                }
-            } else {
-                timeBetweenAttack -= Time.deltaTime;
-            }
-        }
+		//If its close enough start attacking the player
+		if (hasAttackRange)
+		{
+			Collider2D playerToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsPlayer);
 
-        //If the player moves too far stop attacking him
-        if (Vector2.Distance(transform.position, player.position) > attackRange) {
-            anim.SetBool("isAttacking", false);
-        }
-    }
+			if (timeBetweenAttack <= 0)
+			{
+				if (playerToDamage != null)
+				{
+					anim.SetBool("isAttacking", true);
+					playerToDamage.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(hurtPlayer.DamageCalculation());
+					timeBetweenAttack = startTimeBetweenAttack;
+				}
+			}
+			else
+			{
+				timeBetweenAttack -= Time.deltaTime;
+			}
+		}
 
-    void Patrol() {
-        //Debug.Log("Patrolling");
-        anim.SetBool("isFollowing", false);
-        if (moving) {
-            timeToMoveCounter -= Time.deltaTime;
-            rb.velocity = moveDirection;
+		//If the player moves too far stop attacking him
+		if (Vector2.Distance(transform.position, m_playerTransform.position) > attackRange)
+		{
+			anim.SetBool("isAttacking", false);
+		}
+	}
 
-            //Ako je dosao do ruba zone za hodanje
-            //IsOverTheZone();
+	void Patrol()
+	{
+		//Debug.Log("Patrolling");
+		anim.SetBool("isFollowing", false);
+		if (moving)
+		{
+			timeToMoveCounter -= Time.deltaTime;
+			rb.velocity = moveDirection;
 
-            if (timeToMoveCounter < 0f) {
-                moving = false;
-                //anim.SetBool("isMoving", false);
-                timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
-            }
+			//Ako je dosao do ruba zone za hodanje
+			//IsOverTheZone();
 
-        } else {
-            timeBetweenMoveCounter -= Time.deltaTime;
-            rb.velocity = Vector2.zero;
+			if (timeToMoveCounter < 0f)
+			{
+				moving = false;
+				//anim.SetBool("isMoving", false);
+				timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
+			}
 
-            if (timeBetweenMoveCounter < 0f) {
-                moving = true;
-                //anim.SetBool("isMoving", true);
-                timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
+		}
+		else
+		{
+			timeBetweenMoveCounter -= Time.deltaTime;
+			rb.velocity = Vector2.zero;
 
-                moveDirection = new Vector3(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed, 0f);
+			if (timeBetweenMoveCounter < 0f)
+			{
+				moving = true;
+				//anim.SetBool("isMoving", true);
+				timeToMoveCounter = Random.Range(timeToMove * 0.75f, timeToMove * 1.25f);
 
-            }
-        }
-    }
+				moveDirection = new Vector3(Random.Range(-1f, 1f) * moveSpeed, Random.Range(-1f, 1f) * moveSpeed, 0f);
 
-    //Showing chasing and unchasing distance gizmos
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, unChasingDistance);
+			}
+		}
+	}
 
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, chasingDistance);
+	//Showing chasing and unchasing distance gizmos
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, unChasingDistance);
 
-        Gizmos.color = Color.red;
-        if(hasAttackRange)
-            Gizmos.DrawWireSphere(attackPos.position, attackRange);
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawWireSphere(transform.position, chasingDistance);
 
-    }
+		Gizmos.color = Color.red;
+		if (hasAttackRange)
+			Gizmos.DrawWireSphere(attackPos.position, attackRange);
 
-    void IsOverTheZone() {
-        if (hasWalkZone && transform.position.y > maxWalkPoint.y || transform.position.x > maxWalkPoint.x) {
-            rb.velocity = Vector2.zero;
-            moving = false;
-            anim.SetBool("isMoving", false);
-            timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
-        }
-    }
+	}
 
-    private void RotateTowards(Vector2 target) {
-        var offset = 90f;
-        Vector2 direction = target - (Vector2)transform.position;
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+	void IsOverTheZone()
+	{
+		if (hasWalkZone && transform.position.y > maxWalkPoint.y || transform.position.x > maxWalkPoint.x)
+		{
+			rb.velocity = Vector2.zero;
+			moving = false;
+			anim.SetBool("isMoving", false);
+			timeBetweenMoveCounter = Random.Range(timeBetweenMove * 0.75f, timeBetweenMove * 1.25f);
+		}
+	}
 
-        Quaternion rotation = Quaternion.AngleAxis(angle + offset, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-    }
+	private void RotateTowards(Vector2 target)
+	{
+		var offset = 90f;
+		Vector2 direction = target - (Vector2)transform.position;
+		direction.Normalize();
+		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+		Quaternion rotation = Quaternion.AngleAxis(angle + offset, Vector3.forward);
+		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+	}
 }

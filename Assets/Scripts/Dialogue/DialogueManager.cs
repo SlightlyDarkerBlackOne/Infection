@@ -3,76 +3,93 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour {
+public class DialogueManager : MessagingBehaviour
+{
+	public Text nameText;
+	public Text dialogueText;
+	public Animator animator;
 
-    public Text nameText;
-    public Text dialogueText;
+	private Queue<string> m_sentences;
 
-    public Animator animator;
+	private void Awake()
+	{
+		Subscribe(MessageType.StartDialogue, OnTryStartDialogue);
+		Subscribe(MessageType.PlayerDied, OnPlayerDied);
+	}
 
-    private Queue<string> sentences;
+	private void Start()
+	{
+		m_sentences = new Queue<string>();
+	}
 
-    private PlayerHealthManager playerHealth;
-    #region Singleton
-    public static DialogueManager Instance {get; private set;}
-    void Awake()
-    {
-        if(Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }else{
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-	// Use this for initialization
-	void Start () {
-        sentences = new Queue<string>();
+	private void OnTryStartDialogue(object _obj)
+	{
+		if (_obj is Dialogue dialogue)
+		{
+			StartDialogue(dialogue);
+		}
+	}
 
-        //playerHealth = PlayerController2D.Instance.GetComponent<Player>().playerHealthManager;
-        PlayerHealthManager.PlayerDead += EndDialogue;
-    }
-    
-    //For starting a dialogue and also for starting quest dialogue
-    public void StartDialogue(Dialogue dialogue) {
-        PlayerController2D.Instance.FrezePlayer();
-        animator.SetBool("IsOpen", true);
+	private void OnPlayerDied(object _obj)
+	{
+		EndDialogue();
+	}
 
-        nameText.text = dialogue.name;
+	public void StartDialogue(Dialogue _dialogue)
+	{
+		MessagingSystem.Publish(MessageType.FreezePlayer, true);
 
-        sentences = new Queue<string>();
-        if(sentences.Count != 0)
-            sentences.Clear();
+		if (animator != null)
+		{
+			animator.SetBool("IsOpen", true);
+		}
 
-        foreach (string sentence in dialogue.sentences) {
-            sentences.Enqueue(sentence);
-        }
-        DisplayNextSentence();
-    }
+		nameText.text = _dialogue.name;
 
-    public void DisplayNextSentence() {
-        if(sentences.Count == 0) {
-            EndDialogue();
-            return;
-        }
-        string sentence = sentences.Dequeue();
+		m_sentences = new Queue<string>();
 
-        //Stops animating last sentence if we start with the new one (continue button)
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
-    }
+		if (m_sentences.Count != 0)
+			m_sentences.Clear();
 
-    //Writes letter by letter in dialogue
-    IEnumerator TypeSentence (string sentence) {
-        dialogueText.text = "";
-        foreach(char letter in sentence.ToCharArray()) {
-            dialogueText.text += letter;
-            yield return null;
-        }
-    }
+		foreach (string sentence in _dialogue.sentences)
+		{
+			m_sentences.Enqueue(sentence);
+		}
 
-    void EndDialogue() {
-        animator.SetBool("IsOpen", false);
-        PlayerController2D.Instance.UnFreezePlayer();
-    }
+		DisplayNextSentence();
+	}
+
+	public void DisplayNextSentence()
+	{
+		if (m_sentences.Count == 0)
+		{
+			EndDialogue();
+			return;
+		}
+		string sentence = m_sentences.Dequeue();
+
+		//Stops animating last sentence if we start with the new one (continue button)
+		StopAllCoroutines();
+		StartCoroutine(TypeSentence(sentence));
+	}
+
+	private IEnumerator TypeSentence(string _sentence)
+	{
+		dialogueText.text = "";
+		foreach (char letter in _sentence.ToCharArray())
+		{
+			dialogueText.text += letter;
+			yield return null;
+		}
+	}
+
+	private void EndDialogue()
+	{
+		if (animator != null)
+		{
+			animator.SetBool("IsOpen", false);
+		}
+
+		MessagingSystem.Publish(MessageType.FreezePlayer, false);
+	}
 }

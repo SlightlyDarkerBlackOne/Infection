@@ -1,95 +1,87 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UIManager : MonoBehaviour {
 
-    public Image healthBar;
-    public Image manaBar;
-    public Text HPText;
-    public Text ManaText;
-    private PlayerHealthManager playerHealth;
-    private PlayerManaManager playerMana;
+public class UIManager : MessagingBehaviour
+{
+	public Image healthBar;
+	public Image manaBar;
+	public Text HPText;
+	public Text ManaText;
+	public Text levelText;
+	public Slider xpBar;
 
-    private PlayerStats thePS;
-    public Text levelText;
-    public Slider xpBar;
+	public Text numberOfSlainBugs;
+	private int numberOfSlainBugsCounter = 0;
+	[SerializeField]
+	private Animator textPopup;
+	[SerializeField]
+	private GameObject[] checkmarks;
+	[SerializeField]
+	private GameObject deadPanel;
 
-    public Text numberOfSlainBugs;
-    private int numberOfSlainBugsCounter = 0;
-    [SerializeField]
-    private Animator textPopup;
-    [SerializeField]
-    private GameObject[] checkmarks;
-    [SerializeField]
-    private GameObject deadPanel;
+	[SerializeField] private PlayerManaManager m_playerMana;
+	[SerializeField] private PlayerStatsSO m_playerStatsSO;
 
-    #region Singleton
-    public static UIManager Instance {get; private set;}
-
-    void Awake()
-    {
-        if(Instance == null){
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else{
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-    
-    // Use this for initialization
-    void Start () {
-        playerHealth = PlayerController2D.Instance.GetComponent<Player>().playerHealthManager;
-        playerHealth.HealthChangedEvent += UpdateHealthUI;
-        PlayerHealthManager.PlayerDead += ShowDeathScreen;
-        QuestManager.Instance.QuestFinishedEvent += ShowQuestCheckmark;
-
-        playerMana = PlayerManaManager.Instance;
-        thePS = GetComponent<PlayerStats>();
-
-        numberOfSlainBugs.text = "0";
+	private void Awake()
+	{
+		Subscribe(MessageType.PlayerHealthChanged, OnPlayerHealthChanged);
+		Subscribe(MessageType.QuestFinished, ShowQuestCheckmark);
+		Subscribe(MessageType.PlayerDied, ShowDeathScreen);
+		Subscribe(MessageType.EnemyKilled, MonsterKilled);
 	}
 
-    private void OnDisable() {
-        playerHealth.HealthChangedEvent -= UpdateHealthUI;
-    }
+	private void OnPlayerHealthChanged(object _obj)
+	{
+		if (_obj is HealthInfo healthInfo)
+		{
+			healthBar.fillAmount = healthInfo.CurrentHealth / healthInfo.MaxHealth;
+			HPText.text = "HP: " + healthInfo.CurrentHealth + "/" + healthInfo.MaxHealth;
+		}
+	}
 
-    // Update is called once per frame
-    void Update () {
-        UpdateUIElements();
-    }
+	private void Start()
+	{
+		numberOfSlainBugs.text = "0";
+	}
 
-    private void UpdateHealthUI(float health, float maxHealth) {
-        healthBar.fillAmount = health / maxHealth;
-        HPText.text = "HP: " + health + "/" + maxHealth;
-    }
+	private void Update()
+	{
+		UpdateUIElements();
+	}
 
-    private void UpdateUIElements(){
-        manaBar.fillAmount = playerMana.playerCurrentMana / playerMana.playerMaxMana;
-        ManaText.text = "Mana: " + playerMana.playerCurrentMana + "/" + playerMana.playerMaxMana;
+	private void UpdateUIElements()
+	{
+		manaBar.fillAmount = m_playerMana.playerCurrentMana / m_playerMana.playerMaxMana;
+		ManaText.text = "Mana: " + m_playerMana.playerCurrentMana + "/" + m_playerMana.playerMaxMana;
 
-        levelText.text = "Lvl: " + thePS.currentLevel;
+		levelText.text = "Lvl: " + m_playerStatsSO.currentLevel;
 
-        numberOfSlainBugs.text = numberOfSlainBugsCounter.ToString();
-        
-        xpBar.value = thePS.currentExp / thePS.toLevelUp[thePS.currentLevel];
-    }
+		numberOfSlainBugs.text = numberOfSlainBugsCounter.ToString();
 
-    public void MonsterKilled(){
-        numberOfSlainBugsCounter++;
-        textPopup.SetTrigger("TextPopUp");
-    }
+		//xpBar.value = m_playerStatsSO.currentExp / thePS.toLevelUp[thePS.currentLevel];
+	}
 
-    private void ShowQuestCheckmark(int questNumber) {
-        checkmarks[questNumber].GetComponent<Animator>().SetTrigger("Show");
-    }
+	public void MonsterKilled(object obj)
+	{
+		numberOfSlainBugsCounter++;
+		textPopup.SetTrigger("TextPopUp");
+	}
 
-    private void ShowDeathScreen() {
-        Debug.Log("showdeathscreen");
-        deadPanel.GetComponent<Animator>().SetBool("isShowing", true);
-    }
-    public void HideDeathScreen() {
-        deadPanel.GetComponent<Animator>().SetBool("isShowing", false);
-    }
+	private void ShowQuestCheckmark(object _obj)
+	{
+		if (_obj is int questNumber)
+		{
+			checkmarks[questNumber].GetComponent<Animator>().SetTrigger("Show");
+		}
+	}
+
+	private void ShowDeathScreen(object _obj)
+	{
+		deadPanel.GetComponent<Animator>().SetBool("isShowing", true);
+	}
+
+	public void HideDeathScreen()
+	{
+		deadPanel.GetComponent<Animator>().SetBool("isShowing", false);
+	}
 }

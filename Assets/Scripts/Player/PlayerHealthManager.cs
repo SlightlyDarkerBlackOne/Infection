@@ -1,31 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 [CreateAssetMenu(fileName = "PlayerHealthManagerScriptableObject", menuName = "ScriptableObjects/Player Health Manager")]
-public class PlayerHealthManager : HealthManagerSO {
+public class PlayerHealthManager : HealthManagerSO
+{
+	[SerializeField]
+	private float deathScreenDelay = 1f;
 
-    [SerializeField]
-    private float deathScreenDelay = 1f;
+	private void Awake()
+	{
+		m_healthInfo.MaxHealth = 70f;
+	}
 
-    public static event Action PlayerDead;
+	protected override void Die()
+	{
+		MessagingSystem.Publish(MessageType.PlayerDied);
 
-    protected override void Die(){
-        SFXManager.Instance.PlaySound(SFXManager.Instance.playerDead);
-        PlayerDead?.Invoke();
+		SetToMaxHealth();
+	}
 
-        SetToMaxHealth();
-        PlayerManaManager.Instance.SetMaxMana();
-    }
+	public override void TakeDamage(int damageToGive)
+	{
+		base.TakeDamage(damageToGive);
+		MessagingSystem.Publish(MessageType.PlayerDamaged);
+	}
 
-    public override void TakeDamage(int damageToGive){
-        base.TakeDamage(damageToGive);
-        SFXManager.Instance.PlaySound(SFXManager.Instance.playerHurt);
-    }
-
-    public override void Heal(float healAmount){
-        base.Heal(healAmount);
-        SFXManager.Instance.PlaySound(SFXManager.Instance.playerHealed);
-    }
+	public override void Heal(float healAmount)
+	{
+		base.Heal(healAmount);
+		MessagingSystem.Publish(MessageType.PlayerHealed);
+	}
 }

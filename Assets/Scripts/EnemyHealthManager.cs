@@ -1,42 +1,49 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealthManager : MonoBehaviour {
-
-    public int MaxHealth;
-    public int CurrentHealth;
-    public int expToGive;
-    public string enemyQuestName;
-    public event EventHandler OnEnemyDeath;
-
-    // Use this for initialization
-    void Start () {
-        CurrentHealth = MaxHealth;
+public struct EnemyInfo
+{
+	public int ExpToGive;
+	public string EnemyQuestName;
 }
-	
-	// Update is called once per frame
-	void Update () {
-		if(CurrentHealth <= 0)
-        {
-            OnEnemyDeath?.Invoke(this, EventArgs.Empty);
-            QuestManager.Instance.enemyKilled = enemyQuestName;
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
-            PlayerStats.Instance.AddExperience(expToGive);
-            SFXManager.Instance.PlaySound(SFXManager.Instance.enemyDead);
-            UIManager.Instance.MonsterKilled();
-        }
+
+public class EnemyHealthManager : MonoBehaviour
+{
+	public int MaxHealth;
+	public int CurrentHealth;
+	public int expToGive;
+	public string enemyQuestName;
+	public event EventHandler OnEnemyDeath;
+
+	private EnemyInfo m_enemyInfo;
+
+	void Start()
+	{
+		CurrentHealth = MaxHealth;
+
+		m_enemyInfo.ExpToGive = expToGive;
+		m_enemyInfo.EnemyQuestName = enemyQuestName;
 	}
 
-    public void HurtEnemy(int damageToGive)
-    {
-        CurrentHealth -= damageToGive;
-    }
+	void Update()
+	{
+		if (CurrentHealth <= 0)
+		{
+			OnEnemyDeath?.Invoke(this, EventArgs.Empty);
+			MessagingSystem.Publish(MessageType.EnemyKilled, m_enemyInfo);
+			gameObject.SetActive(false);
+			//Destroy(gameObject);
+			//PlayerStats.Instance.AddExperience(expToGive); handle this in player script or playerstatsSO
+		}
+	}
 
-    public void SetMaxHealth()
-    {
-        CurrentHealth = MaxHealth;
-    }
+	public void HurtEnemy(int damageToGive)
+	{
+		CurrentHealth -= damageToGive;
+	}
+
+	public void SetMaxHealth()
+	{
+		CurrentHealth = MaxHealth;
+	}
 }

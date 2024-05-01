@@ -1,239 +1,294 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-public class PlayerController2D : MonoBehaviour
+public enum PlayerState
 {
-    private enum State {
-        Idle,
-        Normal,
-        Rolling,
-    }
+	Idle,
+	Normal,
+	Rolling,
+	Frozen,
+}
 
-    [SerializeField]
-    private float moveSpeed;
-    [SerializeField]
-    private float dashSpeed = 2;
-    [SerializeField]
-    private int dashManaCost = 5;
-    [SerializeField]
-    private float rollSpeed = 19;
-    private float rollSpeedOngoing;
-    [Space(20)]
-    [SerializeField]
-    private LayerMask dashLayerMask;
-    
-    private Rigidbody2D rb;
-    private Vector3 moveDir;
-    private Vector3 lastMoveDir;
-    private Vector3 rollDir; 
+public class PlayerController2D : MessagingBehaviour
+{
+	public PlayerState PlayerState { get; private set; }
+	public float MoveBonusCooldown { get; private set; }
 
-    private Animator anim;
-    private State state;
+	[SerializeField] private float m_moveSpeed = 2.64f;
+	[SerializeField] private float m_speedBonusModifier = 1;
+	[SerializeField] private float m_dashSpeed = 2;
+	[SerializeField] private int m_dashManaCost = 5;
+	[SerializeField] private float m_startDashTime = 0.72f;
+	[SerializeField] private float m_rollSpeed = 19;
+	[SerializeField] private float m_startTimeBtwTrail = 0.1f;
+	[SerializeField] private LayerMask m_dashLayerMask;
+	[SerializeField] private GameObject m_trailEffect;
+	[Space(20)]
+	[SerializeField] private Rigidbody2D m_rigidBody2D;
+	[SerializeField] private Animator m_animator;
 
-    public float startTimeBtwTrail;
-    private float timeBtwTrail;
-    public GameObject trailEffect;
+	[SerializeField] private PlayerManaManager m_playerManaManager;
 
-    private float dashTime;
-    public float startDashTime;
+	private float m_rollSpeedOngoing;
+	private float m_timeBtwTrail;
+	private float m_dashTime;
+	private float m_moveBonusDuration;
+	private float m_startMoveBonusCooldown;
 
-    public float speedBonusModifier = 1;
-    private float startMoveBonusCooldown;
-    public float MoveBonusCooldown { get; private set; }
-    public float moveBonusDuration;
-    public bool grantMoveBonus;
+	private Vector3 m_moveDir;
+	private Vector3 m_lastMoveDir;
+	private Vector3 m_rollDir;
 
-    private bool playerMoving;
-    private bool isDashButtonDown;
-    public bool playerFrozen = false;
+	private bool m_playerMoving;
+	private bool m_playerFrozen = false;
+	private bool m_grantMoveBonus;
+	private bool m_isDashButtonDown;
 
-    #region Singleton
-    public static PlayerController2D Instance { get; private set; }
+	private void Awake()
+	{
+		Subscribe(MessageType.FreezePlayer, OnFreezePlayer);
+		Subscribe(MessageType.PlayerDied, PlayerDied);
+		Subscribe(MessageType.TeleportPlayer, OnTeleportPlayer);
+	}
 
-    void Awake() {
-        if (Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(gameObject);
-        }
+	private void Start()
+	{
+		PlayerState = PlayerState.Normal;
+	}
 
-        rb = GetComponent<Rigidbody2D>();
-        anim = transform.Find("Animation").GetComponent<Animator>();
-        state = State.Normal;
-    }
-    #endregion
+	private void Update()
+	{
+		Move();
+		SetAnimations();
+		TrailEffect();
+		SetMoveSpeedForADuration();
 
-    private void Start() {
-        PlayerHealthManager.PlayerDead += PlayerDied;
-    }
-    // Update is called once per frame
-    void Update() {
-        Move();
-        SetAnimations();
-        TrailEffect();
-        SetMoveSpeedForADuration();
+		if (Input.GetKeyDown(KeyCode.F))
+		{
+			m_isDashButtonDown = true;
+		}
 
-        if (Input.GetKeyDown(KeyCode.F)) {
-            isDashButtonDown = true;
-        }
-        if (dashTime >= 0 || PlayerManaManager.Instance.playerCurrentMana <= dashManaCost) {
-            isDashButtonDown = false;
-        }
-        dashTime -= Time.deltaTime;
+		if (m_dashTime >= 0 || m_playerManaManager.playerCurrentMana <= m_dashManaCost)
+		{
+			m_isDashButtonDown = false;
+		}
 
-        if (playerFrozen) {
-            state = State.Idle;
-            playerMoving = false;
-        }
-    }
+		m_dashTime -= Time.deltaTime;
 
-    private void FixedUpdate() {
-        switch (state) {
-            case State.Idle:
-                rb.velocity = Vector2.zero;
-                break;
-            case State.Normal:
-                rb.velocity = moveDir * moveSpeed;
-                Dash();
-                break;
-            case State.Rolling:
-                rb.velocity = rollDir * rollSpeed;
-                break;
-        }
-    }
-    private void Move() {
-        switch (state) {
-            case State.Idle:
-                if (!playerFrozen)
-                    state = State.Normal;
-                break;
-            case State.Normal:
-                float moveX = 0f;
-                float moveY = 0f;
+		if (m_playerFrozen)
+		{
+			PlayerState = PlayerState.Idle;
+			m_playerMoving = false;
+		}
+	}
 
-                if (Input.GetKey(KeyCode.W)) {
-                    moveY = +1f;
-                }
-                if (Input.GetKey(KeyCode.S)) {
-                    moveY = -1f;
-                }
-                if (Input.GetKey(KeyCode.A)) {
-                    moveX = -1f;
-                }
-                if (Input.GetKey(KeyCode.D)) {
-                    moveX = +1f;
-                }
-                if (moveX != 0 || moveY != 0) {
-                    playerMoving = true;
-                    lastMoveDir = moveDir;
-                } else {
-                    playerMoving = false;
-                }
-                moveDir = new Vector3(moveX, moveY).normalized;
+	private void FixedUpdate()
+	{
+		switch (PlayerState)
+		{
+			case PlayerState.Idle:
+				m_rigidBody2D.velocity = Vector2.zero;
+				break;
+			case PlayerState.Normal:
+				m_rigidBody2D.velocity = m_moveDir * m_moveSpeed;
+				Dash();
+				break;
+			case PlayerState.Rolling:
+				m_rigidBody2D.velocity = m_rollDir * m_rollSpeed;
+				break;
+		}
+	}
 
-                if (Input.GetKeyDown(KeyCode.Space)) {
-                    rollDir = lastMoveDir;
-                    rollSpeedOngoing = rollSpeed;
-                    if (dashTime <= 0 && PlayerManaManager.Instance.playerCurrentMana >= dashManaCost) {
-                        PlayerManaManager.Instance.TakeMana(dashManaCost);
-                        SFXManager.Instance.PlaySound(SFXManager.Instance.dash);
-                        state = State.Rolling;
-                    }
-                }
-                break;
-            case State.Rolling:
-                Roll();
-                break;
-        }
-    }
-    private void Roll() {
-        float rollSpeedDropMultiplier = 5f;
-        rollSpeedOngoing -= rollSpeedOngoing * rollSpeedDropMultiplier * Time.deltaTime;
-        float rollSpeedMinimum = 10f;
-        if (rollSpeedOngoing < rollSpeedMinimum) {
-            state = State.Normal;
-        }
-    }
-    private void Dash() {
-        if (isDashButtonDown && dashTime <= 0 &&
-                PlayerManaManager.Instance.playerCurrentMana >= dashManaCost) {
-            dashTime = startDashTime;
-            Vector3 dashPosition = transform.position + lastMoveDir * dashSpeed;
+	private void OnTeleportPlayer(object _position)
+	{
+		if (_position is Vector3 position)
+		{
+			transform.position = position;
+		}
+	}
 
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, lastMoveDir,
-                    dashSpeed, dashLayerMask);
-            if (raycastHit2D.collider != null) {
-                dashPosition = raycastHit2D.point;
-            }
+	private void Move()
+	{
+		switch (PlayerState)
+		{
+			case PlayerState.Idle:
+				if (!m_playerFrozen)
+					PlayerState = PlayerState.Normal;
+				break;
+			case PlayerState.Normal:
+				float moveX = 0f;
+				float moveY = 0f;
 
-            rb.MovePosition(dashPosition);
+				if (Input.GetKey(KeyCode.W))
+				{
+					moveY = +1f;
+				}
+				if (Input.GetKey(KeyCode.S))
+				{
+					moveY = -1f;
+				}
+				if (Input.GetKey(KeyCode.A))
+				{
+					moveX = -1f;
+				}
+				if (Input.GetKey(KeyCode.D))
+				{
+					moveX = +1f;
+				}
+				if (moveX != 0 || moveY != 0)
+				{
+					m_playerMoving = true;
+					m_lastMoveDir = m_moveDir;
+				}
+				else
+				{
+					m_playerMoving = false;
+				}
+				m_moveDir = new Vector3(moveX, moveY).normalized;
 
-            PlayerManaManager.Instance.TakeMana(dashManaCost);
-            SFXManager.Instance.PlaySound(SFXManager.Instance.dash);
-            isDashButtonDown = false;
-        }
-    }
-    private void SetAnimations() {
-        anim.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
-        anim.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
-        anim.SetBool("PlayerMoving", playerMoving);
-        anim.SetFloat("LastMoveX", lastMoveDir.x);
-        anim.SetFloat("LastMoveY", lastMoveDir.y);
-    }
-    private void TrailEffect() {
-        if (playerMoving) {
-            if (timeBtwTrail <= 0) {
-                GameObject effect = Instantiate(trailEffect, transform.position, Quaternion.identity);
-                Destroy(effect, 2f);
-                timeBtwTrail = startTimeBtwTrail;
-            } else {
-                timeBtwTrail -= Time.deltaTime;;
-            }
-        }
-    }
-    private void SetMoveSpeedForADuration() {
-        if (grantMoveBonus) {
-            if (SpeedNotOnCooldown()) {
-                MoveBonusCooldown = startMoveBonusCooldown;
-                moveSpeed *= speedBonusModifier;
-            }
-            if (moveBonusDuration <= 0) {
-                moveSpeed /= speedBonusModifier;
-                grantMoveBonus = false;
-            }
-            moveBonusDuration -= Time.deltaTime;
-        }
-        MoveBonusCooldown -= Time.deltaTime;
-    }
-    public bool SpeedNotOnCooldown() {
-        if (MoveBonusCooldown <= 0)
-            return true;
-        else return false;
-    }
-    public void FrezePlayer() {
-        playerFrozen = true;
-    }
-    public void UnFreezePlayer() {
-        playerFrozen = false;
-    }
-    public void IncreaseMoveSpeed() {
-        moveSpeed += moveSpeed / 10;
-    }
-    public void SetMoveSpeedBonuses(float speedModifier, float duration, float cooldown) {
-        grantMoveBonus = true;
-        speedBonusModifier = speedModifier;
-        moveBonusDuration = duration;
-        startMoveBonusCooldown = cooldown;
-    }
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					m_rollDir = m_lastMoveDir;
+					m_rollSpeedOngoing = m_rollSpeed;
+					if (m_dashTime <= 0 && m_playerManaManager.playerCurrentMana >= m_dashManaCost)
+					{
+						m_playerManaManager.TakeMana(m_dashManaCost);
+						MessagingSystem.Publish(MessageType.PlayerDash);
+						PlayerState = PlayerState.Rolling;
+					}
+				}
+				break;
+			case PlayerState.Rolling:
+				Roll();
+				break;
+		}
+	}
 
-    private void PlayerDied() {
-        FrezePlayer();
-        anim.SetBool("Dead", true);
-    }
-    public void PlayerAlive() {
-        UnFreezePlayer();
-        anim.SetBool("Dead", false);
-    }
+	private void Roll()
+	{
+		float rollSpeedDropMultiplier = 5f;
+		m_rollSpeedOngoing -= m_rollSpeedOngoing * rollSpeedDropMultiplier * Time.deltaTime;
+		float rollSpeedMinimum = 10f;
+		if (m_rollSpeedOngoing < rollSpeedMinimum)
+		{
+			PlayerState = PlayerState.Normal;
+		}
+	}
+
+	private void Dash()
+	{
+		if (m_isDashButtonDown && m_dashTime <= 0 &&
+				m_playerManaManager.playerCurrentMana >= m_dashManaCost)
+		{
+			m_dashTime = m_startDashTime;
+			Vector3 dashPosition = transform.position + m_lastMoveDir * m_dashSpeed;
+
+			RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, m_lastMoveDir,
+					m_dashSpeed, m_dashLayerMask);
+			if (raycastHit2D.collider != null)
+			{
+				dashPosition = raycastHit2D.point;
+			}
+
+			m_rigidBody2D.MovePosition(dashPosition);
+
+			m_playerManaManager.TakeMana(m_dashManaCost);
+			MessagingSystem.Publish(MessageType.PlayerDash);
+			m_isDashButtonDown = false;
+		}
+	}
+	private void SetAnimations()
+	{
+		m_animator.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
+		m_animator.SetFloat("MoveY", Input.GetAxisRaw("Vertical"));
+		m_animator.SetBool("PlayerMoving", m_playerMoving);
+		m_animator.SetFloat("LastMoveX", m_lastMoveDir.x);
+		m_animator.SetFloat("LastMoveY", m_lastMoveDir.y);
+	}
+
+	private void TrailEffect()
+	{
+		if (m_playerMoving)
+		{
+			if (m_timeBtwTrail <= 0)
+			{
+				GameObject effect = Instantiate(m_trailEffect, transform.position, Quaternion.identity);
+				Destroy(effect, 2f);
+				m_timeBtwTrail = m_startTimeBtwTrail;
+			}
+			else
+			{
+				m_timeBtwTrail -= Time.deltaTime; ;
+			}
+		}
+	}
+
+	private void SetMoveSpeedForADuration()
+	{
+		if (m_grantMoveBonus)
+		{
+			if (!IsSpeedBonusOnCD())
+			{
+				MoveBonusCooldown = m_startMoveBonusCooldown;
+				m_moveSpeed *= m_speedBonusModifier;
+			}
+			if (m_moveBonusDuration <= 0)
+			{
+				m_moveSpeed /= m_speedBonusModifier;
+				m_grantMoveBonus = false;
+			}
+			m_moveBonusDuration -= Time.deltaTime;
+		}
+		MoveBonusCooldown -= Time.deltaTime;
+	}
+
+	public bool IsSpeedBonusOnCD()
+	{
+		if (MoveBonusCooldown <= 0)
+			return false;
+		else return true;
+	}
+
+	private void OnFreezePlayer(object _obj)
+	{
+		if(_obj is bool shouldFreezePlayer)
+		{
+			m_playerFrozen = shouldFreezePlayer;
+		}
+	}
+
+	private void FrezePlayer()
+	{
+		m_playerFrozen = true;
+	}
+
+	private void UnFreezePlayer()
+	{
+		m_playerFrozen = false;
+	}
+
+	public void IncreaseMoveSpeed()
+	{
+		m_moveSpeed += m_moveSpeed / 10;
+	}
+
+	public void SetMoveSpeedBonuses(float speedModifier, float duration, float cooldown)
+	{
+		m_grantMoveBonus = true;
+		m_speedBonusModifier = speedModifier;
+		m_moveBonusDuration = duration;
+		m_startMoveBonusCooldown = cooldown;
+	}
+
+	private void PlayerDied(object _obj)
+	{
+		FrezePlayer();
+		m_animator.SetBool("Dead", true);
+	}
+
+	public void PlayerAlive()
+	{
+		UnFreezePlayer();
+		m_animator.SetBool("Dead", false);
+	}
 }

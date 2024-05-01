@@ -24,7 +24,9 @@ public class HurtPlayer : MonoBehaviour {
     [SerializeField]
     private float startCoolDownBetweenHits = 1f;
     private float coolDownBetweenHits = 0;
-	
+
+	[SerializeField] private PlayerStatsSO m_playerStatsSO;
+
 	// Update is called once per frame
 	void Update () {
         if(coolDownBetweenHits > 0)
@@ -64,7 +66,7 @@ public class HurtPlayer : MonoBehaviour {
     }
 
     public int DamageCalculation(){
-        _currentDamage = Crit(damageToGive) - PlayerStats.Instance.currentDefense;
+        _currentDamage = Crit(damageToGive) - m_playerStatsSO.currentDefense;
         if (_currentDamage <= 0)
             _currentDamage = 1;
         
