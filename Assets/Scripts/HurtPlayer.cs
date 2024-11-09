@@ -1,84 +1,91 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HurtPlayer : MonoBehaviour {
+[RequireComponent(typeof(Collider2D))]
+public class HurtPlayer : MonoBehaviour 
+{
+    [Header("Configuration")]
+    [SerializeField] private EnemyConfigurationSO m_enemyConfig;
+    [SerializeField] private PlayerStatsSO m_playerStatsSO;
+    [SerializeField] private GameObject m_damageNumberPrefab;
+    [SerializeField] private bool m_isShurikenTrap;
 
-    [SerializeField]
-    private int damageToGive;
-    private int _currentDamage;
-    [SerializeField]
-    private GameObject damageNumber;
+    [Header("Runtime Variables")]
+    private float m_currentCooldown;
+    private int m_currentDamage;
 
-    [SerializeField]
-    private int critChance;
-    [SerializeField]
-    private int critMultiplier;
-    private int crit;
-
-    [SerializeField]
-    private bool isShurikenTrap = false;
-    [SerializeField]
-    private float knockbackMultiplier = 5f;
-
-    [SerializeField]
-    private float startCoolDownBetweenHits = 1f;
-    private float coolDownBetweenHits = 0;
-
-	[SerializeField] private PlayerStatsSO m_playerStatsSO;
-
-	// Update is called once per frame
-	void Update () {
-        if(coolDownBetweenHits > 0)
-		    coolDownBetweenHits -= Time.deltaTime;
-        else
-            coolDownBetweenHits = 0;
-	}
-
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void Update()
     {
-        if(coll.gameObject.tag == "Player")
+        UpdateCooldown();
+    }
+
+    private void UpdateCooldown()
+    {
+        if (m_currentCooldown > 0)
         {
-            if(coolDownBetweenHits <= 0){
-                coll.gameObject.GetComponent<Player>().playerHealthManager.TakeDamage(DamageCalculation());
-
-                var clone = (GameObject)Instantiate(damageNumber, coll.transform.position, Quaternion.Euler(Vector3.zero));
-                clone.GetComponent<FloatingNumbers>().damageNumber = _currentDamage;
-                clone.transform.position = new Vector2(coll.transform.position.x, coll.transform.position.y);
-                Destroy(clone, 2f);
-
-                coolDownBetweenHits = startCoolDownBetweenHits;
-            }
-            
-
-            //Knockback
-            if(isShurikenTrap){
-                Rigidbody2D playerRB = coll.GetComponent<Rigidbody2D>();
-                Vector2 difference =  playerRB.transform.position - transform.position;
-
-                //Vector2 afterKnockbackPos = new Vector2(coll.transform.position.x + difference.x, coll.transform.position.y + difference.y);
-
-                difference = difference.normalized * knockbackMultiplier;
-
-                playerRB.AddForce(difference, ForceMode2D.Impulse);
-            }
+            m_currentCooldown -= Time.deltaTime;
+            m_currentCooldown = Mathf.Max(0f, m_currentCooldown);
         }
     }
 
-    public int DamageCalculation(){
-        _currentDamage = Crit(damageToGive) - m_playerStatsSO.currentDefense;
-        if (_currentDamage <= 0)
-            _currentDamage = 1;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
         
-        return _currentDamage;
+        if (m_currentCooldown <= 0)
+        {
+            ApplyDamageToPlayer(collision.gameObject);
+            SpawnDamageNumber(collision.transform.position);
+            ResetCooldown();
+        }
+
+        if (m_isShurikenTrap)
+        {
+            ApplyKnockback(collision);
+        }
     }
 
-    private int Crit(int damage) {
-        crit = Random.Range(0, 100);
-        if (crit > (100 - critChance))
-            return _currentDamage *= critMultiplier;
-        else {
-            return damage;
+    private void ApplyDamageToPlayer(GameObject player)
+    {
+        if (!player.TryGetComponent<Player>(out var playerComponent)) return;
+        
+        m_currentDamage = CalculateDamage();
+        playerComponent.playerHealthManager.TakeDamage(m_currentDamage);
+    }
+
+    private void SpawnDamageNumber(Vector3 position)
+    {
+        GameObject damageNumber = Instantiate(m_damageNumberPrefab, position, Quaternion.identity);
+        if (damageNumber.TryGetComponent<FloatingNumbers>(out var floatingNumber))
+        {
+            floatingNumber.damageNumber = m_currentDamage;
         }
+        Destroy(damageNumber, 2f);
+    }
+
+    private void ResetCooldown()
+    {
+        m_currentCooldown = m_enemyConfig.coolDownBetweenHits;
+    }
+
+    private void ApplyKnockback(Collider2D collision)
+    {
+        if (!collision.TryGetComponent<Rigidbody2D>(out var playerRb)) return;
+
+        Vector2 knockbackDirection = (playerRb.transform.position - transform.position).normalized;
+        Vector2 knockbackForce = knockbackDirection * m_enemyConfig.knockbackMultiplier;
+        playerRb.AddForce(knockbackForce, ForceMode2D.Impulse);
+    }
+
+    public int CalculateDamage()
+    {
+        int baseDamage = CalculateCriticalDamage(m_enemyConfig.damageToGive);
+        int finalDamage = baseDamage - m_playerStatsSO.currentDefense;
+        return Mathf.Max(1, finalDamage);
+    }
+
+    private int CalculateCriticalDamage(int baseDamage)
+    {
+        bool isCritical = Random.Range(0, 100) > (100 - m_enemyConfig.critChance);
+        return isCritical ? baseDamage * m_enemyConfig.critMultiplier : baseDamage;
     }
 }

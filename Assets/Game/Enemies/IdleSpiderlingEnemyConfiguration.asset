@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b795944aac572645bdb1bc410531fce, type: 3}
+  m_Name: IdleSpiderlingEnemyConfiguration
+  m_EditorClassIdentifier: 
+  moveSpeed: 1.12
+  moveSpeedChaseModifier: 1.3
+  rotationSpeed: 0
+  timeBetweenMove: 2
+  timeToMove: 1
+  chasingDistance: 2
+  unChasingDistance: 3
+  attackRange: 0
+  attackDelay: 0
+  startTimeBetweenAttack: 0
+  damageToGive: 1
+  critChance: 5
+  critMultiplier: 2
+  knockbackMultiplier: 5
+  coolDownBetweenHits: 1

@@ -112,7 +112,7 @@ public class EnemyController : MonoBehaviour
 				if (playerToDamage != null)
 				{
 					anim.SetBool("isAttacking", true);
-					playerToDamage.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(hurtPlayer.DamageCalculation());
+					playerToDamage.gameObject.GetComponent<PlayerHealthManager>().TakeDamage(hurtPlayer.CalculateDamage());
 					timeBetweenAttack = startTimeBetweenAttack;
 				}
 			}

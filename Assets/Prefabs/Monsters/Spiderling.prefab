@@ -273,12 +273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2986fc957bb394abe1dbf8e72093e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToGive: 1
-  damageNumber: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
-    type: 3}
-  critChance: 5
-  critMultiplier: 2
-  isShurikenTrap: 0
-  knockbackMultiplier: 5
-  startCoolDownBetweenHits: 1
+  m_enemyConfig: {fileID: 0}
   m_playerStatsSO: {fileID: 11400000, guid: ea884b6b5669b5143b818aef469b89a6, type: 2}
+  m_damageNumberPrefab: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
+    type: 3}
+  m_isShurikenTrap: 0

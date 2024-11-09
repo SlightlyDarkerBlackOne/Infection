@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b795944aac572645bdb1bc410531fce, type: 3}
+  m_Name: RedAntEnemyConfiguration
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.8
+  moveSpeedChaseModifier: 1.45
+  rotationSpeed: 0.8
+  timeBetweenMove: 1.6
+  timeToMove: 1
+  chasingDistance: 4
+  unChasingDistance: 4.5
+  attackRange: 0.5
+  attackDelay: 2
+  startTimeBetweenAttack: 0.9
+  damageToGive: 8
+  critChance: 20
+  critMultiplier: 2
+  knockbackMultiplier: 5
+  coolDownBetweenHits: 1

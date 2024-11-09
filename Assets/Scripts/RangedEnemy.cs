@@ -2,67 +2,94 @@
 
 public class RangedEnemy : MonoBehaviour
 {
-	public float speed;
-	public float chasingDistance;
-	public float stoppingDistance;
-	public float retreatDistance;
+	[SerializeField] private RangedEnemyConfig m_rangedEnemyConfig;
+	[SerializeField] private bool m_boss;
 
-	private float timeBtwShots;
-	public float startTimeBtwShots = 1f;
-
-	public GameObject projectile;
+	private float m_timeBtwShots;
 	private Transform m_playerTransform;
-
-	public bool boss;
-	private bool bossMusicStarted = false;
+	private bool m_bossMusicStarted = false;
 
 	private void Start()
 	{
 		m_playerTransform = FindObjectOfType<PlayerController2D>().transform;
-		timeBtwShots = startTimeBtwShots;
+		m_timeBtwShots = m_rangedEnemyConfig.startTimeBtwShots;
 	}
 
 	private void Update()
 	{
-		if (Vector2.Distance(transform.position, m_playerTransform.position) > stoppingDistance && Vector2.Distance(transform.position, m_playerTransform.position) < chasingDistance)
-		{
-			transform.position = Vector2.MoveTowards(transform.position,
-				m_playerTransform.position, speed * Time.deltaTime);
+		HandleMovement();
+		HandleShooting();
+	}
 
-		}
-		else if (Vector2.Distance(transform.position, m_playerTransform.position) < stoppingDistance
-		  && Vector2.Distance(transform.position, m_playerTransform.position) > retreatDistance)
+	private void HandleMovement()
+	{
+		float distanceToPlayer = Vector2.Distance(transform.position, m_playerTransform.position);
+
+		if (IsInChasingRange(distanceToPlayer))
 		{
-			transform.position = this.transform.position;
-			if (boss)
+			ChasePlayer();
+		}
+		else if (IsInStoppingRange(distanceToPlayer))
+		{
+			StopMoving();
+			if (m_boss)
 			{
 				StartBossFight();
 			}
 		}
-		else if (Vector2.Distance(transform.position, m_playerTransform.position) < retreatDistance)
+		else if (IsInRetreatRange(distanceToPlayer))
 		{
-			transform.position = Vector2.MoveTowards(transform.position,
-				m_playerTransform.position, -speed * Time.deltaTime);
+			RetreatFromPlayer();
 		}
+	}
 
-		if (timeBtwShots <= 0 && Vector2.Distance(transform.position, m_playerTransform.position) < stoppingDistance)
+	private void HandleShooting()
+	{
+		float distanceToPlayer = Vector2.Distance(transform.position, m_playerTransform.position);
+		
+		if (m_timeBtwShots <= 0 && IsInStoppingRange(distanceToPlayer))
 		{
-			Instantiate(projectile, transform.position, Quaternion.identity);
-			timeBtwShots = startTimeBtwShots;
+			Shoot();
 		}
 		else
 		{
-			timeBtwShots -= Time.deltaTime;
+			m_timeBtwShots -= Time.deltaTime;
 		}
+	}
+
+	private bool IsInChasingRange(float _distance) =>
+		_distance > m_rangedEnemyConfig.stoppingDistance && _distance < m_rangedEnemyConfig.chasingDistance;
+
+	private bool IsInStoppingRange(float _distance) =>
+		_distance < m_rangedEnemyConfig.stoppingDistance && _distance > m_rangedEnemyConfig.retreatDistance;
+
+	private bool IsInRetreatRange(float _distance) =>
+		_distance < m_rangedEnemyConfig.retreatDistance;
+
+	private void ChasePlayer() =>
+		transform.position = Vector2.MoveTowards(transform.position,
+			m_playerTransform.position, m_rangedEnemyConfig.speed * Time.deltaTime);
+
+	private void StopMoving() =>
+		transform.position = transform.position;
+
+	private void RetreatFromPlayer() =>
+		transform.position = Vector2.MoveTowards(transform.position,
+			m_playerTransform.position, -m_rangedEnemyConfig.speed * Time.deltaTime);
+
+	private void Shoot()
+	{
+		Instantiate(m_rangedEnemyConfig.projectile, transform.position, Quaternion.identity);
+		m_timeBtwShots = m_rangedEnemyConfig.startTimeBtwShots;
 	}
 
 	private void StartBossFight()
 	{
 		//Start boss music
-		if (bossMusicStarted != true)
+		if (m_bossMusicStarted != true)
 		{
 			MessagingSystem.Publish(MessageType.BossSpawned);
-			bossMusicStarted = true;
+			m_bossMusicStarted = true;
 		}
 
 	}
@@ -70,13 +97,15 @@ public class RangedEnemy : MonoBehaviour
 	//Showing chasing and unchasing distance gizmos
 	void OnDrawGizmosSelected()
 	{
+		if (m_rangedEnemyConfig == null) return;
+		
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, retreatDistance);
+		Gizmos.DrawWireSphere(transform.position, m_rangedEnemyConfig.retreatDistance);
 
 		Gizmos.color = Color.magenta;
-		Gizmos.DrawWireSphere(transform.position, chasingDistance);
+		Gizmos.DrawWireSphere(transform.position, m_rangedEnemyConfig.chasingDistance);
 
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, stoppingDistance);
+		Gizmos.DrawWireSphere(transform.position, m_rangedEnemyConfig.stoppingDistance);
 	}
 }
