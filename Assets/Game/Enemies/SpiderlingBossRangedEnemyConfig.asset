@@ -17,4 +17,4 @@ MonoBehaviour:
   stoppingDistance: 3.7
   retreatDistance: 2
   startTimeBtwShots: 3
-  projectile: {fileID: 1782509935124690, guid: 3b3af8cec201c9e4594f90eb53f8ddf8, type: 3}
+  projectile: {fileID: 1782509935124690, guid: 4189ae801cce8d74ea3f9f5cbb6a9618, type: 3}
