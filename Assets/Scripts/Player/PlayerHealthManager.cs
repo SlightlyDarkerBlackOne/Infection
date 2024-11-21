@@ -14,8 +14,8 @@ public class PlayerHealthManager : HealthManagerSO
 
 	protected override void Die()
 	{
+		Time.timeScale = 0f;
 		MessagingSystem.Publish(MessageType.PlayerDied);
-
 		SetToMaxHealth();
 	}
 

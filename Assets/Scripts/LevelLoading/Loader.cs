@@ -15,7 +15,8 @@ public static class Loader
 
     private static Action onLoaderCallback;
 
-    public static void Load(Scene scene){
+    public static void Load(Scene scene)
+    {
         onLoaderCallback = () => {
             SceneManager.LoadScene(scene.ToString());
         };

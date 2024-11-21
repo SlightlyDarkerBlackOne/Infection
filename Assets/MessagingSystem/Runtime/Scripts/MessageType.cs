@@ -33,4 +33,5 @@ public enum MessageType
 	EnemyKilled = 138,
 	BossDied = 139,
 	ShowCooldown = 150,
+	NotEnoughMana = 160,
 }

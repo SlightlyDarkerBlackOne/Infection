@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class SFXManager : MessagingBehaviour
 {
 	public AudioSource playerHurt;
 	public AudioSource playerDead;
+	public AudioSource youDied;
 	public AudioSource playerAttack;
 	public AudioSource levelUP;
 	public AudioSource playerHealed;
@@ -20,10 +23,13 @@ public class SFXManager : MessagingBehaviour
 	public AudioSource footsteps;
 	public AudioSource breakCrate;
 	public AudioSource manaPotion;
+	public AudioSource outOfMana;
 	public AudioSource bowHitSolid;
 	public AudioSource[] bowFire;
 
 	public AudioSource deathScreenFail;
+
+	private static readonly Dictionary<AudioSource, float> s_lastPlayTime = new Dictionary<AudioSource, float>();
 
 	private void Awake()
 	{
@@ -41,6 +47,12 @@ public class SFXManager : MessagingBehaviour
 		Subscribe(MessageType.EnemyHit, EnemyHit);
 		Subscribe(MessageType.EnemyKilled, EnemyDead);
 		Subscribe(MessageType.BossDied, BossDied);
+		Subscribe(MessageType.NotEnoughMana, PlayNotEnoughManaSound);
+	}
+
+	private void PlayNotEnoughManaSound(object obj)
+	{
+		PlaySound(outOfMana, cooldown: 1f);
 	}
 
 	private void BossDied(object obj)
@@ -90,7 +102,7 @@ public class SFXManager : MessagingBehaviour
 	}
 
 	private void PlayManaPotionPopSound(object obj)
-	{
+	{		
 		PlaySound(manaPotion);
 	}
 
@@ -105,9 +117,18 @@ public class SFXManager : MessagingBehaviour
 		PlaySound(itemPickedUp);
 	}
 
-	public void PlaySound(AudioSource source)
+	public void PlaySound(AudioSource source, float lowPitch = 0.8f, float highPitch = 1.2f, float cooldown = 0f)
 	{
+		if (source.isPlaying || (cooldown > 0f && Time.time < s_lastPlayTime.GetValueOrDefault(source, 0f) + cooldown))
+			return;
+
+		source.pitch = Random.Range(lowPitch, highPitch);
 		source.Play();
+
+		if (cooldown > 0f)
+		{
+			s_lastPlayTime[source] = Time.time;
+		}
 	}
 
 	private void PlayOnLoop(AudioSource source)
@@ -136,6 +157,13 @@ public class SFXManager : MessagingBehaviour
 
 	private void PlayDeathScreenSound(object _obj)
 	{
-		deathScreenFail.Play();
+		PlaySound(youDied, 0.6f, 1.2f);
+		StartCoroutine(PlaySoundWithDelay(deathScreenFail, 1.1f));
+	}
+
+	private IEnumerator PlaySoundWithDelay(AudioSource source, float delay)
+	{
+		yield return new WaitForSecondsRealtime(delay);
+		PlaySound(source);
 	}
 }

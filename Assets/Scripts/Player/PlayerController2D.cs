@@ -156,6 +156,10 @@ public class PlayerController2D : MessagingBehaviour
 						MessagingSystem.Publish(MessageType.PlayerDash);
 						PlayerState = PlayerState.Rolling;
 					}
+					else if (m_playerManaManager.playerCurrentMana < m_dashManaCost)
+					{
+						MessagingSystem.Publish(MessageType.NotEnoughMana);
+					}
 				}
 				break;
 			case PlayerState.Rolling:
@@ -289,6 +293,7 @@ public class PlayerController2D : MessagingBehaviour
 	public void PlayerAlive()
 	{
 		UnFreezePlayer();
+		Time.timeScale = 1f;
 		m_animator.SetBool("Dead", false);
 	}
 }
