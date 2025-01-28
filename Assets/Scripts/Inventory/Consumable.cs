@@ -7,7 +7,7 @@ public class Consumable : Item
 
 	public override void Use()
 	{
-		PlayerHealthManager phm = FindObjectOfType<Player>().playerHealthManager;
+		PlayerHealthManager phm = FindObjectOfType<Player>().PlayerHealthManager;
 
 		if (phm.CanHeal())
 		{

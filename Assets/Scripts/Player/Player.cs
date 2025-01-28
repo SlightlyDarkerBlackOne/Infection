@@ -2,10 +2,10 @@
 
 public class Player : MonoBehaviour
 {
-	private PlayerSkills playerSkills;
-	public PlayerHealthManager playerHealthManager;
-
+	public PlayerHealthManager PlayerHealthManager;
+	
 	[SerializeField] private PlayerController2D m_playerController2D;
+	private PlayerSkills playerSkills;
 
 	private void Awake()
 	{

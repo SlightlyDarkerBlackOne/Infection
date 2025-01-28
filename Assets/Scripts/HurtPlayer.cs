@@ -49,7 +49,7 @@ public class HurtPlayer : MonoBehaviour
         if (!player.TryGetComponent<Player>(out var playerComponent)) return;
         
         m_currentDamage = CalculateDamage();
-        playerComponent.playerHealthManager.TakeDamage(m_currentDamage);
+        playerComponent.PlayerHealthManager.TakeDamage(m_currentDamage);
     }
 
     private void SpawnDamageNumber(Vector3 position)

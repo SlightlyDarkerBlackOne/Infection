@@ -2025,7 +2025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a0f04b6620a0944a6e4dafb361068c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealthManager: {fileID: 11400000, guid: 6e31e958a53b3e1409c37efb6b2839f1,
+  PlayerHealthManager: {fileID: 11400000, guid: 6e31e958a53b3e1409c37efb6b2839f1,
     type: 2}
   m_playerController2D: {fileID: 1799250442}
 --- !u!114 &1799250441

@@ -117,7 +117,7 @@ public class SFXManager : MessagingBehaviour
 		PlaySound(itemPickedUp);
 	}
 
-	public void PlaySound(AudioSource source, float lowPitch = 0.8f, float highPitch = 1.2f, float cooldown = 0f)
+	private void PlaySound(AudioSource source, float lowPitch = 0.8f, float highPitch = 1.2f, float cooldown = 0f)
 	{
 		if (source.isPlaying || (cooldown > 0f && Time.time < s_lastPlayTime.GetValueOrDefault(source, 0f) + cooldown))
 			return;
@@ -137,7 +137,7 @@ public class SFXManager : MessagingBehaviour
 		source.loop = true;
 	}
 
-	public void PlayBowFireSound(object obj)
+	private void PlayBowFireSound(object obj)
 	{
 		int random = Random.Range(0, 3);
 		bowFire[random].Play();
@@ -149,7 +149,7 @@ public class SFXManager : MessagingBehaviour
 		PlayOnLoop(source);
 	}
 
-	public void PlaySoundTrack(AudioSource source)
+	private void PlaySoundTrack(AudioSource source)
 	{
 		bossTrackDrums.Stop();
 		PlayOnLoop(source);
