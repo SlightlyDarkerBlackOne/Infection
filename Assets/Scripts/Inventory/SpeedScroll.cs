@@ -14,11 +14,12 @@ public class SpeedScroll : Item
 		if (!pc.IsSpeedBonusOnCD())
 		{
 			pc.SetMoveSpeedBonuses(speedBonusModifier, duration, cooldown);
-			Inventory.instance.Remove(this);
+			//Inventory.instance.Remove(this);
 		}
 		else
 		{
 			MessagingSystem.Publish(MessageType.ShowCooldown, itemName);
 		}
+
 	}
 }

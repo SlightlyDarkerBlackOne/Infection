@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+public struct EnemyHitInfo
+{
+    public GameObject enemy;
+    public float damage;
+}
+
 public class HurtEnemy : MonoBehaviour
 {
 	//weapon dmg
@@ -23,17 +29,17 @@ public class HurtEnemy : MonoBehaviour
 
 	[SerializeField] private PlayerStatsSO m_playerStatsSO;
 
-	private void OnTriggerEnter2D(Collider2D other)
+	private void OnTriggerEnter2D(Collider2D _other)
 	{
-		if (other.gameObject.tag == "Enemy")
+		if (_other.gameObject.tag == "Enemy")
 		{
 			if (yoyoEquiped || bowEquipped || bladeVortex)
 			{
 				currentDamage = damageToGive + m_playerStatsSO.currentAttack;
 				currentDamage = Crit(currentDamage); //Critical Strike
 
-				other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
-				MessagingSystem.Publish(MessageType.EnemyHit);
+				_other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
+				MessagingSystem.Publish(MessageType.EnemyHit, new EnemyHitInfo { enemy = _other.gameObject, damage = currentDamage });
 
 				GameObject burst = Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
 				Destroy(burst, 2f);
@@ -47,16 +53,16 @@ public class HurtEnemy : MonoBehaviour
 				}
 			}
 		}
-		else if (other.gameObject.tag == "Breakable")
+		else if (_other.gameObject.tag == "Breakable")
 		{
-			if (bowEquipped && other.gameObject.GetComponent<Sign>().isBroken == false)
+			if (bowEquipped && _other.gameObject.GetComponent<Sign>().isBroken == false)
 			{
 				Destroy(gameObject, 0.001f);
 			}
 
-			other.gameObject.GetComponent<Sign>().Break();
+			_other.gameObject.GetComponent<Sign>().Break();
 		}
-		else if (other.gameObject.tag == "Solid" && bowEquipped)
+		else if (_other.gameObject.tag == "Solid" && bowEquipped)
 		{
 			MessagingSystem.Publish(MessageType.BowHitSolid);
 			GameObject arrowBreakEffect = Instantiate(arrowBreak, hitPoint.position, hitPoint.rotation);
@@ -65,16 +71,16 @@ public class HurtEnemy : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter2D(Collision2D other)
+	private void OnCollisionEnter2D(Collision2D _other)
 	{
-		if (other.gameObject.tag == "Enemy")
+		if (_other.gameObject.tag == "Enemy")
 		{
 			if (yoyoEquiped || bowEquipped)
 			{
 				currentDamage = damageToGive + m_playerStatsSO.currentAttack;
 				currentDamage = Crit(currentDamage); //Critical Strike
 
-				other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
+				_other.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(currentDamage);
 				MessagingSystem.Publish(MessageType.EnemyHit);
 
 				GameObject burst = Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);

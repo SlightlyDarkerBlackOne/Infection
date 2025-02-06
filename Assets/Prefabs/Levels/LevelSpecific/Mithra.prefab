@@ -1853,6 +1853,7 @@ GameObject:
   - component: {fileID: 3992360767100209616}
   - component: {fileID: 3992360767100209612}
   - component: {fileID: 2121605572}
+  - component: {fileID: 7638936242959030462}
   - component: {fileID: 1799250441}
   - component: {fileID: 1799250442}
   - component: {fileID: 171962479}
@@ -2028,6 +2029,24 @@ MonoBehaviour:
   PlayerHealthManager: {fileID: 11400000, guid: 6e31e958a53b3e1409c37efb6b2839f1,
     type: 2}
   m_playerController2D: {fileID: 1799250442}
+  m_healthRegenSkill: {fileID: 0}
+  m_skillTreeUI: {fileID: 0}
+  m_knockbackSkill: {fileID: 7638936242959030462}
+--- !u!114 &7638936242959030462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992360767100209608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69299a4448d30704199db2b67a98f8fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_baseKnockbackForce: 5
+  m_damageKnockbackMultiplier: 0.5
+  m_knockbackDuration: 0.2
 --- !u!114 &1799250441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3710,6 +3729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6250071828715365141}
   - component: {fileID: 2215252245362341032}
+  - component: {fileID: 7642800374423598401}
   m_Layer: 8
   m_Name: Weapons
   m_TagString: Untagged
@@ -3751,6 +3771,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerAimWeapon: {fileID: 1799250441}
   selectedWeapon: 0
+--- !u!114 &7642800374423598401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8785474153414603918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693414e1a521b6043a9c27f099669f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 2121605572}
 --- !u!1 &8911529642697205726
 GameObject:
   m_ObjectHideFlags: 0

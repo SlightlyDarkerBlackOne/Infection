@@ -1,12 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerHealthManagerScriptableObject", menuName = "ScriptableObjects/Player Health Manager")]
 public class PlayerHealthManager : HealthManagerSO
 {
-	[SerializeField]
-	private float deathScreenDelay = 1f;
-
 	private void Awake()
 	{
 		m_healthInfo.MaxHealth = 70f;

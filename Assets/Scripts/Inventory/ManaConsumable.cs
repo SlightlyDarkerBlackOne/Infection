@@ -13,7 +13,7 @@ public class ManaConsumable : Item
 		if (pMm.playerCurrentMana != pMm.playerMaxMana)
 		{
 			pMm.HealMana(heal);
-			Inventory.instance.Remove(this);
+			//Inventory.instance.Remove(this);
 			MessagingSystem.Publish(MessageType.ManaPotionPop);
 		}
 	}

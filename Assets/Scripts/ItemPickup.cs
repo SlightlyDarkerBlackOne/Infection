@@ -3,19 +3,24 @@
 public class ItemPickup : MonoBehaviour
 {
 	public Item item;
+	private string m_playerTag = "Player";
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag("Player"))
+		if (other.CompareTag(m_playerTag))
 		{
-			if (Inventory.instance.InventoryNotFull())
-			{
-				Inventory.instance.Add(item);
-				gameObject.SetActive(false);
-
-				MessagingSystem.Publish(MessageType.ItemPickedUp);
-			}
+			PickUpItem();
 		}
 
 	}
+
+	private void PickUpItem()
+	{
+		//if (Inventory.InventoryNotFull())
+		//{
+		//	Inventory.Add(item);
+		//	gameObject.SetActive(false);
+		//	MessagingSystem.Publish(MessageType.ItemPickedUp);
+		//}
+	}	
 }

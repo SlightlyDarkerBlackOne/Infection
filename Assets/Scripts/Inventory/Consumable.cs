@@ -12,7 +12,7 @@ public class Consumable : Item
 		if (phm.CanHeal())
 		{
 			phm.Heal(heal);
-			Inventory.instance.Remove(this);
+			//Inventory.Remove(this);
 		}
 		else
 		{

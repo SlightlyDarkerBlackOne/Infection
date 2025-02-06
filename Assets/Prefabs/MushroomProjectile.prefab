@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 64.72, y: -22.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,9 +46,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -98,6 +102,7 @@ MonoBehaviour:
   speed: 6
   destroyEffect: {fileID: 1248191044452486, guid: 5f0bf37ffa5eb2e4fae1def7ee912fb9,
     type: 3}
+  isEnemyObject: 0
 --- !u!58 &6746755297615145104
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -108,6 +113,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -126,11 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2986fc957bb394abe1dbf8e72093e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToGive: 2
-  damageNumber: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
+  m_enemyConfig: {fileID: 11400000, guid: 8f1cf5000fee3384291d4e7accda51f3, type: 2}
+  m_playerStatsSO: {fileID: 11400000, guid: ea884b6b5669b5143b818aef469b89a6, type: 2}
+  m_damageNumberPrefab: {fileID: 1456154812438104, guid: ecf221a8ae5411d44b67e4a1bdb73ee5,
     type: 3}
-  critChance: 0
-  critMultiplier: 0
-  isShurikenTrap: 0
-  knockbackMultiplier: 5
-  startCoolDownBetweenHits: 1
+  m_isShurikenTrap: 0

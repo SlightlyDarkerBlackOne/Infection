@@ -26,17 +26,18 @@ public class SkillTree : MonoBehaviour
         this.playerSkills = playerSkills;
         
         skillButtonList = new List<SkillButton>();
-        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("PotionConsumingBtn"), playerSkills, PlayerSkills.Skilltype.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("HealthRegenBtn"), playerSkills, PlayerSkills.Skilltype.HealthRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("ManaRegenBtn"), playerSkills, PlayerSkills.Skilltype.ManaRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("DashBtn"), playerSkills, PlayerSkills.Skilltype.Dash, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
-        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("MoveSpeedBtn"), playerSkills, PlayerSkills.Skilltype.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("PotionConsumingBtn"), playerSkills, SkillType.PotionConsuming, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("HealthRegenBtn"), playerSkills, SkillType.HealthRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("ManaRegenBtn"), playerSkills, SkillType.ManaRegen, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("DashBtn"), playerSkills, SkillType.Dash, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
+        skillButtonList.Add(new SkillButton(skillTreePanel.transform.Find("MoveSpeedBtn"), playerSkills, SkillType.MoveSpeed, skillLockedMaterial, skillUnlockableMaterial, unlockedBackgroundImage));
 
         playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillUnlocked;
         UpdateVisuals();
     }
 
-    private void PlayerSkills_OnSkillUnlocked(object sender, PlayerSkills.OnSkillUnlockedEventArgs e){
+    private void PlayerSkills_OnSkillUnlocked(object sender, SkillType _skill)
+    {
         UpdateVisuals();
     }
 
@@ -62,17 +63,18 @@ public class SkillTree : MonoBehaviour
         }
     }
 
-    private class SkillButton{
+    private class SkillButton
+    {
         private Transform transform;
         private Image image;
         private Image backgroundImage;
         private Sprite unlockedBackgroundImage;
         private PlayerSkills playerSkills;
-        private PlayerSkills.Skilltype skillType;
+        private SkillType skillType;
         private Material skillLockedMaterial;
         private Material skillUnlockableMaterial;
 
-        public SkillButton(Transform transform, PlayerSkills playerSkills, PlayerSkills.Skilltype skillType,
+        public SkillButton(Transform transform, PlayerSkills playerSkills, SkillType skillType,
              Material skillLockedMaterial, Material skillUnlockableMaterial, Sprite unlockedBackgroundImage){
             this.transform = transform;
             this.playerSkills = playerSkills;
@@ -86,7 +88,7 @@ public class SkillTree : MonoBehaviour
 
             transform.GetComponent<Button_UI>().ClickFunc = () =>
             {
-                playerSkills.TryUnlockSKill(skillType);
+                playerSkills.TryUnlockSkill(skillType);
             };
         }
 
@@ -109,7 +111,7 @@ public class SkillTree : MonoBehaviour
 
     [System.Serializable]
     public class SkillUnlockPath{
-        public PlayerSkills.Skilltype skillType;
+        public SkillType skillType;
         public Image[] linkImageArray;
     }
     

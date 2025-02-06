@@ -1,69 +1,78 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSkills{
-   
-   public event EventHandler<OnSkillUnlockedEventArgs> OnSkillUnlocked;
-   public class OnSkillUnlockedEventArgs : EventArgs{
-       public Skilltype skillType;
-   }
-   public enum Skilltype {
-       None,
-       Dash,
-       PotionConsuming,
-       HealthRegen,
-       ManaRegen,
-       MoveSpeed,
-   }
-   private List<Skilltype> unlockedSkillTypeList;
+/// <summary>
+/// Manages the player's skill system including unlocking and skill dependencies.
+/// </summary>
+public class PlayerSkills
+{
+    private readonly HashSet<SkillType> m_unlockedSkills;
+    
+    public event EventHandler<SkillType> OnSkillUnlocked;
 
-   public PlayerSkills(){
-       unlockedSkillTypeList = new List<Skilltype>();
-   }
+    public PlayerSkills()
+    {
+        m_unlockedSkills = new HashSet<SkillType>();
+    }
 
-   private void UnlockSkill(Skilltype skilltype){
-       if(!IsSkillUnlocked(skilltype)){
-            unlockedSkillTypeList.Add(skilltype);
-            OnSkillUnlocked?.Invoke(this, new OnSkillUnlockedEventArgs{skillType = skilltype});
-            Debug.Log("Unlocked skill " + skilltype);
-       }
-   }
+    /// <summary>
+    /// Attempts to unlock a skill if its requirements are met.
+    /// </summary>
+    /// <param name="_skillType">The skill to unlock</param>
+    /// <returns>True if the skill was successfully unlocked</returns>
+    public bool TryUnlockSkill(SkillType _skillType)
+    {
+        if (!CanUnlock(_skillType)) return false;
+        
+        UnlockSkill(_skillType);
+        return true;
+    }
 
-   public bool IsSkillUnlocked(Skilltype skilltype){
-       return unlockedSkillTypeList.Contains(skilltype);
-   }
+    /// <summary>
+    /// Checks if a skill is currently unlocked.
+    /// </summary>
+    public bool IsSkillUnlocked(SkillType _skillType) => 
+        m_unlockedSkills.Contains(_skillType);
 
-   public bool CanUnlock(Skilltype skilltype){
-       Skilltype skillRequirement = GetSkillRequirement(skilltype);
+    /// <summary>
+    /// Checks if a skill can be unlocked based on its requirements.
+    /// </summary>
+    public bool CanUnlock(SkillType _skillType)
+    {
+        SkillType requirement = GetSkillRequirement(_skillType);
+        return requirement == SkillType.None || IsSkillUnlocked(requirement);
+    }
 
-       if(skillRequirement != Skilltype.None){
-           if(IsSkillUnlocked(skillRequirement)){
-               return true;
-           } else {
-               return false;
-           }
-       } else{
-              return true;
-       }
-   }
+    /// <summary>
+    /// Gets the prerequisite skill required to unlock the specified skill.
+    /// </summary>
+    public SkillType GetSkillRequirement(SkillType _skillType) => _skillType switch
+    {
+        SkillType.HealthRegen => SkillType.PotionConsuming,
+        SkillType.ManaRegen => SkillType.PotionConsuming,
+        SkillType.Dash => SkillType.MoveSpeed,
+        SkillType.Knockback => SkillType.None,
+        _ => SkillType.None
+    };
 
-   public Skilltype GetSkillRequirement(Skilltype skilltype){
-       switch(skilltype){
-           case Skilltype.HealthRegen:  return Skilltype.PotionConsuming;
-           case Skilltype.ManaRegen:    return Skilltype.PotionConsuming;
-           case Skilltype.Dash:         return Skilltype.MoveSpeed;
-       }
-       return Skilltype.None;
-   }
+    private void UnlockSkill(SkillType _skillType)
+    {
+        if (m_unlockedSkills.Add(_skillType))
+        {
+            OnSkillUnlocked?.Invoke(this, _skillType);
+            Debug.Log($"Unlocked skill: {_skillType}");
+        }
+    }
+}
 
-   public bool TryUnlockSKill(Skilltype skilltype){
-       if(CanUnlock(skilltype)){
-           UnlockSkill(skilltype);
-           return true;
-       } else{
-           return false;
-       }
-   }
+public enum SkillType
+{
+    None,
+    Dash,
+    PotionConsuming,
+    HealthRegen,
+    ManaRegen,
+    MoveSpeed,
+    Knockback,
 }

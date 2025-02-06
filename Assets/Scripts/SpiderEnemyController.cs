@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
 
 public class SpiderEnemyController : MonoBehaviour
@@ -22,8 +21,6 @@ public class SpiderEnemyController : MonoBehaviour
     [SerializeField] private Transform m_attackPoint;
     [SerializeField] private LayerMask m_playerLayer;
     [SerializeField] private PlayerHealthManager m_playerHealthManager;
-
-    [SerializeField] private TextMeshProUGUI m_stateText;
 
     private Rigidbody2D m_rb;
     private Animator m_animator;
@@ -61,8 +58,6 @@ public class SpiderEnemyController : MonoBehaviour
         
         if (m_animator != null)
             m_animator.SetTrigger(s_prepareTrigger);
-
-        UpdateStateText();
     }
 
     private void Update()
@@ -106,12 +101,10 @@ public class SpiderEnemyController : MonoBehaviour
         else if (_distanceToPlayer <= m_detectionRange && m_currentState != SpiderState.Stalking)
         {
             m_currentState = SpiderState.Stalking;
-            UpdateStateText();
         }
         else if (_distanceToPlayer > m_detectionRange && m_currentState != SpiderState.Patrolling)
         {
             m_currentState = SpiderState.Patrolling;
-            UpdateStateText();
         }
     }
 
@@ -192,7 +185,6 @@ public class SpiderEnemyController : MonoBehaviour
     private IEnumerator PerformAttack()
     {
         m_currentState = SpiderState.Attacking;
-        UpdateStateText();
         m_isLunging = false;
         m_rb.velocity = Vector2.zero;
 
@@ -209,7 +201,6 @@ public class SpiderEnemyController : MonoBehaviour
         // Start retreating state
         m_attackCooldown = m_postAttackCooldown;
         m_currentState = SpiderState.Retreating;
-        UpdateStateText();
 
         // Disable trigger to restore normal collisions
         if (m_collider != null)
@@ -221,7 +212,6 @@ public class SpiderEnemyController : MonoBehaviour
         if (m_currentState == SpiderState.Retreating)
         {
             m_currentState = SpiderState.Stalking;
-            UpdateStateText();
         }
     }
 
@@ -243,14 +233,6 @@ public class SpiderEnemyController : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(m_attackPoint.position, m_attackRange);
-        }
-    }
-
-    private void UpdateStateText()
-    {
-        if (m_stateText != null)
-        {
-            m_stateText.text = m_currentState.ToString();
         }
     }
 } 
